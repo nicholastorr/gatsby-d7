@@ -4,8 +4,12 @@
   "description": "A simple starter to get up and developing quickly with Gatsby",
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "engines": {
+    "node": "14.17.1",
+    "npm": "6.14.3"
+  },
   "dependencies": {
-    "gatsby": "^4.8.0",
+    "gatsby": "4.6.0",
     "gatsby-plugin-gatsby-cloud": "^4.8.0",
     "gatsby-plugin-image": "^2.8.0",
     "gatsby-plugin-manifest": "^4.8.1",
