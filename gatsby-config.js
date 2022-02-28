@@ -1,49 +1,36 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
-    siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
+    title: `Inkfolio`,
+    description: `Tattoo Appointment Management`,
+    author: `Inkfolio`
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-image`,
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
+        name: `Inkfolio`,
+        short_name: `Inkfolio`,
+        start_url: `/`,
+        background_color: `#ffffff`,
+        theme_color: `#4dc0b5`,
+        display: `minimal-ui`,
+        icon: `src/images/gatsby-icon.png`
       },
-    },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
-    {
-      resolve: `gatsby-plugin-sharp`,
-      options: {
-      // Defaults used for gatsbyImageData and StaticImage
-      defaults: {},
-      // Set to false to allow builds to continue on image errors
-      failOnError: false,
-      // deprecated options and their defaults:
-      base64Width: 20,
-      useMozJpeg: process.env.GATSBY_JPEG_ENCODER === `MOZJPEG`,
-      stripMetadata: false,
-      defaultQuality: 50,
-      },
-    },
-    {
       resolve: `gatsby-source-drupal7`,
       options: {
-        baseUrl: `stagingsupply.htm-mbs.com`,
-        apiBase: `restws_resource.json`, // optional, defaults to `restws_resource.json`
-        basicAuth: {
-          username: process.env.BASIC_AUTH_USERNAME,
-          password: process.env.BASIC_AUTH_PASSWORD,
-        },
-      },
+       baseUrl: `http://stagingsupply.htm-mbs.com/`,
+       apiBase: `restws_resource.json`,
+      } 
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
-  ],
-}
+    `gatsby-plugin-postcss`,
+    {
+      resolve: `gatsby-plugin-purgecss`,
+      options: {
+        tailwind: true,
+        purgeOnly: [`src/css/style.css`]
+      }
+    },
+  /* `gatsby-plugin-offline` */
+  ]
+};
