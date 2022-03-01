@@ -5,6 +5,7 @@ module.exports = {
     author: `Inkfolio`
   },
   plugins: [
+    `gatsby-plugin-netlify`,
     {
       resolve: `gatsby-source-drupal7`,
       options: {
