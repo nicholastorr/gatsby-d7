@@ -9,7 +9,7 @@ module.exports = {
       resolve: `gatsby-source-drupal7`,
       options: {
        baseUrl: `https://stagingsupply.htm-mbs.com/`,
-       apiBase: `restws_resource.json`,
+       apiBase: `commerce_product.json`,
       } 
     },
   /* `gatsby-plugin-offline` */
