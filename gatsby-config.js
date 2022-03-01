@@ -10,7 +10,8 @@ module.exports = {
       options: {
        baseUrl: `https://stagingsupply.htm-mbs.com/`,
        apiBase: `restws_resource.json`,
-      } 
+      },
+          
     },
   /* `gatsby-plugin-offline` */
   ]
