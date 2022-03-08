@@ -1,0 +1,64 @@
+.productbox {
+    display: block;
+    width: 297.5px;
+    overflow: visible;
+    transition: transform .2s;
+  }
+  
+  .notdisplayed {
+    display: none;
+  }
+
+  .displayed {
+    visibility: hidden;
+    position: absolute;
+    display: block;
+    background-color: #555;
+    opacity: 0;
+    color: white;
+    width: 285.5px;
+    margin-top: -285.5px;
+    font-size: .90em;
+    margin-left: 6px;
+    height: 285.5px;
+    transition:visibility 0.3s linear,opacity 0.3s linear;
+  }
+
+  .childCat {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-weight: 600;
+    padding-left: 10px;
+  }
+
+  .childCat:hover {
+      background-color: white;
+      color: black;
+  }
+
+  .productbox:hover + .displayed, .displayed:hover {
+      
+    visibility: visible;
+    opacity: .8;
+}
+
+.cat-card {
+    width: 297.5px;
+    height: 347.5px;
+    border: solid 1px #EFEFEF;
+    text-align: center;
+}
+
+.cat-card:hover {
+    box-shadow: 0 0 0.20rem black;
+}
+
+.cat-image {
+    margin-top: 5px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+

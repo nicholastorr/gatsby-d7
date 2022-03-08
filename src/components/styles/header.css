@@ -1,0 +1,18 @@
+.header-bar {
+    display: flex;
+    background-color: white;
+    align-items: center;
+    height: 164px;
+    justify-content: center;
+}
+
+.header-logo {
+    display: flex;
+    margin-top: 40px;
+    margin-right: 50px;
+}
+
+.topbar {
+    position: fixed;
+    z-index: 9997;
+}
