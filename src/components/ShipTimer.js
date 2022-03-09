@@ -8,7 +8,8 @@ const ShipTimerContainer = styled.div`
     flex-direction: column;
     text-align: center;
     justify-content: center;
-    margin-top: 17px;
+    align-items: center;
+    margin-top: 30px;
 `
 const StyledP = styled.p`
     margin: 0;
@@ -60,8 +61,8 @@ const ShipTimer = () => {
                 <StyledP>and your items will be shipped today!</StyledP>
                     <Megasearch>
                         <SearchBar type="text" placeholder="Search for products, brands, categories, etc."/>
-                        <Glyph><X size={20} style={{fontWeight: 'boldest'}}/></Glyph>
-                        <Glyph><Search /></Glyph>
+                        <Glyph style={{height: "28px"}}><X size={20} style={{fontWeight: 'boldest'}}/></Glyph>
+                        <Glyph style={{height: "28px"}}><Search /></Glyph>
                     </Megasearch>
 
             </ShipTimerContainer>
