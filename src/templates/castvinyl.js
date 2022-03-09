@@ -23,11 +23,14 @@ const CastVinyl = ( data ) => {
         setCount(count + 24);
     }
 
+    
+
     return (
         <div style={{width: "100%"}}> 
         <Header/>
         <div style={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
             <Sidebar 
+            path={data.path}
             products={products}
             setProducts={setProducts}
             baseProducts={data.pageContext.data}
