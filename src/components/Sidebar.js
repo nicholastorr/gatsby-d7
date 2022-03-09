@@ -18,20 +18,24 @@ const Filter = styled.li`
 export const Sidebar = ({ setProducts, baseProducts }) => {
     const [filters, setFilters] = React.useState([]);
     const [click, setClick] = React.useState(false);
+    const [checked, setChecked] = React.useState(false);
 
     const handleClick = () => {
         setClick(!click);
     }
 
-    const onChange = (e) => {
-        console.log(`checked = ${e}`);
-            if (!filters.includes(e)) {
-                setFilters([...filters, e], () => console.log(filters));
-            }
-            if (filters.length > 0) {
+    function test(checkedValues) {
+        console.log(checkedValues);
+    }
+
+
+    const onChange = (checkedValues) => {
+        
+
+                setFilters(checkedValues);
                 const filteredProducts = baseProducts.filter(product => filters.includes(product.data.field_product_roll_size));
-            setProducts(filteredProducts);
-            }
+                setProducts(filteredProducts);
+            
     }
 
 
@@ -50,6 +54,13 @@ export const Sidebar = ({ setProducts, baseProducts }) => {
 
     const rollSize = [...new Set(baseProducts.map(fields => fields.data.field_product_roll_size))]
 
+    const rollsizes = [];
+
+    rollSize.sort().forEach(roll => {
+        rollsizes.push({ 'label': `${roll}`, 'value': `${roll}`});
+    });
+
+
     return (
         <SidebarContainer>
             <h3>Mbs Sign Supply</h3>
@@ -61,14 +72,7 @@ export const Sidebar = ({ setProducts, baseProducts }) => {
             <li onClick={() => handleClick()}>Roll Size</li>
                 {/*map through roll size array*/}
                 {/*each size has an onclick function that filters the products array*/}
-                {click ? rollSize.sort().map(size => {
-                    return (
-                        <span onClick={() => onChange(size)} style={{display: "flex", flexDirection: "row", alignItems: "center", height: "30px"}}>
-                        <Checkbox  />
-                        <p >{size}</p>
-                        </span>
-                    )
-                }) : null}
+                {click ? <Checkbox.Group options={rollsizes} onChange={onChange}/> : null}
             <li>Width</li>
             <li>Length</li>
             <li>Series</li>
