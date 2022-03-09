@@ -15,9 +15,8 @@ const Filter = styled.li`
     border-bottom: 1px solid black;
 `
 
-export const Sidebar = ({ products, setProducts, baseProducts }) => {
+export const Sidebar = ({ setProducts, baseProducts }) => {
     const [filters, setFilters] = React.useState([]);
-    const [checked, setChecked] = React.useState(false);
     const [click, setClick] = React.useState(false);
 
     const handleClick = () => {
@@ -25,21 +24,23 @@ export const Sidebar = ({ products, setProducts, baseProducts }) => {
     }
 
     const onChange = (e) => {
-        if (!filters.includes(e)) {
-            setFilters([...filters, e])
-        }
+        console.log(`checked = ${e}`);
+            if (!filters.includes(e)) {
+                setFilters([...filters, e], () => console.log(filters));
+            }
+            if (filters.length > 0) {
+                const filteredProducts = baseProducts.filter(product => filters.includes(product.data.field_product_roll_size));
+            setProducts(filteredProducts);
+            }
+    }
+
+
+    React.useEffect(() => {
         if (filters.length > 0) {
-        const test = ['01_x_50_yds', '02_x_50_yds', '03_x_50_yds', '04_x_50_yds'];
-        const filteredProducts = baseProducts.filter(product => filters.includes(product.data.field_product_roll_size));
-        setProducts(filteredProducts);
+            const filteredProducts = baseProducts.filter(product => filters.includes(product.data.field_product_roll_size));
+            setProducts(filteredProducts);
         }
-    }
-
-
-    const handleFilter = (filter) => {
-        
-    }
-
+    }, [filters]);
 
     const clearFilters = () => {
         setFilters([]);
@@ -48,10 +49,6 @@ export const Sidebar = ({ products, setProducts, baseProducts }) => {
     }
 
     const rollSize = [...new Set(baseProducts.map(fields => fields.data.field_product_roll_size))]
-    //console.log(products)
-    //console.log(rollSize)
-
-    console.log(filters);
 
     return (
         <SidebarContainer>
@@ -66,8 +63,8 @@ export const Sidebar = ({ products, setProducts, baseProducts }) => {
                 {/*each size has an onclick function that filters the products array*/}
                 {click ? rollSize.sort().map(size => {
                     return (
-                        <span style={{display: "flex", flexDirection: "row", alignItems: "center", height: "30px"}}>
-                        <Checkbox onClick={() => {onChange(size)}} />
+                        <span onClick={() => onChange(size)} style={{display: "flex", flexDirection: "row", alignItems: "center", height: "30px"}}>
+                        <Checkbox  />
                         <p >{size}</p>
                         </span>
                     )

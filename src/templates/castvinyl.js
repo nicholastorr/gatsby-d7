@@ -19,12 +19,9 @@ const CastVinyl = ( data ) => {
     const [count, setCount] = React.useState(24);
     const [products, setProducts] = React.useState(data.pageContext.data);
 
-    
     const handleCount = () => {
         setCount(count + 24);
     }
-
- 
 
     return (
         <div style={{width: "100%"}}> 
