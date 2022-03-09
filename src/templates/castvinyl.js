@@ -19,6 +19,7 @@ const CastVinyl = ( data ) => {
     const [count, setCount] = React.useState(24);
     const [products, setProducts] = React.useState(data.pageContext.data);
 
+    //increase number of products displayed on list page
     const handleCount = () => {
         setCount(count + 24);
     }
@@ -30,7 +31,6 @@ const CastVinyl = ( data ) => {
         <Header/>
         <div style={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
             <Sidebar 
-            path={data.path}
             products={products}
             setProducts={setProducts}
             baseProducts={data.pageContext.data}
