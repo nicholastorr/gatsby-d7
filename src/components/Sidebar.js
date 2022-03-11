@@ -48,9 +48,10 @@ const FilterContainer = styled.div`
 
 `
 
-export const Sidebar = ({ setProducts, baseProducts }) => {
+export const Sidebar = ({products, setProducts, baseProducts }) => {
     const [filters, setFilters] = React.useState([]);
     const [click, setClick] = React.useState(false);
+    const [click1, setClick1] = React.useState(false);
 
 
     //open and close selected filter
@@ -58,15 +59,28 @@ export const Sidebar = ({ setProducts, baseProducts }) => {
         setClick(!click);
     }
 
+    const handleClick1 = () => {
+        setClick1(!click1);
+    }
+
     //add filter to array and rerender products
     const onChange = (checkedValues) => {
             setFilters(checkedValues);
-            const filteredProducts = baseProducts.filter(product => filters.includes(product.data.field_product_roll_size));
-            setProducts(filteredProducts);      
+            if (filters.length > 0) {
+                const filteredProducts = products.filter(product => (filters.includes(product.data.field_product_roll_size) || (filters.includes(product.data.field_product_width_in))));
+                console.log(filteredProducts);
+                setProducts(filteredProducts); 
+            }
+            else {
+                const filteredProducts = baseProducts.filter(product => (filters.includes(product.data.field_product_roll_size) || (filters.includes(product.data.field_product_width_in))));
+                console.log(filteredProducts);
+                setProducts(filteredProducts); 
+            }     
     }
     React.useEffect(() => {
         if (filters.length > 0) {
-            const filteredProducts = baseProducts.filter(product => filters.includes(product.data.field_product_roll_size));
+            const filteredProducts = baseProducts.filter(product => (filters.includes(product.data.field_product_roll_size) || (filters.includes(product.data.field_product_width_in))));
+            console.log(filteredProducts);
             setProducts(filteredProducts);
         }
     }, [filters]);
@@ -75,16 +89,26 @@ export const Sidebar = ({ setProducts, baseProducts }) => {
         setFilters([]);
         setProducts(baseProducts);
         setClick(false);
+        setClick1(false);
     }
 
     //get unique values of rollsizes and add to filters
-    const rollSize = [...new Set(baseProducts.map(fields => fields.data.field_product_roll_size))]
+    const rollSize = [...new Set(products.map(fields => fields.data.field_product_roll_size))]
     const rollsizes = [];
     rollSize.sort().forEach(roll => {
-        rollsizes.push({ 'label': `${roll}`, 'value': `${roll}`});
+        const removefirstscore = roll.replace('_','" ').replace('-x-', '" x ');
+        const removesecscore = removefirstscore.replace('_',' ').replace('-x-', ' x ');
+        const removelast = removesecscore.replace('_',' ').replace('-yards', ' yards');;
+        rollsizes.push({ 'label': `${removelast}`, 'value': `${roll}`});
     });
 
-    
+    const width = [...new Set(products.map(fields => fields.data.field_product_width_in))]
+    const widths = [];
+    width.sort().forEach(width => {
+        const refactorwidth = width.replace('973', '12"').replace('00', '').replace('905', '4"').replace('920', '5"').replace('1108', '06"').replace('912', '08"').replace('916', '10"');
+        widths.push({ 'label': `${refactorwidth}`, 'value': `${width}`});
+    })
+
 
     return (
         <SidebarContainer>
@@ -100,7 +124,10 @@ export const Sidebar = ({ setProducts, baseProducts }) => {
                             {/*map through roll size array*/}
                             {/*each size has an onclick function that filters the products array*/}
                             {click ? <Checkbox.Group options={rollsizes} onChange={onChange}/> : null}
-                        <li>Width</li>
+                        <li onClick={() => handleClick1()}>Width {click1 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
+                            {/*map through roll size array*/}
+                            {/*each size has an onclick function that filters the products array*/}
+                            {click1 ? <Checkbox.Group options={widths} onChange={onChange}/> : null}
                         <li>Length</li>
                         <li>Series</li>
                         <li>Color</li>
