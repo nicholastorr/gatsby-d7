@@ -52,35 +52,102 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
     const [filters, setFilters] = React.useState([]);
     const [click, setClick] = React.useState(false);
     const [click1, setClick1] = React.useState(false);
-
+    const [click2, setClick2] = React.useState(false);
+    const [click3, setClick3] = React.useState(false);
+    const [click4, setClick4] = React.useState(false);
 
     //open and close selected filter
     const handleClick = () => {
         setClick(!click);
     }
-
     const handleClick1 = () => {
         setClick1(!click1);
     }
+    const handleClick2 = () => {
+        setClick2(!click2);
+    }
+    const handleClick3 = () => {
+        setClick3(!click3);
+    }
+    const handleClick4 = () => {
+        setClick4(!click4);
+    }
 
     //add filter to array and rerender products
-    const onChange = (checkedValues) => {
-            setFilters(checkedValues);
-            if (filters.length > 0) {
-                const filteredProducts = products.filter(product => (filters.includes(product.data.field_product_roll_size) || (filters.includes(product.data.field_product_width_in))));
-                console.log(filteredProducts);
+    /*const onChange = (checkedValues) => {
+            
+            if (filters.length == 1) {
+                const newFilters = [...filters];
+                newFilters.push(checkedValues[0]);
+                setFilters(newFilters);
+                const filteredProducts = products.filter(product => (filters.includes(product.data.field_product_roll_size)) || (filters.includes(product.data.field_product_width_in)));
+                setProducts(filteredProducts); 
+            }
+            if (filters.length == 2) {
+                const newFilters = [...filters];
+                newFilters.push(checkedValues[0]);
+                setFilters(newFilters);
+                const filteredProducts = products.filter(product => (filters.includes(product.data.field_product_roll_size)) && (filters.includes(product.data.field_product_width_in)));
                 setProducts(filteredProducts); 
             }
             else {
-                const filteredProducts = baseProducts.filter(product => (filters.includes(product.data.field_product_roll_size) || (filters.includes(product.data.field_product_width_in))));
-                console.log(filteredProducts);
+                setFilters(checkedValues);
+                const filteredProducts = baseProducts.filter(product => (filters.includes(product.data.field_product_roll_size)) || (filters.includes(product.data.field_product_width_in)));
                 setProducts(filteredProducts); 
-            }     
+            }    
+    }*/
+    const onChange = (checkedValues) => {
+            
+        if (filters.length > 0) {
+            const newFilters = [...filters];
+            newFilters.push(checkedValues[0]);
+            setFilters(newFilters);
+        }   
+        else {
+            setFilters(checkedValues);
+            const filteredProducts = baseProducts.filter(product => (filters.includes(product.data.field_product_roll_size)) || (filters.includes(product.data.field_product_width_in)));
+            setProducts(filteredProducts); 
+        }    
     }
     React.useEffect(() => {
-        if (filters.length > 0) {
-            const filteredProducts = baseProducts.filter(product => (filters.includes(product.data.field_product_roll_size) || (filters.includes(product.data.field_product_width_in))));
-            console.log(filteredProducts);
+        if (filters.length == 1) {
+            const filteredProducts = baseProducts.filter(product => 
+                (filters.includes(product.data.field_product_roll_size)) 
+            || (filters.includes(product.data.field_product_width_in)) 
+            || (filters.includes(product.data.field_product_length_in_yards)) 
+            || (filters.includes(product.data.field_product_series))
+            || (filters.includes(product.data.field_product_color)));
+            setProducts(filteredProducts);
+        }
+        if (filters.length == 2) {
+            const filteredProducts = baseProducts.filter(product => 
+                ((filters.includes(product.data.field_product_roll_size)) && (filters.includes(product.data.field_product_width_in))) 
+            || ((filters.includes(product.data.field_product_length_in_yards)) && (filters.includes(product.data.field_product_width_in))
+            || ((filters.includes(product.data.field_product_length_in_yards)) && (filters.includes(product.data.field_product_roll_size))
+            || ((filters.includes(product.data.field_product_length_in_yards)) && (filters.includes(product.data.field_product_series))
+            || ((filters.includes(product.data.field_product_series)) && ((filters.includes(product.data.field_product_length_in_yards))
+            || ((filters.includes(product.data.field_product_series)) && ((filters.includes(product.data.field_product_width_in)))
+            || ((filters.includes(product.data.field_product_series)) && ((filters.includes(product.data.field_product_roll_size)))))))))));
+            console.log(filters);
+            console.log(filteredProducts); 
+            setProducts(filteredProducts);
+        }
+        if (filters.length == 3) {
+            const filteredProducts = baseProducts.filter(product => 
+               (filters.includes(product.data.field_product_series) && filters.includes(product.data.field_product_width_in) && filters.includes(product.data.field_product_roll_size))
+            || (filters.includes(product.data.field_product_series) && filters.includes(product.data.field_product_width_in) && filters.includes(product.data.field_product_length_in_yards)));
+            console.log(filters);
+            console.log(filteredProducts); 
+            setProducts(filteredProducts);
+        }
+        if (filters.length == 4) {
+            const filteredProducts = baseProducts.filter(product => 
+                (filters.includes(product.data.field_product_roll_size)) 
+            && (filters.includes(product.data.field_product_width_in))
+            && (filters.includes(product.data.field_product_length_in_yards))
+            && ((filters.includes(product.data.field_product_series))));
+            console.log(filters);
+            console.log(filteredProducts); 
             setProducts(filteredProducts);
         }
     }, [filters]);
@@ -90,6 +157,8 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         setProducts(baseProducts);
         setClick(false);
         setClick1(false);
+        setClick2(false);
+        setClick3(false);
     }
 
     //get unique values of rollsizes and add to filters
@@ -109,6 +178,24 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         widths.push({ 'label': `${refactorwidth}`, 'value': `${width}`});
     })
 
+    const length = [...new Set(products.map(fields => fields.data.field_product_length_in_yards))]
+    const lengths = [];
+    length.sort().forEach(length => {
+        lengths.push({ 'label': `${length}`, 'value': `${length}`});
+    })
+
+    const serie = [...new Set(products.map(fields => fields.data.field_product_series))]
+    const series = [];
+    serie.sort().forEach(serie => {
+        series.push({ 'label': `${serie}`, 'value': `${serie}`});
+    })
+
+    const color = [...new Set(products.map(fields => fields.data.field_product_color))]
+    const colors = [];
+    color.sort().forEach(color => {
+        const refactorcolor = color.replace('_', ' ').replace('-', ' ').replace('100', 'Gloss Blue').replace('101', 'Gloss Gold');
+        colors.push({ 'label': `${refactorcolor}`, 'value': `${color}`});
+    })
 
     return (
         <SidebarContainer>
@@ -128,9 +215,18 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
                             {/*map through roll size array*/}
                             {/*each size has an onclick function that filters the products array*/}
                             {click1 ? <Checkbox.Group options={widths} onChange={onChange}/> : null}
-                        <li>Length</li>
-                        <li>Series</li>
-                        <li>Color</li>
+                        <li onClick={() => handleClick2()}>Length {click2 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
+                            {/*map through roll size array*/}
+                            {/*each size has an onclick function that filters the products array*/}
+                            {click2 ? <Checkbox.Group options={lengths} onChange={onChange}/> : null}
+                        <li onClick={() => handleClick3()}>Series {click3 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
+                            {/*map through roll size array*/}
+                            {/*each size has an onclick function that filters the products array*/}
+                            {click3 ? <Checkbox.Group options={series} onChange={onChange}/> : null}
+                        <li onClick={() => handleClick4()}>Color {click4 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
+                            {/*map through roll size array*/}
+                            {/*each size has an onclick function that filters the products array*/}
+                            {click4 ? <Checkbox.Group options={colors} onChange={onChange}/> : null}
                         <li>Finish</li>
                         <li>Color Number</li>
                         <li>Color Range</li>
