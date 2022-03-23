@@ -152,9 +152,6 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
     }
     React.useEffect(() => {
         
-        console.log(filters);
-        console.log(products);
-        console.log(on);
         
        
         if ( on == true) {
@@ -223,10 +220,62 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
     rollSize.sort().forEach(roll => {
         const removefirstscore = roll.replace('_','" ').replace('-x-', '" x ');
         const removesecscore = removefirstscore.replace('_',' ').replace('-x-', ' x ');
-        const removelast = removesecscore.replace('_',' ').replace('-yards', ' yards');;
-        rollsizes.push({ 'label': `${removelast}`, 'value': `${roll}`, 'type': 'roll_size' });
+        const removelast = removesecscore.replace('_',' ').replace('-yards', ' yards').replace('-yds', ' yds');
+        rollsizes.push({ 'label': `${removelast}`, 'value': `${roll}` });
     });
-    console.log(rollsizes);
+    //order rollsizes
+    if (rollsizes.length > 35) {       
+        const pop4 = rollsizes.splice(38, 1);
+        const pop3 = rollsizes.splice(36, 1);
+        const pop2 = rollsizes.splice(33, 1);
+        const pop1 = rollsizes.splice(30, 1);
+        const pop5 = rollsizes.splice(5, 1);
+        const pop6 = rollsizes.splice(35, 1);
+        const pop7 = rollsizes.splice(6, 1);
+        const pop8 = rollsizes.splice(9, 1);
+        const pop9 = rollsizes.splice(10, 1);
+        const pop10 = rollsizes.splice(11, 1);
+        const pop11 = rollsizes.splice(13, 1);
+        const pop12 = rollsizes.splice(15, 1);
+        const pop13 = rollsizes.splice(15, 1);
+        const pop14 = rollsizes.splice(18, 1);
+        const pop15 = rollsizes.splice(20, 1);
+        const pop16 = rollsizes.splice(20, 1);
+        const pop17 = rollsizes.splice(21, 1);
+        const pop18 = rollsizes.splice(22, 1);
+        const pop19 = rollsizes.splice(23, 1);
+        const pop20 = rollsizes.splice(12, 1);
+        const pop21 = rollsizes.splice(8, 1);
+        const pop22 = rollsizes.splice(15, 1);
+        const pop23 = rollsizes.splice(7, 1);
+        const pop24 = rollsizes.splice(13, 1);
+        rollsizes.unshift(pop24[0]);
+        rollsizes.unshift(pop23[0]);
+        rollsizes.unshift(pop22[0]);
+        rollsizes.unshift(pop21[0]);
+        rollsizes.unshift(pop20[0]);
+        rollsizes.unshift(pop19[0]);
+        rollsizes.unshift(pop18[0]);
+        rollsizes.unshift(pop17[0]);
+        rollsizes.unshift(pop16[0]);
+        rollsizes.unshift(pop15[0]);
+        rollsizes.unshift(pop14[0]);
+        rollsizes.unshift(pop13[0]);
+        rollsizes.unshift(pop12[0]);
+        rollsizes.unshift(pop11[0]);
+        rollsizes.unshift(pop10[0]);
+        rollsizes.unshift(pop9[0]);
+        rollsizes.unshift(pop8[0]);
+        rollsizes.unshift(pop7[0]);
+        rollsizes.unshift(pop6[0]);
+        rollsizes.unshift(pop5[0]);
+        rollsizes.unshift(pop4[0]);
+        rollsizes.unshift(pop3[0]);
+        rollsizes.unshift(pop2[0]);
+        rollsizes.unshift(pop1[0]);
+    }
+    
+
 
     const width = [...new Set(products.map(fields => fields.data.field_product_width_in))]
     const widths = [];
