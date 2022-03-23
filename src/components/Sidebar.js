@@ -50,6 +50,7 @@ const FilterContainer = styled.div`
 
 export const Sidebar = ({products, setProducts, baseProducts }) => {
     const [filters, setFilters] = React.useState([]);
+    const [on, setOn] = React.useState(false);
     const [click, setClick] = React.useState(false);
     const [click1, setClick1] = React.useState(false);
     const [click2, setClick2] = React.useState(false);
@@ -57,6 +58,13 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
     const [click4, setClick4] = React.useState(false);
     const [click5, setClick5] = React.useState(false);
     const [click6, setClick6] = React.useState(false);
+    const [click7, setClick7] = React.useState(false);
+    const [click8, setClick8] = React.useState(false);
+    const [click9, setClick9] = React.useState(false);
+    const [click10, setClick10] = React.useState(false);
+    const [click11, setClick11] = React.useState(false);
+    const [click12, setClick12] = React.useState(false);
+   
 
     //open and close selected filter
     const handleClick = () => {
@@ -79,6 +87,24 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
     }
     const handleClick6 = () => {
         setClick6(!click6);
+    }
+    const handleClick7 = () => {
+        setClick7(!click7);
+    }
+    const handleClick8 = () => {
+        setClick8(!click8);
+    }
+    const handleClick9 = () => {
+        setClick9(!click9);
+    }
+    const handleClick10 = () => {
+        setClick10(!click10);
+    }
+    const handleClick11 = () => {
+        setClick11(!click11);
+    }
+    const handleClick12 = () => {
+        setClick12(!click12);
     }
 
     //add filter to array and rerender products
@@ -104,13 +130,15 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
                 setProducts(filteredProducts); 
             }    
     }*/
+
+    
     const onChange = (checkedValues) => {
-            console.log(checkedValues);
+
+        
+
         if (filters.length > 0) {
             if (checkedValues != undefined && checkedValues.length > 0 && !filters.includes(checkedValues) && !filters.includes(checkedValues[0])) {
-            const newFilters = [...filters];
-            newFilters.push(checkedValues[0]);
-            setFilters(newFilters);
+            setFilters(checkedValues);
             }
             
         }   
@@ -123,8 +151,32 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         }    
     }
     React.useEffect(() => {
-        if (filters.length == 1) {
-            console.log(baseProducts);
+        
+        console.log(filters);
+        console.log(products);
+        console.log(on);
+        
+       
+        if ( on == true) {
+            const filteredProducts = products.filter(product => 
+                (filters.includes(product.data.field_product_roll_size)) 
+            || (filters.includes(product.data.field_product_width_in)) 
+            || (filters.includes(product.data.field_product_length_in_yards)) 
+            || (filters.includes(product.data.field_product_series))
+            || (filters.includes(product.data.field_product_color))
+            || (filters.includes(product.data.field_product_color_number))
+            || (filters.includes(product.data.field_product_color_range))
+            || (filters.includes(product.data.field_product_application))
+            || (filters.includes(product.data.field_product_punched))
+            || (filters.includes(product.data.field_product_surface))
+            || (filters.includes(product.data.field_product_durability))
+            || (filters.includes(product.data.field_product_vinyl_class))
+            || (filters.includes(product.data.field_product_finish)));
+            setProducts(filteredProducts);
+            setOn(true);
+        }
+       
+        else if (filters.length > 0) {
             const filteredProducts = baseProducts.filter(product => 
                 (filters.includes(product.data.field_product_roll_size)) 
             || (filters.includes(product.data.field_product_width_in)) 
@@ -132,93 +184,23 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
             || (filters.includes(product.data.field_product_series))
             || (filters.includes(product.data.field_product_color))
             || (filters.includes(product.data.field_product_color_number))
+            || (filters.includes(product.data.field_product_color_range))
+            || (filters.includes(product.data.field_product_application))
+            || (filters.includes(product.data.field_product_punched))
+            || (filters.includes(product.data.field_product_surface))
+            || (filters.includes(product.data.field_product_durability))
+            || (filters.includes(product.data.field_product_vinyl_class))
             || (filters.includes(product.data.field_product_finish)));
             setProducts(filteredProducts);
+            setOn(true);
         }
-        if (filters.length == 2) {
-            const filteredProducts = baseProducts.filter(product => 
-                (filters.includes(product.data.field_product_roll_size) && filters.includes(product.data.field_product_width_in))
-            || (filters.includes(product.data.field_product_roll_size) && filters.includes(product.data.field_product_color))
-            || (filters.includes(product.data.field_product_roll_size) && filters.includes(product.data.field_product_length_in_yards))
-            || (filters.includes(product.data.field_product_roll_size) && filters.includes(product.data.field_product_series))
-            || (filters.includes(product.data.field_product_roll_size) && filters.includes(product.data.field_product_color_number))
-            || (filters.includes(product.data.field_product_width_in) && filters.includes(product.data.field_product_color))    
-            || (filters.includes(product.data.field_product_length_in_yards) && filters.includes(product.data.field_product_width_in))
-            || (filters.includes(product.data.field_product_width_in) && filters.includes(product.data.field_product_color_number))
-            || (filters.includes(product.data.field_product_length_in_yards) && filters.includes(product.data.field_product_roll_size))
-            || (filters.includes(product.data.field_product_length_in_yards) && filters.includes(product.data.field_product_series))
-            || (filters.includes(product.data.field_product_length_in_yards) && filters.includes(product.data.field_product_color))
-            || (filters.includes(product.data.field_product_length_in_yards) && filters.includes(product.data.field_product_color_number))
-            || (filters.includes(product.data.field_product_roll_size) && filters.includes(product.data.field_product_color_number))
-            || (filters.includes(product.data.field_product_finish) && filters.includes(product.data.field_product_color))
-            || (filters.includes(product.data.field_product_finish) && filters.includes(product.data.field_product_color_number))
-            || (filters.includes(product.data.field_product_finish) && filters.includes(product.data.field_product_width_in))
-            || (filters.includes(product.data.field_product_finish) && filters.includes(product.data.field_product_length_in_yards))
-            || (filters.includes(product.data.field_product_finish) && filters.includes(product.data.field_product_series))
-            || (filters.includes(product.data.field_product_finish) && filters.includes(product.data.field_product_roll_size))
-            || (filters.includes(product.data.field_product_series) && filters.includes(product.data.field_product_length_in_yards))
-            || (filters.includes(product.data.field_product_series) && filters.includes(product.data.field_product_width_in))
-            || (filters.includes(product.data.field_product_series) && filters.includes(product.data.field_product_color))
-            || (filters.includes(product.data.field_product_series) && filters.includes(product.data.field_product_color_number))
-            || (filters.includes(product.data.field_product_series) && filters.includes(product.data.field_product_roll_size)));
-            setProducts(filteredProducts);
-        }
-        if (filters.length == 3) {
-            const filteredProducts = baseProducts.filter(product => 
-               (filters.includes(product.data.field_product_series) && filters.includes(product.data.field_product_width_in) && filters.includes(product.data.field_product_roll_size))
-            || (filters.includes(product.data.field_product_series) && filters.includes(product.data.field_product_width_in) && filters.includes(product.data.field_product_length_in_yards))
-            || (filters.includes(product.data.field_product_series) && filters.includes(product.data.field_product_roll_size) && filters.includes(product.data.field_product_length_in_yards))
-            || (filters.includes(product.data.field_product_series) && filters.includes(product.data.field_product_roll_size) && filters.includes(product.data.field_product_color))
-            || (filters.includes(product.data.field_product_finish) && filters.includes(product.data.field_product_color) && filters.includes(product.data.field_product_length_in_yards))
-            || (filters.includes(product.data.field_product_finish) && filters.includes(product.data.field_product_color) && filters.includes(product.data.field_product_width_in))
-            || (filters.includes(product.data.field_product_length_in_yards) && filters.includes(product.data.field_product_color) && filters.includes(product.data.field_product_width_in))
-            || (filters.includes(product.data.field_product_length_in_yards) && filters.includes(product.data.field_product_color_number) && filters.includes(product.data.field_product_width_in))
-            || (filters.includes(product.data.field_product_finish) && filters.includes(product.data.field_product_color) && filters.includes(product.data.field_product_series))
-            || (filters.includes(product.data.field_product_finish) && filters.includes(product.data.field_product_series) && filters.includes(product.data.field_product_width_in))
-            || (filters.includes(product.data.field_product_finish) && filters.includes(product.data.field_product_color) && filters.includes(product.data.field_product_roll_size))
-            || (filters.includes(product.data.field_product_finish) && filters.includes(product.data.field_product_width_in) && filters.includes(product.data.field_product_length_in_yards)));
-            console.log(filters);
-            console.log(filteredProducts); 
-            setProducts(filteredProducts);
-        }
-        if (filters.length == 4) {
-            const filteredProducts = baseProducts.filter(product => 
-                (filters.includes(product.data.field_product_series) && filters.includes(product.data.field_product_width_in) && filters.includes(product.data.field_product_length_in_yards) && filters.includes(product.data.field_product_roll_size))
-            ||  (filters.includes(product.data.field_product_series) && filters.includes(product.data.field_product_color) && filters.includes(product.data.field_product_finish) && filters.includes(product.data.field_product_roll_size))
-            ||  (filters.includes(product.data.field_product_series) && filters.includes(product.data.field_product_color) && filters.includes(product.data.field_product_length_in_yards) && filters.includes(product.data.field_product_width_in))
-            ||  (filters.includes(product.data.field_product_series) && filters.includes(product.data.field_product_width_in) && filters.includes(product.data.field_product_length_in_yards) && filters.includes(product.data.field_product_color))
-            ||  (filters.includes(product.data.field_product_finish) && filters.includes(product.data.field_product_width_in) && filters.includes(product.data.field_product_length_in_yards) && filters.includes(product.data.field_product_color))
-            ||  (filters.includes(product.data.field_product_series) && filters.includes(product.data.field_product_finish) && filters.includes(product.data.field_product_length_in_yards) && filters.includes(product.data.field_product_color))
-            ||  (filters.includes(product.data.field_product_series) && filters.includes(product.data.field_product_width_in) && filters.includes(product.data.field_product_length_in_yards) && filters.includes(product.data.field_product_finish)));
-            console.log(filters);
-            console.log(filteredProducts); 
-            setProducts(filteredProducts);
-        }
-        if (filters.length == 5) {
-            const filteredProducts = baseProducts.filter(product => 
-                (filters.includes(product.data.field_product_series) && filters.includes(product.data.field_product_width_in) && filters.includes(product.data.field_product_length_in_yards) && filters.includes(product.data.field_product_color) && filters.includes(product.data.field_product_finish))
-            ||  (filters.includes(product.data.field_product_series) && filters.includes(product.data.field_product_width_in) && filters.includes(product.data.field_product_length_in_yards) && filters.includes(product.data.field_product_color) && filters.includes(product.data.field_product_roll_size)));                
-            console.log(filters);
-            console.log(filteredProducts); 
-            setProducts(filteredProducts);
-        }
-        if (filters.length == 6) {
-            const filteredProducts = baseProducts.filter(product => 
-                (filters.includes(product.data.field_product_roll_size)) 
-            && (filters.includes(product.data.field_product_width_in))
-            && (filters.includes(product.data.field_product_length_in_yards))
-            && (filters.includes(product.data.field_product_color))
-            && (filters.includes(product.data.field_product_color))
-            && (filters.includes(product.data.field_product_finish))
-            && ((filters.includes(product.data.field_product_series))));
-            console.log(filters);
-            console.log(filteredProducts); 
-            setProducts(filteredProducts);
-        }
+
+        
     }, [filters]);
 
     const clearFilters = () => {
         setFilters([]);
+        setOn(false);
         setProducts(baseProducts);
         setClick(false);
         setClick1(false);
@@ -227,6 +209,11 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         setClick4(false);
         setClick5(false);
         setClick6(false);
+        setClick7(false);
+        setClick8(false);
+        setClick9(false);
+        setClick10(false);
+        setClick11(false);
     }
 
 
@@ -237,8 +224,9 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         const removefirstscore = roll.replace('_','" ').replace('-x-', '" x ');
         const removesecscore = removefirstscore.replace('_',' ').replace('-x-', ' x ');
         const removelast = removesecscore.replace('_',' ').replace('-yards', ' yards');;
-        rollsizes.push({ 'label': `${removelast}`, 'value': `${roll}`});
+        rollsizes.push({ 'label': `${removelast}`, 'value': `${roll}`, 'type': 'roll_size' });
     });
+    console.log(rollsizes);
 
     const width = [...new Set(products.map(fields => fields.data.field_product_width_in))]
     const widths = [];
@@ -283,6 +271,42 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         colornumbers.push({ 'label': `${colornumber}`, 'value': `${colornumber}`});
     })
 
+    const colorrange = [...new Set(products.map(fields => fields.data.field_product_color_range))]
+    const colorranges = [];
+    colorrange.sort().forEach(colorrange => {
+        colorranges.push({ 'label': `${colorrange}`, 'value': `${colorrange}`});
+    })
+
+    const application = [...new Set(products.map(fields => fields.data.field_product_application))]
+    const applications = [];
+    application.sort().forEach(application => {
+        applications.push({ 'label': `${application}`, 'value': `${application}`});
+    })
+
+    const punched = [...new Set(products.map(fields => fields.data.field_product_punched))]
+    const puncheds = [];
+    punched.sort().forEach(punched => {
+        puncheds.push({ 'label': `${punched}`, 'value': `${punched}`});
+    })
+
+    const surface = [...new Set(products.map(fields => fields.data.field_product_surface))]
+    const surfaces = [];
+    surface.sort().forEach(surface => {
+        surfaces.push({ 'label': `${surface}`, 'value': `${surface}`});
+    })
+
+    const durability = [...new Set(products.map(fields => fields.data.field_product_durability))]
+    const durabilities = [];
+    durability.sort().forEach(durability => {
+        durabilities.push({ 'label': `${durability}`, 'value': `${durability}`});
+    })
+
+    const vinylclass = [...new Set(products.map(fields => fields.data.field_product_vinyl_class))]
+    const vinylclasses = [];
+    vinylclass.sort().forEach(vinylclass => {
+        vinylclasses.push({ 'label': `${vinylclass}`, 'value': `${vinylclass}`});
+    })
+
     return (
         <SidebarContainer>
                 <ul><h2 style={{fontWeight: "bold", marginTop: "30px"}}>Sub Categories</h2></ul>
@@ -321,14 +345,30 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
                             {/*map through roll size array*/}
                             {/*each size has an onclick function that filters the products array*/}
                             {click6 ? <Checkbox.Group options={colornumbers} onChange={onChange}/> : null}
-                        <li>Color Range</li>
-                        <li>Adhesive</li>
-                        <li>Application</li>
-                        <li>Punched</li>
-                        <li>Surface</li>
-                        <li>Vinyl Type</li>
-                        <li>Durability</li>
-                        <li>Vinyl Class</li>
+                        <li onClick={() => handleClick7()}>Color Range {click7 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
+                            {/*map through roll size array*/}
+                            {/*each size has an onclick function that filters the products array*/}
+                            {click7 ? <Checkbox.Group options={colorranges} onChange={onChange}/> : null}
+                        <li onClick={() => handleClick8()}>Application {click8 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
+                            {/*map through roll size array*/}
+                            {/*each size has an onclick function that filters the products array*/}
+                            {click8 ? <Checkbox.Group options={applications} onChange={onChange}/> : null}
+                        <li onClick={() => handleClick9()}>Punched {click9 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
+                            {/*map through roll size array*/}
+                            {/*each size has an onclick function that filters the products array*/}
+                            {click9 ? <Checkbox.Group options={puncheds} onChange={onChange}/> : null}
+                        <li onClick={() => handleClick10()}>Surface {click10 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
+                            {/*map through roll size array*/}
+                            {/*each size has an onclick function that filters the products array*/}
+                            {click10 ? <Checkbox.Group options={surfaces} onChange={onChange}/> : null}
+                        <li onClick={() => handleClick11()}>Durability {click11 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
+                            {/*map through roll size array*/}
+                            {/*each size has an onclick function that filters the products array*/}
+                            {click11 ? <Checkbox.Group options={durabilities} onChange={onChange}/> : null}
+                        <li onClick={() => handleClick12()}>Vinyl Class {click12 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
+                            {/*map through roll size array*/}
+                            {/*each size has an onclick function that filters the products array*/}
+                            {click12 ? <Checkbox.Group options={vinylclasses} onChange={onChange}/> : null}
                 </FilterContainer>
         </SidebarContainer>
     )

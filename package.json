@@ -37,6 +37,7 @@
     "gatsby-plugin-remote-images": "^3.3.0",
     "gatsby-plugin-sharp": "^4.6.0",
     "gatsby-plugin-styled-components": "^5.6.0",
+    "gatsby-source-drupal": "^5.10.0",
     "gatsby-source-drupal7": "^0.0.4",
     "gatsby-source-filesystem": "^4.7.0",
     "gatsby-source-remote-file": "^0.5.0",
@@ -47,6 +48,7 @@
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
     "react-interval-rerenderer": "^1.0.5",
+    "semver": "^7.3.5",
     "styled-components": "^5.3.3"
   },
   "devDependencies": {

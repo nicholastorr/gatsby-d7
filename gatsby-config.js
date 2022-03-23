@@ -11,7 +11,7 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://stagingsupply.htm-mbs.com/",
+    siteUrl: "http://stagingsupply.htm-mbs.com/",
     title: "staging-d7",
   },
   plugins: [
@@ -21,19 +21,8 @@ module.exports = {
     {
       resolve: `gatsby-source-drupal7`,
       options: {
-        baseUrl: `https://stagingsupply.htm-mbs.com/`,
-        apiBase: `file.json`, // optional, defaults to `restws_resource.json`
-        basicAuth: {
-          username: process.env.BASIC_AUTH_USERNAME,
-          password: process.env.BASIC_AUTH_PASSWORD,
-        },
-      },
-    },
-    `gatsby-source-drupal7`,
-    {
-      resolve: `gatsby-source-drupal7`,
-      options: {
-        baseUrl: `https://stagingsupply.htm-mbs.com/`,
+        baseUrl: `http://stagingsupply.htm-mbs.com/`,
+        apiBase: `restws_resource.json`,
       },
     },
     "gatsby-plugin-react-helmet",
@@ -48,14 +37,8 @@ module.exports = {
     {
       resolve: `gatsby-source-drupal7`,
       options: {
-        baseUrl: `https://stagingsupply.htm-mbs.com/`,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-remote-images`,
-      options: {
-        nodeType: 'allFiles',
-        imagePath: 'nodes[].data.url',
+        baseUrl: `http://stagingsupply.htm-mbs.com/`,
+        apiBase: `restws_resource.json`,
       },
     },
   ],

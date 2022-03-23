@@ -18,10 +18,7 @@ const ProductList = ({data}) => {
                 return (
                     <a href={`/vinyl/${product.data.sku}`}><div>
                       <h3>{product.data.title}</h3>
-                        {product.data.field_product_image.length < 1  ?
-                          <StaticImage src="http://stagingsupply.htm-mbs.com/sites/default/files/default_images/drupalcommerce.png" width={200} alt="text"/>:
-                          <img src={imgPath} width={200} alt="" />
-                        }
+
                       <h3>{product.data.sku}</h3>
                     </div></a>
                 )
@@ -31,23 +28,6 @@ const ProductList = ({data}) => {
 
 }
 
-export const query = graphql`
-    query($category: String!) {
-        allCommerceProduct( filter: {data: {field_category: {eq: $category}}} ) {
-            nodes {
-                data {
-                  sku
-                  field_product_image {
-                    file {
-                      uuid
-                    }
-                  }
-                  title
-                }
-              }
-            totalCount
-        }
-    }
-`;
+
 
 export default ProductList;

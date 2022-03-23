@@ -3,14 +3,12 @@ import * as React from 'react';
 
 //static query product data
 
-const Product = ( data ) => {
+const Product = () => {
 
     
     return (
         <div>
-            <h1>{data.pageContext.title}</h1>
-            <h3>{data.pageContext.sku}</h3>
-            {console.log(data)}
+            <h1>Product</h1>
         </div>
     );
 }
