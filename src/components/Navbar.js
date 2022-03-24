@@ -10,26 +10,22 @@ import './styles/navbar.less';
 //get query for all Digital Media Cateogories
 
 const Category = styled.div`
-  padding-left: 200px;
-  padding-right: 200px;
   background-color: red;
   height: 60px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
 `
 const HeaderCat = styled.h3`
     color: white;
     font-size: 15px;
-    margin: auto;
-    padding: auto;
+    margin: auto 15px auto 15px;
     text-align: center;
+    max-width: 155px;
 `
 
 const HeaderBar = styled.div`
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25);
-  align-items: center;
-  justify-content: center;
   vertical-align: middle;
   width: 100%;
   z-index: 999;
@@ -109,7 +105,7 @@ const Navbar = () => {
             <Category>
                 <HeaderCat>Digital <br></br> Media</HeaderCat>
                 <Dropdown overlay={vinylTapesMenu}>
-                  <HeaderCat>Vinyl &#38; Application <br></br> Tapes</HeaderCat>
+                  <HeaderCat className='header-title'>Vinyl &#38; Application <br></br> Tapes</HeaderCat>
                 </Dropdown>
                 <HeaderCat>Heat Transfer <br></br> Vinyl</HeaderCat>
                 <HeaderCat>Vehicle <br></br> Wraps</HeaderCat>
@@ -123,8 +119,6 @@ const Navbar = () => {
                 <HeaderCat>Vinyl <br></br> Racks</HeaderCat>
                 <HeaderCat>Banner <br></br> Stands</HeaderCat>
                 <HeaderCat>Sign <br></br> Stakes</HeaderCat>
-                <HeaderCat>Electronic <br></br> Standoffs</HeaderCat>
-                <HeaderCat></HeaderCat>
             </Category>
         </HeaderBar>
     )

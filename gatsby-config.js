@@ -28,9 +28,10 @@ module.exports = {
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-sharp",
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: `gatsby-source-drupal7`,
       options: {
-        path: `${__dirname}/src/images/`,
+        baseUrl: `http://stagingsupply.htm-mbs.com/`,
+        apiBase: `file.json`,
       },
     },
     "gatsby-transformer-sharp",
@@ -38,7 +39,7 @@ module.exports = {
       resolve: `gatsby-source-drupal7`,
       options: {
         baseUrl: `http://stagingsupply.htm-mbs.com/`,
-        apiBase: `restws_resource.json`,
+        apiBase: `file.json`,
       },
     },
   ],

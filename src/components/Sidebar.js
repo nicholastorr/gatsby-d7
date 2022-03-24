@@ -223,8 +223,8 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         const removelast = removesecscore.replace('_',' ').replace('-yards', ' yards').replace('-yds', ' yds');
         rollsizes.push({ 'label': `${removelast}`, 'value': `${roll}` });
     });
-    //order rollsizes
-    if (rollsizes.length > 35) {       
+    //order sizes
+    if (rollsizes.length > 1) {       
         const pop4 = rollsizes.splice(38, 1);
         const pop3 = rollsizes.splice(36, 1);
         const pop2 = rollsizes.splice(33, 1);
@@ -280,9 +280,13 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
     const width = [...new Set(products.map(fields => fields.data.field_product_width_in))]
     const widths = [];
     width.sort().forEach(width => {
-        const refactorwidth = width.replace('973', '12"').replace('00', '').replace('905', '4"').replace('920', '5"').replace('1108', '06"').replace('912', '08"').replace('916', '10"');
-        widths.push({ 'label': `${refactorwidth}`, 'value': `${width}`});
+        const refactorwidth = width.replace('973', '12').replace('00', '').replace('905', '4').replace('920', '5').replace('1108', '6').replace('912', '8').replace('916', '10');
+        widths.push({ 'label': `${refactorwidth}"`, 'value': `${width}`});
     })
+    if (widths.length > 1) {
+        const wop1 = widths.splice(11, 1);
+        widths.unshift(wop1[0]);
+    }
 
     const length = [...new Set(products.map(fields => fields.data.field_product_length_in_yards))]
     const lengths = [];
