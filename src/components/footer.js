@@ -8,8 +8,6 @@ const Container = styled.div`
 
 const FooterWrap = styled.footer`
     color: white;
-    width: 1260px;
-    margin-top: 1300px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     margin-left: auto;

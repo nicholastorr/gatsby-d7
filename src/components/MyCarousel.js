@@ -45,16 +45,18 @@ const Wrapper = styled.div`
 const Container = styled.div`
         margin-left: auto;
         margin-right: auto;
-        width: 1280px;
+        margin-top: 3%;
+        width: 100%;
 
         @media (max-width: 1200px) {
-            width: 940px;
+           
         }
 
         @media (max-width: 1000px) {
             .wrapper {
                 display: none;
             }
+        }
 `
 
 const MyCarousel = () => {

@@ -12,7 +12,7 @@ import IntervalRerenderer  from "react-interval-rerenderer"
 const StyledHeader = styled.header`
 
 
-  `
+`
 
 
 
@@ -22,7 +22,7 @@ const Header = ({ siteTitle }) => (
   <StyledHeader> 
         <Topbar className="topbar"/>
             <div className="header-bar">
-                <StaticImage src="https://mbs-signsupply.com/sites/all/themes/bootstrap_supply/images/mss-main-logo.png" alt="mbs-logo" className="header-logo" />
+                <StaticImage src="https://mbs-signsupply.com/sites/all/themes/bootstrap_supply/images/mss-main-logo.png" width={550} alt="mbs-logo" className="header-logo" />
                 <IntervalRerenderer duration={1000} render={ShipTimer} />
             </div>
         <Navbar />

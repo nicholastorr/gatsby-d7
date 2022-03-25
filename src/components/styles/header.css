@@ -1,9 +1,10 @@
 .header-bar {
+    margin-top: 15px;
     display: flex;
     background-color: white;
     align-items: center;
     height: 164px;
-    justify-content: center;
+    justify-content: center;  
 }
 
 .header-logo {
@@ -15,4 +16,11 @@
 .topbar {
     position: fixed;
     z-index: 9997;
+}
+
+@media (max-width: 1350px) {
+    .header-bar {
+        flex-direction: column;
+        height: auto;
+    }
 }

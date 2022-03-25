@@ -15,13 +15,22 @@ const StyledP = styled.p`
     margin: 0;
     font-size: 14px;
 `
+const StyledA = styled.p`
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+`
+
 const Megasearch = styled.div`
     margin-top: 10px;
-    width: 322.2px;
+    width: 666x;
     height: 30px;
     display: flex;
     flex-direction: row;
     align-items: center;
+    @media (max-width: 666px) {
+        width: 100%;
+    }
 `
 
 const Glyph = styled.span`
@@ -34,8 +43,11 @@ const Glyph = styled.span`
 `
 
 const SearchBar = styled.input`
-    width: 75%;
+    width: 566px;
     height: 28px;
+    @media (max-width: 666px) {
+        width: 100%;
+    }
 `
 
 const ShipTimer = () => {
@@ -56,9 +68,8 @@ const ShipTimer = () => {
 
         return(
             <ShipTimerContainer>
-                <StyledP style={{fontSize: 16}}>We are now offering <span style={{color: '#FF0000'}}>FREE SHIPPING!</span></StyledP>
-                <StyledP style={{fontSize : 14}}>Order in the next: {h} hours {m} minutes {s} seconds</StyledP>
-                <StyledP>and your items will be shipped today!</StyledP>
+                <StyledA style={{fontSize: 16}}>We are now offering <span style={{color: '#FF0000'}}>FREE SHIPPING!</span></StyledA>
+                <StyledP>Order in the next: {h} hours {m} minutes {s} seconds and your items will be shipped today!</StyledP>
                     <Megasearch>
                         <SearchBar type="text" placeholder="Search for products, brands, categories, etc."/>
                         <Glyph style={{height: "28px"}}><X size={20} style={{fontWeight: 'boldest'}}/></Glyph>

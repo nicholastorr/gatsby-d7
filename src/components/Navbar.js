@@ -31,6 +31,9 @@ const HeaderBar = styled.div`
   z-index: 999;
   position: ${props => props.height > 150 ? 'fixed' : 'static'};
     top: ${props => props.height > 150 ? '35px' : 'auto'};
+  @media (max-width: 1338px) {
+    display: none;
+  }
 `
 
 
