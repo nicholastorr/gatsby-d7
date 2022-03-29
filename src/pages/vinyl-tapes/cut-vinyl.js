@@ -1,4 +1,5 @@
 import Header from "../../components/header"
+import Footer from "../../components/footer"
 import * as React from 'react';
 
 //hardcoded
@@ -35,7 +36,7 @@ const vinylCats = [
 
 const CutVinyl = () => {
     return (
-        <div style={{width: "100%"}}>
+        <div style={{width: "100%", marginTop: "-15px"}}>
             <Header />
             <div style={{width: "70%", marginLeft: "auto", marginRight: "auto", marginTop: "75px"}}>
                 <h1 style={{borderBottom: "thick solid gray"}}>Browse Sub Category</h1>
@@ -55,6 +56,7 @@ const CutVinyl = () => {
             <div style={{width: "70%", marginLeft: "auto", marginRight: "auto"}}>
                 <h1>Cut Vinyl</h1>
             </div>
+            <Footer />
         </div>
     )
 }

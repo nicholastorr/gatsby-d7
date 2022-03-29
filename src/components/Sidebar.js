@@ -106,36 +106,9 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
     const handleClick12 = () => {
         setClick12(!click12);
     }
-
-    //add filter to array and rerender products
-    /*const onChange = (checkedValues) => {
-            
-            if (filters.length == 1) {
-                const newFilters = [...filters];
-                newFilters.push(checkedValues[0]);
-                setFilters(newFilters);
-                const filteredProducts = products.filter(product => (filters.includes(product.data.field_product_roll_size)) || (filters.includes(product.data.field_product_width_in)));
-                setProducts(filteredProducts); 
-            }
-            if (filters.length == 2) {
-                const newFilters = [...filters];
-                newFilters.push(checkedValues[0]);
-                setFilters(newFilters);
-                const filteredProducts = products.filter(product => (filters.includes(product.data.field_product_roll_size)) && (filters.includes(product.data.field_product_width_in)));
-                setProducts(filteredProducts); 
-            }
-            else {
-                setFilters(checkedValues);
-                const filteredProducts = baseProducts.filter(product => (filters.includes(product.data.field_product_roll_size)) || (filters.includes(product.data.field_product_width_in)));
-                setProducts(filteredProducts); 
-            }    
-    }*/
-
     
+    //add filters based on selection
     const onChange = (checkedValues) => {
-
-        
-
         if (filters.length > 0) {
             if (checkedValues != undefined && checkedValues.length > 0 && !filters.includes(checkedValues) && !filters.includes(checkedValues[0])) {
             setFilters(checkedValues);
@@ -150,10 +123,8 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
             } 
         }    
     }
+    //add and remove products based on filters
     React.useEffect(() => {
-        
-        
-       
         if ( on == true) {
             const filteredProducts = products.filter(product => 
                 (filters.includes(product.data.field_product_roll_size)) 
@@ -194,7 +165,7 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
 
         
     }, [filters]);
-
+    //clear filter button
     const clearFilters = () => {
         setFilters([]);
         setOn(false);
@@ -214,7 +185,7 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
     }
 
 
-    //get unique values of rollsizes and add to filters
+    //get filter data, turn into array, then use data in sidebar component to allow selection of filters
     const rollSize = [...new Set(products.map(fields => fields.data.field_product_roll_size))]
     const rollsizes = [];
     rollSize.sort().forEach(roll => {
@@ -275,8 +246,6 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         rollsizes.unshift(pop1[0]);
     }
     
-
-
     const width = [...new Set(products.map(fields => fields.data.field_product_width_in))]
     const widths = [];
     width.sort().forEach(width => {
@@ -375,52 +344,28 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
                             {/*each size has an onclick function that filters the products array*/}
                             {click ? <Checkbox.Group options={rollsizes} onChange={onChange}/> : null}
                         <li onClick={() => handleClick1()}>Width {click1 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
-                            {/*map through roll size array*/}
-                            {/*each size has an onclick function that filters the products array*/}
                             {click1 ? <Checkbox.Group options={widths} onChange={onChange}/> : null}
                         <li onClick={() => handleClick2()}>Length {click2 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
-                            {/*map through roll size array*/}
-                            {/*each size has an onclick function that filters the products array*/}
                             {click2 ? <Checkbox.Group options={lengths} onChange={onChange}/> : null}
                         <li onClick={() => handleClick3()}>Series {click3 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
-                            {/*map through roll size array*/}
-                            {/*each size has an onclick function that filters the products array*/}
                             {click3 ? <Checkbox.Group options={series} onChange={onChange}/> : null}
                         <li onClick={() => handleClick4()}>Color {click4 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
-                            {/*map through roll size array*/}
-                            {/*each size has an onclick function that filters the products array*/}
                             {click4 ? <Checkbox.Group options={colors} onChange={onChange}/> : null}
                         <li onClick={() => handleClick5()}>Finish {click5 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
-                            {/*map through roll size array*/}
-                            {/*each size has an onclick function that filters the products array*/}
                             {click5 ? <Checkbox.Group options={finishes} onChange={onChange}/> : null}
                         <li onClick={() => handleClick6()}>Color Number {click6 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
-                            {/*map through roll size array*/}
-                            {/*each size has an onclick function that filters the products array*/}
                             {click6 ? <Checkbox.Group options={colornumbers} onChange={onChange}/> : null}
                         <li onClick={() => handleClick7()}>Color Range {click7 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
-                            {/*map through roll size array*/}
-                            {/*each size has an onclick function that filters the products array*/}
                             {click7 ? <Checkbox.Group options={colorranges} onChange={onChange}/> : null}
                         <li onClick={() => handleClick8()}>Application {click8 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
-                            {/*map through roll size array*/}
-                            {/*each size has an onclick function that filters the products array*/}
                             {click8 ? <Checkbox.Group options={applications} onChange={onChange}/> : null}
                         <li onClick={() => handleClick9()}>Punched {click9 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
-                            {/*map through roll size array*/}
-                            {/*each size has an onclick function that filters the products array*/}
                             {click9 ? <Checkbox.Group options={puncheds} onChange={onChange}/> : null}
                         <li onClick={() => handleClick10()}>Surface {click10 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
-                            {/*map through roll size array*/}
-                            {/*each size has an onclick function that filters the products array*/}
                             {click10 ? <Checkbox.Group options={surfaces} onChange={onChange}/> : null}
                         <li onClick={() => handleClick11()}>Durability {click11 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
-                            {/*map through roll size array*/}
-                            {/*each size has an onclick function that filters the products array*/}
                             {click11 ? <Checkbox.Group options={durabilities} onChange={onChange}/> : null}
                         <li onClick={() => handleClick12()}>Vinyl Class {click12 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
-                            {/*map through roll size array*/}
-                            {/*each size has an onclick function that filters the products array*/}
                             {click12 ? <Checkbox.Group options={vinylclasses} onChange={onChange}/> : null}
                 </FilterContainer>
         </SidebarContainer>

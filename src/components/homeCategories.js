@@ -4,12 +4,13 @@ import * as React from "react"
 import styled from "styled-components"
 import { StaticImage } from "gatsby-plugin-image"
 import { useStaticQuery, graphql } from "gatsby"
+import Footer from "./footer"
 import "./styles/homeCategories.css";
 
 
 const Categories = styled.div`
     width: 297.5px;
-    height: 347.5px;
+    height: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 1em;
@@ -35,11 +36,11 @@ const HomeCategoriesHeader = styled.h1`
 
 const Wrapper = styled.div`
     width: 100%;
+    height: auto;
 `
 
 
 const HomeCategories = () => {
-    const arr = [688, 690];
     const digitalMediaChilds = [];
     const vinylAndAppTapesChilds = [];
     const vehicleWrapsChilds = [];
@@ -360,7 +361,7 @@ return (
                 <h3>New 2022 Catalog</h3>
             </a>
         </div>            
-        </Categories> 
+        </Categories>
     </Wrapper>  
     )
 }

@@ -14,8 +14,8 @@ const ProductList = styled.div`
 `
 
 const CastVinyl = ( data ) => {
-    //set products to state
-    //set filter to state
+    //set products to state 
+    //set filter to state and send to Siderbar to filter products
     const [count, setCount] = React.useState(24);
     const [products, setProducts] = React.useState(data.pageContext.data);
 
@@ -27,7 +27,7 @@ const CastVinyl = ( data ) => {
     
 
     return (
-        <div style={{width: "100%"}}> 
+        <div style={{width: "100%", marginTop: "-15px"}}> 
         <Header/>
         <div style={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
             <Sidebar 
@@ -42,7 +42,6 @@ const CastVinyl = ( data ) => {
             {products.slice(0, count).map(product => {
                 return (
                     <a href={`/vinyl/${product.data.sku}`}><div>
-                            
                             <StaticImage src="http://stagingsupply.htm-mbs.com/sites/default/files/default_images/drupalcommerce.png" width={250} alt=""/>
                              <h3>{product.data.title}</h3>
                                 <h5>{product.data.sku}</h5>

@@ -5,6 +5,7 @@ import { StaticImage } from "gatsby-plugin-image"
 import HomeCategories from "../components/homeCategories"
 import Header from "../components/header"
 import Footer from "../components/footer"
+import Extremefooter from "../components/extremefooter"
 import "./index.css"
 import MyCarousel from "../components/MyCarousel"
 import { StaticQuery, useStaticQuery, graphql } from "gatsby"
@@ -24,15 +25,14 @@ const Container = styled.div`
 const IndexPage = () => {
 
   return (
-    <div style={{width: "100%"}}>
-    <body>
+    <div style={{width: "100%", display: "flex", flexDirection: "column"}}>
       <Header />
         <Container>
           <MyCarousel />
           <HomeCategories />
         </Container>
-    </body>
       <Footer />
+      <Extremefooter />
     </div>
   )
 }

@@ -2,8 +2,7 @@ import * as React from "react";
 import styled from "styled-components"
 
 const Container = styled.div`
-    width: 100%;
-    background-color: #434343;
+    
 `
 
 const FooterWrap = styled.footer`
@@ -12,6 +11,20 @@ const FooterWrap = styled.footer`
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     margin-left: auto;
     margin-right: auto;
+    width: 100%;
+    background-color: #434343;
+    margin-top: 75px;
+    padding: 25px 18% 25px 18%;
+    @media (max-width: 900px) {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+`
+
+const FooterHeader = styled.h3`
+    color: white;
+    font-weight: bold;
 `
 
 const FooterCat = styled.div`
@@ -20,13 +33,15 @@ const FooterCat = styled.div`
     a {
         color: white;
     }
-    `
+    @media (max-width: 900px) {
+        margin-bottom: 20px;
+    }
+`
 
 const Footer = () => (
-    <Container>
     <FooterWrap>
         <FooterCat>
-            <h4>Company Info</h4>
+            <FooterHeader>Company Info</FooterHeader>
             <a>About Us</a>
             <a>Contact Us</a>
             <a>Legal</a>
@@ -34,13 +49,13 @@ const Footer = () => (
         </FooterCat>
         {/* IF logged in display My account, My Cart, My Orders, Wishlist, Log Out */}
         <FooterCat>
-            <h4>Account Info</h4>
+            <FooterHeader>Account Info</FooterHeader>
             <a>Sign In</a>
             <a>Create Account</a>
             <a>My Cart</a>
         </FooterCat>
         <FooterCat>
-            <h4>Company Contents</h4>
+            <FooterHeader>Company Contents</FooterHeader>
             <a>Frequently Asked Questions</a>
             <a>Testimonials</a>
             <a>Online Catalog &amp; Request</a>
@@ -49,11 +64,11 @@ const Footer = () => (
             <a>Careers</a>
         </FooterCat>
         <FooterCat>
-            <h4>Site Links</h4>
+            <FooterHeader>Site Links</FooterHeader>
             <a>Site Map</a>
         </FooterCat>
         <FooterCat>
-            <h4>Products</h4>
+            <FooterHeader>Products</FooterHeader>
             <a>Digital Media</a>
             <a>Vinyls &amp; Application Tapes</a>
             <a>Vehicle Wraps</a>
@@ -68,15 +83,14 @@ const Footer = () => (
             <a>Signs Stakes</a>
         </FooterCat>
         <FooterCat>
-            <h4>Tools</h4>
+            <FooterHeader>Tools</FooterHeader>
             <a>RAL to Pantone Conversion</a>
         </FooterCat>
         <FooterCat>
-            <h4>Business Links</h4>
+            <FooterHeader>Business Links</FooterHeader>
             <a>Credit Application</a>
         </FooterCat>
     </FooterWrap>
-    </Container>
 )
 
 export default Footer;
