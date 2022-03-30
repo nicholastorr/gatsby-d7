@@ -24,7 +24,7 @@ const CastVinyl = ( data ) => {
         setCount(count + 24);
     }
 
-    
+    console.log(data)
 
     return (
         <div style={{width: "100%", marginTop: "-15px"}}> 
@@ -40,9 +40,12 @@ const CastVinyl = ( data ) => {
             <h3>Product Count: {products.length}</h3>
             <ProductList>
             {products.slice(0, count).map(product => {
+              
                 return (
                     <a href={`/vinyl/${product.data.sku}`}><div>
-                            <StaticImage src="http://stagingsupply.htm-mbs.com/sites/default/files/default_images/drupalcommerce.png" width={250} alt=""/>
+                            {product.data.field_product_image.length > 0 ? 
+                            <ProductImage uuid={product.data.field_product_image[0].file.uuid}  /> : 
+                             <StaticImage src="http://stagingsupply.htm-mbs.com/sites/default/files/default_images/drupalcommerce.png" width={250} alt=""/>}
                              <h3>{product.data.title}</h3>
                                 <h5>{product.data.sku}</h5>
                     </div></a>

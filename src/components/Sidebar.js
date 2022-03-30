@@ -195,41 +195,54 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         rollsizes.push({ 'label': `${removelast}`, 'value': `${roll}` });
     });
     //order sizes
-    if (rollsizes.length > 1) {       
-        const pop4 = rollsizes.splice(38, 1);
-        const pop3 = rollsizes.splice(36, 1);
-        const pop2 = rollsizes.splice(33, 1);
-        const pop1 = rollsizes.splice(30, 1);
+    if (rollsizes.length > 64) {       
+        const pop1 = rollsizes.splice(39, 1);
+        const pop2 = rollsizes.splice(41, 1);
+        const pop3 = rollsizes.splice(47, 1);
+        const pop4 = rollsizes.splice(56, 1);
         const pop5 = rollsizes.splice(5, 1);
-        const pop6 = rollsizes.splice(35, 1);
+        const pop6 = rollsizes.splice(58, 1);
         const pop7 = rollsizes.splice(6, 1);
         const pop8 = rollsizes.splice(9, 1);
         const pop9 = rollsizes.splice(10, 1);
         const pop10 = rollsizes.splice(11, 1);
         const pop11 = rollsizes.splice(13, 1);
-        const pop12 = rollsizes.splice(15, 1);
-        const pop13 = rollsizes.splice(15, 1);
-        const pop14 = rollsizes.splice(18, 1);
-        const pop15 = rollsizes.splice(20, 1);
-        const pop16 = rollsizes.splice(20, 1);
-        const pop17 = rollsizes.splice(21, 1);
-        const pop18 = rollsizes.splice(22, 1);
-        const pop19 = rollsizes.splice(23, 1);
-        const pop20 = rollsizes.splice(12, 1);
-        const pop21 = rollsizes.splice(8, 1);
-        const pop22 = rollsizes.splice(15, 1);
-        const pop23 = rollsizes.splice(7, 1);
-        const pop24 = rollsizes.splice(13, 1);
+        const pop12 = rollsizes.splice(14, 1);
+        const pop13 = rollsizes.splice(16, 1);
+        const pop14 = rollsizes.splice(16, 1);
+        const pop15 = rollsizes.splice(28, 1);
+        const pop16 = rollsizes.splice(29, 1);
+        const pop17 = rollsizes.splice(30, 1);
+        const pop18 = rollsizes.splice(19, 1);
+        const pop19 = rollsizes.splice(37, 1);
+        const pop20 = rollsizes.splice(39, 1);
+        const pop21 = rollsizes.splice(44, 1);
+        const pop22 = rollsizes.splice(12, 1);
+        const pop23 = rollsizes.splice(22, 1);
+        const pop24 = rollsizes.splice(31, 1);
+        const pop25 = rollsizes.splice(32, 1);
+        const pop26 = rollsizes.splice(36, 1);
+        const pop27 = rollsizes.splice(8, 1);
+        const pop28 = rollsizes.splice(16, 1);
+        const pop29 = rollsizes.splice(7, 1);
+        const pop30 = rollsizes.splice(14, 1);
+
+        rollsizes.unshift(pop30[0]);
+        rollsizes.unshift(pop29[0]);
+        rollsizes.unshift(pop28[0]);
+        rollsizes.unshift(pop27[0]);
+        rollsizes.unshift(pop26[0]);
+        rollsizes.unshift(pop25[0]);
         rollsizes.unshift(pop24[0]);
         rollsizes.unshift(pop23[0]);
         rollsizes.unshift(pop22[0]);
         rollsizes.unshift(pop21[0]);
         rollsizes.unshift(pop20[0]);
         rollsizes.unshift(pop19[0]);
-        rollsizes.unshift(pop18[0]);
         rollsizes.unshift(pop17[0]);
         rollsizes.unshift(pop16[0]);
         rollsizes.unshift(pop15[0]);
+        rollsizes.unshift(pop18[0]);
         rollsizes.unshift(pop14[0]);
         rollsizes.unshift(pop13[0]);
         rollsizes.unshift(pop12[0]);
@@ -245,6 +258,7 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         rollsizes.unshift(pop2[0]);
         rollsizes.unshift(pop1[0]);
     }
+ 
     
     const width = [...new Set(products.map(fields => fields.data.field_product_width_in))]
     const widths = [];
@@ -252,23 +266,32 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         const refactorwidth = width.replace('973', '12').replace('00', '').replace('905', '4').replace('920', '5').replace('1108', '6').replace('912', '8').replace('916', '10');
         widths.push({ 'label': `${refactorwidth}"`, 'value': `${width}`});
     })
-    if (widths.length > 1) {
-        const wop1 = widths.splice(11, 1);
-        widths.unshift(wop1[0]);
-    }
+    //order widths
+ 
+
 
     const length = [...new Set(products.map(fields => fields.data.field_product_length_in_yards))]
     const lengths = [];
     length.sort().forEach(length => {
-        lengths.push({ 'label': `${length}`, 'value': `${length}`});
+        lengths.push({ 'label': `${length.replace("_yards", " yds")}`, 'value': `${length}`});
     })
+    if (lengths.length > 5) {       
+        const pop1 = lengths.splice(5, 1);
+        const pop2 = lengths.splice(4, 1);
+        const pop3 = lengths.splice(4, 1);
+        const pop4 = lengths.splice(3, 1);
+        lengths.splice(2, 0, pop4[0]);
+        lengths.splice(1, 0, pop3[0]);
+        lengths.splice(1, 0, pop2[0]);
+        lengths.unshift(pop1[0]);
+    }
 
     const serie = [...new Set(products.map(fields => fields.data.field_product_series))]
     const series = [];
     serie.sort().forEach(serie => {
         const refactorSeries = serie.replace('_', ' ').replace('-', ' ');
         const uppercase = refactorSeries.toString().toUpperCase();
-        series.push({ 'label': `${uppercase}`, 'value': `${serie}`});
+        series.push({ 'label': `${uppercase.replace("_", " ")}`, 'value': `${serie}`});
     })
 
     const color = [...new Set(products.map(fields => fields.data.field_product_color))]
@@ -289,9 +312,10 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
 
     const colornumber = [...new Set(products.map(fields => fields.data.field_product_color_number))]
     const colornumbers = [];
-    colornumber.sort().forEach(colornumber => {
+    colornumber.forEach(colornumber => {
         colornumbers.push({ 'label': `${colornumber}`, 'value': `${colornumber}`});
     })
+    //console.log(colornumbers.sort(function(a,b) {return (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0);} )); 
 
     const colorrange = [...new Set(products.map(fields => fields.data.field_product_color_range))]
     const colorranges = [];
@@ -329,6 +353,7 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         vinylclasses.push({ 'label': `${vinylclass}`, 'value': `${vinylclass}`});
     })
 
+    console.log(products);
     return (
         <SidebarContainer>
                 <ul><h2 style={{fontWeight: "bold", marginTop: "30px"}}>Sub Categories</h2></ul>
@@ -344,8 +369,8 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
                             {/*each size has an onclick function that filters the products array*/}
                             {click ? <Checkbox.Group options={rollsizes} onChange={onChange}/> : null}
                         <li onClick={() => handleClick1()}>Width {click1 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
-                            {click1 ? <Checkbox.Group options={widths} onChange={onChange}/> : null}
-                        <li onClick={() => handleClick2()}>Length {click2 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
+                            {click1 ? <Checkbox.Group options={widths.sort()} onChange={onChange}/> : null}
+                        <li onClick={() => handleClick2()}>Length (in feet) {click2 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
                             {click2 ? <Checkbox.Group options={lengths} onChange={onChange}/> : null}
                         <li onClick={() => handleClick3()}>Series {click3 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
                             {click3 ? <Checkbox.Group options={series} onChange={onChange}/> : null}
