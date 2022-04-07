@@ -899,7 +899,7 @@ const ProductImage = (uuid) => {
     
   const image = imageData.allFiles.nodes.filter(node => node.data.uuid == uuid.uuid)
 
-console.log(image)
+
     return (
         <div>
             {image.length > 0 ? <img src={image[0].data.url} alt={image[0].data.field_file_image_alt_text} width={250} /> : <img src="https://mbs-standoffs.com/web/images/mbs-standoffs.svg"  width={250}/>}

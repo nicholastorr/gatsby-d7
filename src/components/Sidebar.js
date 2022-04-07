@@ -263,28 +263,34 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
     const width = [...new Set(products.map(fields => fields.data.field_product_width_in))]
     const widths = [];
     width.sort().forEach(width => {
-        const refactorwidth = width.replace('973', '12').replace('00', '').replace('905', '4').replace('920', '5').replace('1108', '6').replace('912', '8').replace('916', '10');
+        const refactorwidth = width.replace('973', '12').replace('00', '').replace('905', '4').replace('920', '5').replace('1108', '6').replace('912', '8').replace('916', '10').replace('"', '');
         widths.push({ 'label': `${refactorwidth}"`, 'value': `${width}`});
     })
     //order widths
- 
+    if (widths.length > 24) {
+        const pop1 = widths.splice(14, 1);
+        const pop2 = widths.splice(1, 1);
+        widths.unshift(pop2[0]);
+        widths.unshift(pop1[0]);
+
+    }
+
 
 
     const length = [...new Set(products.map(fields => fields.data.field_product_length_in_yards))]
     const lengths = [];
     length.sort().forEach(length => {
-        lengths.push({ 'label': `${length.replace("_yards", " yds")}`, 'value': `${length}`});
+        lengths.push({ 'label': `${length.replace("_yards", "")}`, 'value': `${length}`});
     })
-    if (lengths.length > 5) {       
+    if (lengths.length > 6) {       
         const pop1 = lengths.splice(5, 1);
         const pop2 = lengths.splice(4, 1);
         const pop3 = lengths.splice(4, 1);
-        const pop4 = lengths.splice(3, 1);
-        lengths.splice(2, 0, pop4[0]);
-        lengths.splice(1, 0, pop3[0]);
-        lengths.splice(1, 0, pop2[0]);
-        lengths.unshift(pop1[0]);
+        lengths.splice(0, 0, pop1[0]);
+        lengths.splice(2, 0, pop2[0]);
+        lengths.splice(3, 0, pop3[0]);
     }
+    console.log(lengths);
 
     const serie = [...new Set(products.map(fields => fields.data.field_product_series))]
     const series = [];
@@ -370,7 +376,7 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
                             {click ? <Checkbox.Group options={rollsizes} onChange={onChange}/> : null}
                         <li onClick={() => handleClick1()}>Width {click1 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
                             {click1 ? <Checkbox.Group options={widths.sort()} onChange={onChange}/> : null}
-                        <li onClick={() => handleClick2()}>Length (in feet) {click2 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
+                        <li onClick={() => handleClick2()}>Length (in yards) {click2 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
                             {click2 ? <Checkbox.Group options={lengths} onChange={onChange}/> : null}
                         <li onClick={() => handleClick3()}>Series {click3 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
                             {click3 ? <Checkbox.Group options={series} onChange={onChange}/> : null}

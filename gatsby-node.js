@@ -31,9 +31,7 @@ exports.onPreBootstrap = () => {
                 }
                 field_product_series
                 field_product_roll_size
-                field_product_width
                 field_product_width_in
-                field_product_length
                 field_product_length_in_yards
                 field_product_finish
                 field_product_color
@@ -15835,7 +15833,7 @@ exports.onPreBootstrap = () => {
       }
     }
   }`)
-  
+
 
 
     createPage({
@@ -15844,12 +15842,12 @@ exports.onPreBootstrap = () => {
         context: {
             //need to make this dynamic
             data: castVinyl.data.allCommerceProduct.nodes,
-            images: castimages,
         },
     })
 
+  }
 
 
- }
 
+ 
  
