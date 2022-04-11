@@ -35,6 +35,7 @@ const SubCategories = styled.div`
 `
 
 const FilterContainer = styled.div`
+    width: 100%;
     list-style-type: none;
     li {
         font-weight: bold;
@@ -44,6 +45,7 @@ const FilterContainer = styled.div`
         padding-top: 10px;
         display: flex;
         justify-content: space-between;
+        overflow-wrap: break-word;
     }
 
 `
@@ -263,18 +265,35 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
     const width = [...new Set(products.map(fields => fields.data.field_product_width_in))]
     const widths = [];
     width.sort().forEach(width => {
-        const refactorwidth = width.replace('973', '12').replace('00', '').replace('905', '4').replace('920', '5').replace('1108', '6').replace('912', '8').replace('916', '10').replace('"', '');
+        const refactorwidth = width.replace('"', '').replace("00", "").replace("1108", "6").replace("in", "");
         widths.push({ 'label': `${refactorwidth}"`, 'value': `${width}`});
     })
     //order widths
+    console.log(widths);
     if (widths.length > 24) {
-        const pop1 = widths.splice(14, 1);
-        const pop2 = widths.splice(1, 1);
+        const pop1 = widths.splice(1, 1);
+        const pop2 = widths.splice(12, 1);
         widths.unshift(pop2[0]);
         widths.unshift(pop1[0]);
-
+        const pop3 = widths.splice(13, 1)
+        widths.splice(3, 0, pop3[0])
+        const pop4 = widths.splice(10, 1)
+        widths.splice(4, 0, pop4[0])
+        const pop5 = widths.splice(13, 1)
+        widths.splice(5, 0, pop5[0])
+        const pop6 = widths.splice(17, 1)
+        widths.splice(6, 0, pop6[0])
+        const pop7 = widths.splice(19, 1)
+        widths.splice(7, 0, pop7[0])
+        const pop8 = widths.splice(21, 1)
+        widths.splice(8, 0, pop8[0])
+        const pop9 = widths.splice(10, 1)
+        widths.splice(9, 0, pop9[0])
+        const pop10 = widths.splice(23, 1)
+        widths.splice(10, 0, pop10[0])
+        const pop11 = widths.splice(24, 1)
+        widths.splice(11, 0, pop11[0])
     }
-
 
 
     const length = [...new Set(products.map(fields => fields.data.field_product_length_in_yards))]
@@ -283,14 +302,16 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         lengths.push({ 'label': `${length.replace("_yards", "")}`, 'value': `${length}`});
     })
     if (lengths.length > 6) {       
-        const pop1 = lengths.splice(5, 1);
-        const pop2 = lengths.splice(4, 1);
-        const pop3 = lengths.splice(4, 1);
-        lengths.splice(0, 0, pop1[0]);
-        lengths.splice(2, 0, pop2[0]);
-        lengths.splice(3, 0, pop3[0]);
+        const pop1 = lengths.splice(6, 1)
+        lengths.splice(0, 0, pop1[0])
+        const pop2 = lengths.splice(2, 1)
+        lengths.splice(1, 0, pop2[0])
+        const pop3 = lengths.splice(5, 1)
+        lengths.splice(2, 0, pop3[0])
+        const pop4 = lengths.splice(6, 1)
+        lengths.splice(3, 0, pop4[0])
     }
-    console.log(lengths);
+
 
     const serie = [...new Set(products.map(fields => fields.data.field_product_series))]
     const series = [];
@@ -303,10 +324,11 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
     const color = [...new Set(products.map(fields => fields.data.field_product_color))]
     const colors = [];
     color.sort().forEach(color => {
-        const refactorcolor = color.replaceAll('_', ' ').replaceAll('-', ' ').replace('100', 'Gloss Blue').replace('101', 'Gloss Gold').replace('102', 'Gloss Orange').replace('105', 'Gloss Yellow').replace('1200', 'Gloss Green').replace('1269', 'Gloss Silver').replace('1283', 'Gloss Red').replace('1269', 'Gloss Silver').replace('1290', 'Gloss White').replace('1317', 'Clear');
+        const refactorcolor = color.replaceAll('_', ' ').replaceAll('-', ' ').replace('100', 'Blue').replace('101', 'Gloss Gold').replace('102', 'Gloss Orange').replace('105', 'Gloss Yellow').replace('1200', 'Gloss Green').replace('1269', 'Gloss Silver').replace('1283', 'Gloss Red').replace('1269', 'Gloss Silver').replace('1290', 'Gloss White').replace('1317', 'Clear');
         const newcolor = refactorcolor.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
         colors.push({ 'label': `${newcolor}`, 'value': `${color}`});
     })
+
 
     const finish = [...new Set(products.map(fields => fields.data.field_product_finish))]
     const finishes = [];
@@ -315,6 +337,7 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         const newfinish = refactorfinish.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
         finishes.push({ 'label': `${newfinish}`, 'value': `${finish}`});
     })
+
 
     const colornumber = [...new Set(products.map(fields => fields.data.field_product_color_number))]
     const colornumbers = [];
@@ -326,45 +349,58 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
     const colorrange = [...new Set(products.map(fields => fields.data.field_product_color_range))]
     const colorranges = [];
     colorrange.sort().forEach(colorrange => {
-        colorranges.push({ 'label': `${colorrange}`, 'value': `${colorrange}`});
+        if (colorrange) {
+            colorranges.push({ 'label': `${colorrange}`, 'value': `${colorrange}`});
+        }
     })
 
     const application = [...new Set(products.map(fields => fields.data.field_product_application))]
     const applications = [];
     application.sort().forEach(application => {
-        applications.push({ 'label': `${application}`, 'value': `${application}`});
+        if (application) {
+            const refactorapp = application.replaceAll('_', ' ').replaceAll('-', ' ')
+            const newapp = refactorapp.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+            applications.push({ 'label': `${newapp}`, 'value': `${application}`});
+        }
     })
+
 
     const punched = [...new Set(products.map(fields => fields.data.field_product_punched))]
     const puncheds = [];
     punched.sort().forEach(punched => {
-        puncheds.push({ 'label': `${punched}`, 'value': `${punched}`});
+        if (punched) {
+            puncheds.push({ 'label': `${punched}`, 'value': `${punched}`});
+        }
     })
 
     const surface = [...new Set(products.map(fields => fields.data.field_product_surface))]
     const surfaces = [];
     surface.sort().forEach(surface => {
-        surfaces.push({ 'label': `${surface}`, 'value': `${surface}`});
+        const refactorsurface = surface.replaceAll('_', ' ').replaceAll('-', ' ')
+        const newsurface = refactorsurface.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        surfaces.push({ 'label': `${newsurface}`, 'value': `${surface}`});
     })
 
     const durability = [...new Set(products.map(fields => fields.data.field_product_durability))]
     const durabilities = [];
     durability.sort().forEach(durability => {
-        durabilities.push({ 'label': `${durability}`, 'value': `${durability}`});
+        durabilities.push({ 'label': `${durability.replace("_", " ").replace("-years", " years").replace("_or_", " or ")}`, 'value': `${durability}`});
     })
 
     const vinylclass = [...new Set(products.map(fields => fields.data.field_product_vinyl_class))]
     const vinylclasses = [];
     vinylclass.sort().forEach(vinylclass => {
-        vinylclasses.push({ 'label': `${vinylclass}`, 'value': `${vinylclass}`});
+        if (vinylclass) {
+            vinylclasses.push({ 'label': `${vinylclass}`, 'value': `${vinylclass}`});
+        }
     })
 
-    console.log(products);
+
     return (
         <SidebarContainer>
                 <ul><h2 style={{fontWeight: "bold", marginTop: "30px"}}>Sub Categories</h2></ul>
                 <SubCategories>
-                    <a href="/vinyls/calendered_vinyl"><li><UnorderedListOutlined />Calendered Vinyl</li></a>
+                    <a href="/calendered-vinyl"><li><UnorderedListOutlined />Calendered Vinyl</li></a>
                     <a href="/cast-vinyl"><li className="active"><UnorderedListOutlined />Cast Vinyl</li></a>
                 </SubCategories>
                 <h2 style={{fontWeight: "bold", marginTop: "25px", textAlign: "center", borderBottom: "1px solid black", paddingBottom: "10px"}}>Filters</h2>
@@ -385,15 +421,15 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
                         <li onClick={() => handleClick5()}>Finish {click5 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
                             {click5 ? <Checkbox.Group options={finishes} onChange={onChange}/> : null}
                         <li onClick={() => handleClick6()}>Color Number {click6 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
-                            {click6 ? <Checkbox.Group options={colornumbers} onChange={onChange}/> : null}
+                            {click6 ? <Checkbox.Group options={colornumbers.sort()} onChange={onChange}/> : null}
                         <li onClick={() => handleClick7()}>Color Range {click7 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
                             {click7 ? <Checkbox.Group options={colorranges} onChange={onChange}/> : null}
                         <li onClick={() => handleClick8()}>Application {click8 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
-                            {click8 ? <Checkbox.Group options={applications} onChange={onChange}/> : null}
+                            {click8 ? <Checkbox.Group options={applications} onChange={onChange} style={{overflowWrap: "anywhere"}}/> : null}
                         <li onClick={() => handleClick9()}>Punched {click9 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
                             {click9 ? <Checkbox.Group options={puncheds} onChange={onChange}/> : null}
                         <li onClick={() => handleClick10()}>Surface {click10 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
-                            {click10 ? <Checkbox.Group options={surfaces} onChange={onChange}/> : null}
+                            {click10 ? <Checkbox.Group options={surfaces} onChange={onChange} style={{overflowWrap: "anywhere"}}/> : null}
                         <li onClick={() => handleClick11()}>Durability {click11 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
                             {click11 ? <Checkbox.Group options={durabilities} onChange={onChange}/> : null}
                         <li onClick={() => handleClick12()}>Vinyl Class {click12 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
