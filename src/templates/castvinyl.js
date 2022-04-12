@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { graphql } from 'gatsby';
 import { StaticImage } from 'gatsby-plugin-image';
-import ProductImage from '../components/ProductImage';
+import ProductImage from '../components/cast-vinyl/ProductImage';
 import  styled  from 'styled-components';
-import { Sidebar } from '../components/Sidebar';
+import { Sidebar } from '../components/cast-vinyl/Sidebar';
 import  Header  from '../components/header';
 
 

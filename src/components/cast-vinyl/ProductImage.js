@@ -902,7 +902,7 @@ const ProductImage = (uuid) => {
 
     return (
         <div>
-            {image.length > 0 ? <img src={image[0].data.url} alt={image[0].data.field_file_image_alt_text} width={250} /> : <img src="https://mbs-standoffs.com/web/images/mbs-standoffs.svg"  width={250}/>}
+            {image.length > 0 ? <img src={image[0].data.url} alt={image[0].data.field_file_image_alt_text} width={250} /> : <StaticImage src="http://stagingsupply.htm-mbs.com/sites/default/files/default_images/drupalcommerce.png" alt="logo"  width={250}/>}
         </div>
     )
 }

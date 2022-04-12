@@ -18,7 +18,7 @@ exports.onPreBootstrap = () => {
     const calenderedVinyl = await graphql(`
     {
         allCommerceProduct(
-            filter: {data: {field_web_site: {elemMatch: {id: {eq: "10482"}}}, type: {eq: "vinyl"}, field_category: {eq: "calendered_vinyl"}}}
+            filter: {data: {field_web_site: {elemMatch: {id: {eq: "10482"}}}, type: {eq: "vinyl"}, field_category: {in: "calendered_vinyl"}}}
           ) {
             nodes {
               data {
@@ -32,6 +32,7 @@ exports.onPreBootstrap = () => {
                 field_product_width_in
                 field_product_length_in_yards
                 field_product_finish
+                field_product_brand
                 field_product_color
                 field_product_color_number
                 field_product_color_range
@@ -44,6 +45,9 @@ exports.onPreBootstrap = () => {
                 field_product_vinyl_class
                 sku
                 title
+                commerce_price {
+                  amount_decimal
+                }
               }
             }
           }
@@ -81,6 +85,9 @@ exports.onPreBootstrap = () => {
                 field_product_vinyl_class
                 sku
                 title
+                commerce_price {
+                  amount_decimal
+                }
               }
             }
           }

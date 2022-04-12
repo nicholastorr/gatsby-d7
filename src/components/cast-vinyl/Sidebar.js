@@ -1,9 +1,7 @@
-
 import * as React from 'react';
 import { Checkbox } from 'antd';
 import { UnorderedListOutlined, PlusOutlined, MinusOutlined } from '@ant-design/icons';
 import { SidebarContainer, SubCategories, FilterContainer } from '../styles/styledComponents';
-
 
 
 
@@ -23,7 +21,9 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
     const [click10, setClick10] = React.useState(false);
     const [click11, setClick11] = React.useState(false);
     const [click12, setClick12] = React.useState(false);
+   
 
+    //open and close selected filter
     const handleClick = () => {
         setClick(!click);
     }
@@ -63,8 +63,8 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
     const handleClick12 = () => {
         setClick12(!click12);
     }
-    console.log(products);
-
+    
+    //add filters based on selection
     const onChange = (checkedValues) => {
         if (filters.length > 0) {
             if (checkedValues != undefined && checkedValues.length > 0 && !filters.includes(checkedValues) && !filters.includes(checkedValues[0])) {
@@ -80,7 +80,7 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
             } 
         }    
     }
-
+    //add and remove products based on filters
     React.useEffect(() => {
         if ( on == true) {
             const filteredProducts = products.filter(product => 
@@ -94,12 +94,13 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
             || (filters.includes(product.data.field_product_application))
             || (filters.includes(product.data.field_product_punched))
             || (filters.includes(product.data.field_product_surface))
-            || (filters.includes(product.data.field_product_brand))
+            || (filters.includes(product.data.field_product_durability))
+            || (filters.includes(product.data.field_product_vinyl_class))
             || (filters.includes(product.data.field_product_finish)));
             setProducts(filteredProducts);
             setOn(true);
         }
-
+       
         else if (filters.length > 0) {
             const filteredProducts = baseProducts.filter(product => 
                 (filters.includes(product.data.field_product_roll_size)) 
@@ -112,12 +113,14 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
             || (filters.includes(product.data.field_product_application))
             || (filters.includes(product.data.field_product_punched))
             || (filters.includes(product.data.field_product_surface))
-            || (filters.includes(product.data.field_product_brand))
+            || (filters.includes(product.data.field_product_durability))
+            || (filters.includes(product.data.field_product_vinyl_class))
             || (filters.includes(product.data.field_product_finish)));
             setProducts(filteredProducts);
             setOn(true);
         }
 
+        
     }, [filters]);
     //clear filter button
     const clearFilters = () => {
@@ -139,188 +142,131 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
     }
 
 
-    const brand = [...new Set(products.map(product => product.data.field_product_brand))];
-    const brands = [];
-    brand.forEach(brand => {
-        if (brand){
-            brands.push({ 'label': `${brand[0].toUpperCase() + brand.slice(1)}`, 'value': `${brand}`});
-        }
-    });
-
+    //get filter data, turn into array, then use data in sidebar component to allow selection of filters
     const rollSize = [...new Set(products.map(fields => fields.data.field_product_roll_size))]
     const rollsizes = [];
     rollSize.sort().forEach(roll => {
         const removefirstscore = roll.replace('_','" ').replace('-x-', '" x ');
         const removesecscore = removefirstscore.replace('_',' ').replace('-x-', ' x ');
         const removelast = removesecscore.replace('_',' ').replace('-yards', ' yards').replace('-yds', ' yds');
-        rollsizes.push({ 'label': `${removelast.replace('""', '"')}`, 'value': `${roll}` });
+        rollsizes.push({ 'label': `${removelast}`, 'value': `${roll}` });
     });
-
-    if (rollsizes.length > 71) {
-        const pop1 = rollsizes.splice(5, 1);
-        const pop2 = rollsizes.splice(70, 1);
-        const pop3 = rollsizes.splice(6, 1);
-        const pop4 = rollsizes.splice(9, 1);
-        const pop5 = rollsizes.splice(10, 1);
-        const pop6 = rollsizes.splice(11, 1);
-        const pop7 = rollsizes.splice(14, 1);
-        const pop8 = rollsizes.splice(15, 1);
-        const pop9 = rollsizes.splice(20, 1);
-        const pop10 = rollsizes.splice(24, 1);
-        const pop11 = rollsizes.splice(29, 1);
-        const pop12 = rollsizes.splice(34, 1);
-        const pop13 = rollsizes.splice(35, 1);
-        const pop14 = rollsizes.splice(41, 1);
-        const pop15 = rollsizes.splice(47, 1);
-        const pop16 = rollsizes.splice(57, 1);
-        const pop17 = rollsizes.splice(11, 1);
+    //order sizes
+    if (rollsizes.length > 64) {       
+        const pop1 = rollsizes.splice(39, 1);
+        const pop2 = rollsizes.splice(41, 1);
+        const pop3 = rollsizes.splice(47, 1);
+        const pop4 = rollsizes.splice(56, 1);
+        const pop5 = rollsizes.splice(5, 1);
+        const pop6 = rollsizes.splice(58, 1);
+        const pop7 = rollsizes.splice(6, 1);
+        const pop8 = rollsizes.splice(9, 1);
+        const pop9 = rollsizes.splice(10, 1);
+        const pop10 = rollsizes.splice(11, 1);
+        const pop11 = rollsizes.splice(13, 1);
+        const pop12 = rollsizes.splice(14, 1);
+        const pop13 = rollsizes.splice(16, 1);
+        const pop14 = rollsizes.splice(16, 1);
+        const pop15 = rollsizes.splice(28, 1);
+        const pop16 = rollsizes.splice(29, 1);
+        const pop17 = rollsizes.splice(30, 1);
         const pop18 = rollsizes.splice(19, 1);
-        const pop19 = rollsizes.splice(38, 1);
-        const pop20 = rollsizes.splice(40, 1);
-        const pop21 = rollsizes.splice(45, 1);
-        const pop22 = rollsizes.splice(8, 1);
-        const pop23 = rollsizes.splice(20, 1);
-        const pop24 = rollsizes.splice(7, 1);
-        const pop25 = rollsizes.splice(18, 1);
-        const pop26 = rollsizes.splice(11, 1);
-        const pop27 = rollsizes.splice(11, 1);
-        const pop28 = rollsizes.splice(15, 1);
-        const pop29 = rollsizes.splice(15, 1);
-        const pop30 = rollsizes.splice(19, 1);
-        const pop31 = rollsizes.splice(22, 1);
-        const pop32 = rollsizes.splice(22, 1);
-        const pop33 = rollsizes.splice(22, 1);
-        const pop34 = rollsizes.splice(26, 1);
-        const pop35 = rollsizes.splice(30, 1);
-        const pop36 = rollsizes.splice(37, 1);
-        const pop37 = rollsizes.splice(11, 1);
-        const pop38 = rollsizes.splice(14, 1);
-        const pop39 = rollsizes.splice(17, 1);
-        const pop40 = rollsizes.splice(19, 1);
-        const pop41 = rollsizes.splice(22, 1);
-        const pop42 = rollsizes.splice(25, 1);
-        const pop43 = rollsizes.splice(28, 1);
-        const pop44 = rollsizes.splice(12, 1);
-        const pop45 = rollsizes.splice(15, 1);
-        const pop46 = rollsizes.splice(16, 1);
-        const pop47 = rollsizes.splice(17, 1);
-        const pop48 = rollsizes.splice(19, 1);
-        const pop49 = rollsizes.splice(21, 1);
-        const pop50 = rollsizes.splice(22, 1);
-        const pop51 = rollsizes.splice(12, 1);
-        const pop52 = rollsizes.splice(12, 1);
-        const pop53 = rollsizes.splice(13, 1);
-        const pop54 = rollsizes.splice(14, 1);
-        const pop55 = rollsizes.splice(15, 1);
-        const pop56 = rollsizes.splice(16, 1);
-        const pop57 = rollsizes.splice(16, 1);
-        rollsizes.splice(0, 0, pop1[0]);
-        rollsizes.splice(1, 0, pop2[0]);
-        rollsizes.splice(2, 0, pop3[0]);
-        rollsizes.splice(3, 0, pop4[0]);
-        rollsizes.splice(4, 0, pop5[0]);
-        rollsizes.splice(5, 0, pop6[0]);
-        rollsizes.splice(6, 0, pop7[0]);
-        rollsizes.splice(7, 0, pop8[0]);
-        rollsizes.splice(8, 0, pop9[0]);
-        rollsizes.splice(9, 0, pop10[0]);
-        rollsizes.splice(10, 0, pop11[0]);
-        rollsizes.splice(11, 0, pop12[0]);
-        rollsizes.splice(12, 0, pop13[0]);
-        rollsizes.splice(13, 0, pop14[0]);
-        rollsizes.splice(14, 0, pop15[0]);
-        rollsizes.splice(15, 0, pop16[0]);
-        rollsizes.splice(16, 0, pop17[0]);
-        rollsizes.splice(17, 0, pop18[0]);
-        rollsizes.splice(18, 0, pop19[0]);
-        rollsizes.splice(19, 0, pop20[0]);
-        rollsizes.splice(20, 0, pop21[0]);
-        rollsizes.splice(21, 0, pop22[0]);
-        rollsizes.splice(22, 0, pop23[0]);
-        rollsizes.splice(23, 0, pop24[0]);
-        rollsizes.splice(24, 0, pop25[0]);
-        rollsizes.splice(35, 0, pop26[0]);
-        rollsizes.splice(36, 0, pop27[0]);
-        rollsizes.splice(37, 0, pop28[0]);
-        rollsizes.splice(38, 0, pop29[0]);
-        rollsizes.splice(39, 0, pop30[0]);
-        rollsizes.splice(40, 0, pop31[0]);
-        rollsizes.splice(41, 0, pop32[0]);
-        rollsizes.splice(42, 0, pop33[0]);
-        rollsizes.splice(43, 0, pop34[0]);
-        rollsizes.splice(44, 0, pop35[0]);
-        rollsizes.splice(45, 0, pop36[0]);
-        rollsizes.splice(46, 0, pop37[0]);
-        rollsizes.splice(47, 0, pop38[0]);
-        rollsizes.splice(48, 0, pop39[0]);
-        rollsizes.splice(49, 0, pop40[0]);
-        rollsizes.splice(50, 0, pop41[0]);
-        rollsizes.splice(51, 0, pop42[0]);
-        rollsizes.splice(52, 0, pop43[0]);
-        rollsizes.splice(53, 0, pop44[0]);
-        rollsizes.splice(54, 0, pop45[0]);
-        rollsizes.splice(55, 0, pop46[0]);
-        rollsizes.splice(56, 0, pop47[0]);
-        rollsizes.splice(57, 0, pop48[0]);
-        rollsizes.splice(58, 0, pop49[0]);
-        rollsizes.splice(59, 0, pop50[0]);
-        rollsizes.splice(60, 0, pop51[0]);
-        rollsizes.splice(61, 0, pop52[0]);
-        rollsizes.splice(62, 0, pop53[0]);
-        rollsizes.splice(63, 0, pop54[0]);
-        rollsizes.splice(64, 0, pop55[0]);
-        rollsizes.splice(65, 0, pop56[0]);
-        rollsizes.splice(66, 0, pop57[0]);
-    }
+        const pop19 = rollsizes.splice(37, 1);
+        const pop20 = rollsizes.splice(39, 1);
+        const pop21 = rollsizes.splice(44, 1);
+        const pop22 = rollsizes.splice(12, 1);
+        const pop23 = rollsizes.splice(22, 1);
+        const pop24 = rollsizes.splice(31, 1);
+        const pop25 = rollsizes.splice(32, 1);
+        const pop26 = rollsizes.splice(36, 1);
+        const pop27 = rollsizes.splice(8, 1);
+        const pop28 = rollsizes.splice(16, 1);
+        const pop29 = rollsizes.splice(7, 1);
+        const pop30 = rollsizes.splice(14, 1);
 
+        rollsizes.unshift(pop30[0]);
+        rollsizes.unshift(pop29[0]);
+        rollsizes.unshift(pop28[0]);
+        rollsizes.unshift(pop27[0]);
+        rollsizes.unshift(pop26[0]);
+        rollsizes.unshift(pop25[0]);
+        rollsizes.unshift(pop24[0]);
+        rollsizes.unshift(pop23[0]);
+        rollsizes.unshift(pop22[0]);
+        rollsizes.unshift(pop21[0]);
+        rollsizes.unshift(pop20[0]);
+        rollsizes.unshift(pop19[0]);
+        rollsizes.unshift(pop17[0]);
+        rollsizes.unshift(pop16[0]);
+        rollsizes.unshift(pop15[0]);
+        rollsizes.unshift(pop18[0]);
+        rollsizes.unshift(pop14[0]);
+        rollsizes.unshift(pop13[0]);
+        rollsizes.unshift(pop12[0]);
+        rollsizes.unshift(pop11[0]);
+        rollsizes.unshift(pop10[0]);
+        rollsizes.unshift(pop9[0]);
+        rollsizes.unshift(pop8[0]);
+        rollsizes.unshift(pop7[0]);
+        rollsizes.unshift(pop6[0]);
+        rollsizes.unshift(pop5[0]);
+        rollsizes.unshift(pop4[0]);
+        rollsizes.unshift(pop3[0]);
+        rollsizes.unshift(pop2[0]);
+        rollsizes.unshift(pop1[0]);
+    }
+ 
+    
     const width = [...new Set(products.map(fields => fields.data.field_product_width_in))]
     const widths = [];
     width.sort().forEach(width => {
         const refactorwidth = width.replace('"', '').replace("00", "").replace("1108", "6").replace("in", "");
         widths.push({ 'label': `${refactorwidth}"`, 'value': `${width}`});
     })
-
-    if (widths.length > 25) {
+    //order widths
+    console.log(widths);
+    if (widths.length > 24) {
         const pop1 = widths.splice(1, 1);
-        const pop2 = widths.splice(10, 1);
-        const pop3 = widths.splice(9, 1);
-        const pop4 = widths.splice(4, 1);
-        const pop5 = widths.splice(7, 1);
-        const pop6 = widths.splice(11, 1);
-        const pop7 = widths.splice(11, 1);
-        const pop8 = widths.splice(13, 1);
-        const pop9 = widths.splice(13, 1);
-        const pop10 = widths.splice(15, 1);
-        const pop11 = widths.splice(15, 1);
-        widths.splice(0, 0, pop1[0]);
-        widths.splice(1, 0, pop2[0]);
-        widths.splice(3, 0, pop3[0]);
-        widths.splice(4, 0, pop4[0]);
-        widths.splice(5, 0, pop5[0]);
-        widths.splice(6, 0, pop6[0]);
-        widths.splice(7, 0, pop7[0]);
-        widths.splice(8, 0, pop8[0]);
-        widths.splice(9, 0, pop9[0]);
-        widths.splice(10, 0, pop10[0]);
-        widths.splice(11, 0, pop11[0]);
+        const pop2 = widths.splice(12, 1);
+        widths.unshift(pop2[0]);
+        widths.unshift(pop1[0]);
+        const pop3 = widths.splice(13, 1)
+        widths.splice(3, 0, pop3[0])
+        const pop4 = widths.splice(10, 1)
+        widths.splice(4, 0, pop4[0])
+        const pop5 = widths.splice(13, 1)
+        widths.splice(5, 0, pop5[0])
+        const pop6 = widths.splice(17, 1)
+        widths.splice(6, 0, pop6[0])
+        const pop7 = widths.splice(19, 1)
+        widths.splice(7, 0, pop7[0])
+        const pop8 = widths.splice(21, 1)
+        widths.splice(8, 0, pop8[0])
+        const pop9 = widths.splice(10, 1)
+        widths.splice(9, 0, pop9[0])
+        const pop10 = widths.splice(23, 1)
+        widths.splice(10, 0, pop10[0])
+        const pop11 = widths.splice(24, 1)
+        widths.splice(11, 0, pop11[0])
     }
 
-       
+
     const length = [...new Set(products.map(fields => fields.data.field_product_length_in_yards))]
     const lengths = [];
     length.sort().forEach(length => {
         lengths.push({ 'label': `${length.replace("_yards", "")}`, 'value': `${length}`});
     })
-
-    if (lengths.length > 6) {
-        const pop1 = lengths.splice(1, 1);
-        const pop2 = lengths.splice(4, 1);
-        const pop3 = lengths.splice(4, 1);
-        lengths.splice(0, 0, pop1[0]);
-        lengths.splice(1, 0, pop2[0]);
-        lengths.splice(2, 0, pop3[0]);
+    if (lengths.length > 6) {       
+        const pop1 = lengths.splice(6, 1)
+        lengths.splice(0, 0, pop1[0])
+        const pop2 = lengths.splice(2, 1)
+        lengths.splice(1, 0, pop2[0])
+        const pop3 = lengths.splice(5, 1)
+        lengths.splice(2, 0, pop3[0])
+        const pop4 = lengths.splice(6, 1)
+        lengths.splice(3, 0, pop4[0])
     }
-    console.log(lengths);
+
 
     const serie = [...new Set(products.map(fields => fields.data.field_product_series))]
     const series = [];
@@ -338,30 +284,31 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         colors.push({ 'label': `${newcolor}`, 'value': `${color}`});
     })
 
+
     const finish = [...new Set(products.map(fields => fields.data.field_product_finish))]
     const finishes = [];
     finish.sort().forEach(finish => {
-        const refactorfinish = finish.replaceAll('-', ' ').replaceAll('_', ' ');
+        const refactorfinish = finish.replaceAll('-', ' ');
         const newfinish = refactorfinish.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
         finishes.push({ 'label': `${newfinish}`, 'value': `${finish}`});
     })
+
 
     const colornumber = [...new Set(products.map(fields => fields.data.field_product_color_number))]
     const colornumbers = [];
     colornumber.forEach(colornumber => {
         colornumbers.push({ 'label': `${colornumber}`, 'value': `${colornumber}`});
     })
+    //console.log(colornumbers.sort(function(a,b) {return (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0);} )); 
 
     const colorrange = [...new Set(products.map(fields => fields.data.field_product_color_range))]
     const colorranges = [];
     colorrange.sort().forEach(colorrange => {
         if (colorrange) {
-            const colorrangeFix = colorrange.replaceAll('-', ' ');
-            const newcolorrange = colorrangeFix.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-            colorranges.push({ 'label': `${newcolorrange}`, 'value': `${colorrange}`});
+            colorranges.push({ 'label': `${colorrange}`, 'value': `${colorrange}`});
         }
     })
-    
+
     const application = [...new Set(products.map(fields => fields.data.field_product_application))]
     const applications = [];
     application.sort().forEach(application => {
@@ -371,6 +318,7 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
             applications.push({ 'label': `${newapp}`, 'value': `${application}`});
         }
     })
+
 
     const punched = [...new Set(products.map(fields => fields.data.field_product_punched))]
     const puncheds = [];
@@ -388,28 +336,32 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         surfaces.push({ 'label': `${newsurface}`, 'value': `${surface}`});
     })
 
-    /*const durability = [...new Set(products.map(fields => fields.data.field_product_durability))]
+    const durability = [...new Set(products.map(fields => fields.data.field_product_durability))]
     const durabilities = [];
     durability.sort().forEach(durability => {
         durabilities.push({ 'label': `${durability.replace("_", " ").replace("-years", " years").replace("_or_", " or ")}`, 'value': `${durability}`});
-    })*/
+    })
 
-    
+    const vinylclass = [...new Set(products.map(fields => fields.data.field_product_vinyl_class))]
+    const vinylclasses = [];
+    vinylclass.sort().forEach(vinylclass => {
+        if (vinylclass) {
+            vinylclasses.push({ 'label': `${vinylclass}`, 'value': `${vinylclass}`});
+        }
+    })
 
 
     return (
         <SidebarContainer>
                 <ul><h2 style={{fontWeight: "bold", marginTop: "30px"}}>Sub Categories</h2></ul>
                 <SubCategories>
-                    <a href="/calendered-vinyl"><li className="active"><UnorderedListOutlined />Calendered Vinyl</li></a>
-                    <a href="/cast-vinyl"><li><UnorderedListOutlined />Cast Vinyl</li></a>
+                    <a href="/calendered-vinyl"><li><UnorderedListOutlined />Calendered Vinyl</li></a>
+                    <a href="/cast-vinyl"><li className="active"><UnorderedListOutlined />Cast Vinyl</li></a>
                     <a href="/metallic-vinyl"><li><UnorderedListOutlined />Metallic Vinyl</li></a>
                 </SubCategories>
                 <h2 style={{fontWeight: "bold", marginTop: "25px", textAlign: "center", borderBottom: "1px solid black", paddingBottom: "10px"}}>Filters</h2>
                 <FilterContainer>
-                {filters.length > 0 ? <button onClick={clearFilters}>Clear Filters</button> : null}
-                        <li onClick={() => handleClick11()}>Brand {click1 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
-                            {click11 ? <Checkbox.Group options={brands.sort()} onChange={onChange}/> : null} 
+                    {filters.length > 0 ? <button onClick={clearFilters}>Clear Filters</button> : null}
                         <li onClick={() => handleClick()}>Roll Size {click ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
                             {/*map through roll size array*/}
                             {/*each size has an onclick function that filters the products array*/}
@@ -434,8 +386,11 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
                             {click9 ? <Checkbox.Group options={puncheds} onChange={onChange}/> : null}
                         <li onClick={() => handleClick10()}>Surface {click10 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
                             {click10 ? <Checkbox.Group options={surfaces} onChange={onChange} style={{overflowWrap: "anywhere"}}/> : null}
+                        <li onClick={() => handleClick11()}>Durability {click11 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
+                            {click11 ? <Checkbox.Group options={durabilities} onChange={onChange}/> : null}
+                        <li onClick={() => handleClick12()}>Vinyl Class {click12 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
+                            {click12 ? <Checkbox.Group options={vinylclasses} onChange={onChange}/> : null}
                 </FilterContainer>
         </SidebarContainer>
     )
 }
-

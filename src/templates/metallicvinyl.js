@@ -2,8 +2,8 @@ import * as React from 'react';
 import { graphql } from 'gatsby';
 import { StaticImage } from 'gatsby-plugin-image';
 import  styled  from 'styled-components';
-import { Sidebar } from '../components/calendered-vinyl/Sidebar';
-import ProductImage from '../components/calendered-vinyl/ProductImage';
+import { Sidebar } from '../components/metallic-vinyl/Sidebar';
+import ProductImage from '../components/metallic-vinyl/ProductImage';
 import  Header  from '../components/header';
 
 
@@ -14,7 +14,7 @@ const ProductList = styled.div`
 `
 
 
-const CalenderedVinyl = ( data, images ) => {
+const MetallicVinyl = ( data, images ) => {
     //set products to state
     //set filter to state and send to Siderbar to filter products
     const [count, setCount] = React.useState(24);
@@ -35,7 +35,7 @@ const CalenderedVinyl = ( data, images ) => {
             baseProducts={data.pageContext.data}
             />
             <div style={{display: "flex", flexDirection: "column"}}>
-            <h1 style={{width: "50%"}}>Cast vinyl</h1>
+            <h1 style={{width: "50%"}}>Metallic vinyl</h1>
             <h3>Product Count: {products.length}</h3>
             <ProductList>
             {products.slice(0, count).map(product => {
@@ -58,4 +58,4 @@ const CalenderedVinyl = ( data, images ) => {
     )
 }
 
-export default CalenderedVinyl;
+export default MetallicVinyl;
