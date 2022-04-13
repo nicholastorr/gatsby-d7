@@ -7,7 +7,10 @@ const ProductImage = (uuid) => {
    const imageData = useStaticQuery(graphql`
    {
     allFiles(filter: {data: {uuid: {in:
-    []
+      [
+        "9d761666-2e8b-41d3-aff9-456c191e69d1",
+        "6acec71f-64a5-4f23-ab0d-dd90d276cf80"
+      ]
     }}}) {
       totalCount
       nodes {
