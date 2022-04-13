@@ -284,7 +284,69 @@ const fluorescentVinyl = await graphql(`
   }
 `);
 
+const maskedVinyl = await graphql(`
+{
+  allCommerceProduct(
+      filter: {data: field_category: {eq: "masking"}}}
+    ) {
+      nodes {
+        data {
+          field_product_image {
+            file {
+              uuid
+            }
+          }
+          field_product_series
+          field_product_roll_size
+          field_product_width_in
+          field_product_length_in_yards
+          field_product_finish
+          field_product_color
+          field_product_color_number
+          field_product_color_range
+          field_product_adhesive
+          field_product_application
+          field_product_punched
+          field_product_surface
+          field_product_vinyl_type
+          field_product_durability
+          field_product_vinyl_class
+          sku
+          title
+          commerce_price {
+            amount_decimal
+          }
+        }
+      }
+    }
+  }
+`);
 
+const kraftPaper = await graphql(`
+{
+  allCommerceProduct(
+      filter: {data: field_category: {eq: "kraft_paper"}}}
+    ) {
+      nodes {
+        data {
+          field_product_image {
+            file {
+              uuid
+            }
+          }
+          field_product_finish
+          field_product_color
+          field_product_durability
+          sku
+          title
+          commerce_price {
+            amount_decimal
+          }
+        }
+      }
+    }
+  }
+`);
     
     //category logic
     //run query for categories
@@ -360,6 +422,24 @@ const fluorescentVinyl = await graphql(`
     context: {
       //need to make this dynamic
       data: fluorescentVinyl.data.allCommerceProduct.nodes,
+    },
+  })
+
+  createPage({
+    path: '/vinyl-tapes/masking',
+    component: path.resolve('./src/templates/masking.js'),
+    context: {
+      //need to make this dynamic
+      data: maskedVinyl.data.allCommerceProduct.nodes,
+    },
+  })
+
+  createPage({
+    path: '/kraft-paper',
+    component: path.resolve('./src/templates/kraftpaper.js'),
+    context: {
+      //need to make this dynamic
+      data: kraftPaper.data.allCommerceProduct.nodes,
     },
   })
 

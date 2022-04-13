@@ -90,14 +90,26 @@ const Navbar = () => {
       const vinylTapesMenu = (
         <Menu>
           {
-            vinylTapes.map((item, index) => (
+            vinylTapes.map((item, index) => {
+              if (item.title === "Paper, Masking, Sandblast") {
+                return (
+                  <Menu.Item key={index} width={201}>
+                <a href={`/vinyl-tapes/masking`}>
+                  <img src={item.image} alt={item.title} width={173} height={173} />
+                  <h4>{item.title}</h4>
+                </a>
+              </Menu.Item>
+                )
+              } else {
+                return (
               <Menu.Item key={index} width={201}>
                 <a href={`/vinyl-tapes/${item.title.replace(' ', '-').toLowerCase()}`}>
                   <img src={item.image} alt={item.title} width={173} height={173} />
                   <h4>{item.title}</h4>
                 </a>
               </Menu.Item>
-            ))
+                )
+            }})
           }
         </Menu>
       );
