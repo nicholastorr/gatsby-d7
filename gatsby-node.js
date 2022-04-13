@@ -93,8 +93,196 @@ exports.onPreBootstrap = () => {
           }
         }
     `);
+
+    const metallicVinyl = await graphql(`
+    {
+        allCommerceProduct(
+            filter: {data: {field_web_site: {elemMatch: {id: {eq: "10482"}}}, type: {eq: "vinyl"}, field_category: {eq: "metallic_vinyl"}}}
+          ) {
+            nodes {
+              data {
+                field_product_image {
+                  file {
+                    uuid
+                  }
+                }
+                field_product_series
+                field_product_roll_size
+                field_product_width_in
+                field_product_length_in_yards
+                field_product_finish
+                field_product_color
+                field_product_color_number
+                field_product_color_range
+                field_product_adhesive
+                field_product_application
+                field_product_punched
+                field_product_surface
+                field_product_vinyl_type
+                field_product_durability
+                field_product_vinyl_class
+                sku
+                title
+                commerce_price {
+                  amount_decimal
+                }
+              }
+            }
+          }
+        }
+    `);
+
+    const reflectiveVinyl = await graphql(`
+    {
+      allCommerceProduct(
+          filter: {data: {field_web_site: {elemMatch: {id: {eq: "10482"}}}, type: {eq: "vinyl"}, field_category: {eq: "reflective_vinyl"}}}
+        ) {
+          nodes {
+            data {
+              field_product_image {
+                file {
+                  uuid
+                }
+              }
+              field_product_series
+              field_product_roll_size
+              field_product_width_in
+              field_product_length_in_yards
+              field_product_finish
+              field_product_color
+              field_product_color_number
+              field_product_color_range
+              field_product_adhesive
+              field_product_application
+              field_product_punched
+              field_product_surface
+              field_product_vinyl_type
+              field_product_durability
+              field_product_vinyl_class
+              sku
+              title
+              commerce_price {
+                amount_decimal
+              }
+            }
+          }
+        }
+      }
+  `);
+
+  const specialtyVinyl = await graphql(`
+  {
+    allCommerceProduct(
+        filter: {data: {field_web_site: {elemMatch: {id: {eq: "10482"}}}, type: {eq: "vinyl"}, field_category: {eq: "specialty_vinyl"}}}
+      ) {
+        nodes {
+          data {
+            field_product_image {
+              file {
+                uuid
+              }
+            }
+            field_product_series
+            field_product_roll_size
+            field_product_width_in
+            field_product_length_in_yards
+            field_product_finish
+            field_product_color
+            field_product_color_number
+            field_product_color_range
+            field_product_adhesive
+            field_product_application
+            field_product_punched
+            field_product_surface
+            field_product_vinyl_type
+            field_product_durability
+            field_product_vinyl_class
+            sku
+            title
+            commerce_price {
+              amount_decimal
+            }
+          }
+        }
+      }
+    }
+`);
+
+const translucentVinyl = await graphql(`
+{
+  allCommerceProduct(
+      filter: {data: {field_web_site: {elemMatch: {id: {eq: "10482"}}}, type: {eq: "vinyl"}, field_category: {eq: "translucent_vinyl"}}}
+    ) {
+      nodes {
+        data {
+          field_product_image {
+            file {
+              uuid
+            }
+          }
+          field_product_series
+          field_product_roll_size
+          field_product_width_in
+          field_product_length_in_yards
+          field_product_finish
+          field_product_color
+          field_product_color_number
+          field_product_color_range
+          field_product_adhesive
+          field_product_application
+          field_product_punched
+          field_product_surface
+          field_product_vinyl_type
+          field_product_durability
+          field_product_vinyl_class
+          sku
+          title
+          commerce_price {
+            amount_decimal
+          }
+        }
+      }
+    }
+  }
+`);
         
-    
+const fluorescentVinyl = await graphql(`
+{
+  allCommerceProduct(
+      filter: {data: {field_web_site: {elemMatch: {id: {eq: "10482"}}}, type: {eq: "vinyl"}, field_category: {eq: "fluorescent_vinyl"}}}
+    ) {
+      nodes {
+        data {
+          field_product_image {
+            file {
+              uuid
+            }
+          }
+          field_product_series
+          field_product_roll_size
+          field_product_width_in
+          field_product_length_in_yards
+          field_product_finish
+          field_product_color
+          field_product_color_number
+          field_product_color_range
+          field_product_adhesive
+          field_product_application
+          field_product_punched
+          field_product_surface
+          field_product_vinyl_type
+          field_product_durability
+          field_product_vinyl_class
+          sku
+          title
+          commerce_price {
+            amount_decimal
+          }
+        }
+      }
+    }
+  }
+`);
 
 
     
@@ -104,17 +292,7 @@ exports.onPreBootstrap = () => {
     //send category name to product-list template --- product list template will run static query for products in category
 
 
-    const newArr = [];
-
-    castVinyl.data.allCommerceProduct.nodes.map(node => {
-      if (node.data.field_product_image.length >= 1) {
-        newArr.push(node.data.field_product_image[0].file.uuid)
-      }
-      else {
-        newArr.push("74d62dd3-e5b2-472c-bbea-26c7461d5558")
-      }
-      
-    })
+    //template to send image data
 
  
     
@@ -128,16 +306,6 @@ exports.onPreBootstrap = () => {
         },
     })
 
-    const newArr2 = [];
-
-    calenderedVinyl.data.allCommerceProduct.nodes.map(node => {
-      if (node.data.field_product_image.length >= 1) {
-        newArr2.push(node.data.field_product_image[0].file.uuid)
-      }
-      else {
-        newArr2.push("74d62dd3-e5b2-472c-bbea-26c7461d5558")
-      }
-    })
 
     createPage({
         path: '/calendered-vinyl',
@@ -145,9 +313,55 @@ exports.onPreBootstrap = () => {
         context: {
             //need to make this dynamic
             data: calenderedVinyl.data.allCommerceProduct.nodes,
-            images: newArr2,
         },
     })
+
+    //get metallic images and push to page data
+
+    createPage({
+        path: '/metallic-vinyl',
+        component: path.resolve('./src/templates/metallicvinyl.js'),
+        context: {
+            //need to make this dynamic
+            data: metallicVinyl.data.allCommerceProduct.nodes,
+        },
+    })
+
+    createPage({
+      path: '/reflective-vinyl',
+      component: path.resolve('./src/templates/reflectivevinyl.js'),
+      context: {
+          //need to make this dynamic
+          data: reflectiveVinyl.data.allCommerceProduct.nodes,
+      },
+    })
+
+  createPage({
+    path: '/specialty-vinyl',
+    component: path.resolve('./src/templates/specialtyvinyl.js'),
+    context: {
+        //need to make this dynamic
+        data: specialtyVinyl.data.allCommerceProduct.nodes,
+    },
+  })
+
+  createPage({
+    path: '/translucent-vinyl',
+    component: path.resolve('./src/templates/translucentvinyl.js'),
+    context: {
+      //need to make this dynamic
+      data: translucentVinyl.data.allCommerceProduct.nodes,
+    },
+  })
+
+  createPage({
+    path: '/fluorescent-vinyl',
+    component: path.resolve('./src/templates/fluorescentvinyl.js'),
+    context: {
+      //need to make this dynamic
+      data: fluorescentVinyl.data.allCommerceProduct.nodes,
+    },
+  })
 
   }
 

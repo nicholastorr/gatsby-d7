@@ -29,7 +29,7 @@ const vinylCats = [
         "image": "https://mbs-signsupply.com/sites/all/themes/bootstrap_supply/images/tbmenu/805/811.jpg",
     },
     {
-        "title": "Fluorescent",
+        "title": "Fluorescent Vinyl",
         "image": "https://mbs-signsupply.com/sites/all/themes/bootstrap_supply/images/tbmenu/805/859.jpg",
     },
 ]

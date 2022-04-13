@@ -2,8 +2,8 @@ import * as React from 'react';
 import { graphql } from 'gatsby';
 import { StaticImage } from 'gatsby-plugin-image';
 import  styled  from 'styled-components';
-import { Sidebar } from '../components/calendered-vinyl/Sidebar';
-import ProductImage from '../components/calendered-vinyl/ProductImage';
+import { Sidebar } from '../components/fluorescent-vinyl/Sidebar';
+import ProductImage from '../components/fluorescent-vinyl/ProductImage';
 import  Header  from '../components/header';
 import { InputNumber, Button } from 'antd';
 import 'antd/dist/antd.css';
@@ -16,7 +16,8 @@ const ProductList = styled.div`
 `
 
 
-const CalenderedVinyl = ( data, imageData ) => {
+const FluorescentVinyl = ( data, imageData ) => {
+    const arr = [];
     //set products to state
     //set filter to state and send to Siderbar to filter products
     const [count, setCount] = React.useState(24);
@@ -30,6 +31,14 @@ const CalenderedVinyl = ( data, imageData ) => {
         console.log('changed', value);
     }
 
+    products.forEach(product => {
+        if (product.data.field_product_image.length > 0) {
+            arr.push(product.data.field_product_image[0].file.uuid);
+        }
+    }
+    )
+
+    console.log(arr);
     return (
         <div style={{width: "100%", marginTop: "-15px"}}> 
         <Header/>
@@ -40,7 +49,7 @@ const CalenderedVinyl = ( data, imageData ) => {
             baseProducts={data.pageContext.data}
             />
             <div style={{display: "flex", flexDirection: "column"}}>
-            <h1 style={{width: "50%"}}>Calendered vinyl</h1>
+            <h1 style={{width: "50%"}}>Fluorescent Vinyl</h1>
             <h3>Product Count: {products.length}</h3>
             <ProductList>
             {products.slice(0, count).map(product => {
@@ -73,4 +82,4 @@ const CalenderedVinyl = ( data, imageData ) => {
     )
 }
 
-export default CalenderedVinyl;
+export default FluorescentVinyl;

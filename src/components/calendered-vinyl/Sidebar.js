@@ -404,6 +404,10 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
                     <a href="/calendered-vinyl"><li className="active"><UnorderedListOutlined />Calendered Vinyl</li></a>
                     <a href="/cast-vinyl"><li><UnorderedListOutlined />Cast Vinyl</li></a>
                     <a href="/metallic-vinyl"><li><UnorderedListOutlined />Metallic Vinyl</li></a>
+                    <a href="/reflective-vinyl"><li><UnorderedListOutlined />Reflective Vinyl</li></a>
+                    <a href="/specialty-vinyl"><li><UnorderedListOutlined />Specialty Vinyl</li></a>
+                    <a href="/translucent-vinyl"><li><UnorderedListOutlined />Translucent Vinyl</li></a>
+                    <a href="/fluorescent-vinyl"><li><UnorderedListOutlined />Fluorescent Vinyl</li></a>
                 </SubCategories>
                 <h2 style={{fontWeight: "bold", marginTop: "25px", textAlign: "center", borderBottom: "1px solid black", paddingBottom: "10px"}}>Filters</h2>
                 <FilterContainer>

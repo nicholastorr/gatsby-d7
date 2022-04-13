@@ -3,8 +3,6 @@ import { Checkbox } from 'antd';
 import { UnorderedListOutlined, PlusOutlined, MinusOutlined } from '@ant-design/icons';
 import { SidebarContainer, SubCategories, FilterContainer } from '../styles/styledComponents';
 
-
-
 export const Sidebar = ({products, setProducts, baseProducts }) => {
     const [filters, setFilters] = React.useState([]);
     const [on, setOn] = React.useState(false);
@@ -152,70 +150,7 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         rollsizes.push({ 'label': `${removelast}`, 'value': `${roll}` });
     });
     //order sizes
-    if (rollsizes.length > 64) {       
-        const pop1 = rollsizes.splice(39, 1);
-        const pop2 = rollsizes.splice(41, 1);
-        const pop3 = rollsizes.splice(47, 1);
-        const pop4 = rollsizes.splice(56, 1);
-        const pop5 = rollsizes.splice(5, 1);
-        const pop6 = rollsizes.splice(58, 1);
-        const pop7 = rollsizes.splice(6, 1);
-        const pop8 = rollsizes.splice(9, 1);
-        const pop9 = rollsizes.splice(10, 1);
-        const pop10 = rollsizes.splice(11, 1);
-        const pop11 = rollsizes.splice(13, 1);
-        const pop12 = rollsizes.splice(14, 1);
-        const pop13 = rollsizes.splice(16, 1);
-        const pop14 = rollsizes.splice(16, 1);
-        const pop15 = rollsizes.splice(28, 1);
-        const pop16 = rollsizes.splice(29, 1);
-        const pop17 = rollsizes.splice(30, 1);
-        const pop18 = rollsizes.splice(19, 1);
-        const pop19 = rollsizes.splice(37, 1);
-        const pop20 = rollsizes.splice(39, 1);
-        const pop21 = rollsizes.splice(44, 1);
-        const pop22 = rollsizes.splice(12, 1);
-        const pop23 = rollsizes.splice(22, 1);
-        const pop24 = rollsizes.splice(31, 1);
-        const pop25 = rollsizes.splice(32, 1);
-        const pop26 = rollsizes.splice(36, 1);
-        const pop27 = rollsizes.splice(8, 1);
-        const pop28 = rollsizes.splice(16, 1);
-        const pop29 = rollsizes.splice(7, 1);
-        const pop30 = rollsizes.splice(14, 1);
 
-        rollsizes.unshift(pop30[0]);
-        rollsizes.unshift(pop29[0]);
-        rollsizes.unshift(pop28[0]);
-        rollsizes.unshift(pop27[0]);
-        rollsizes.unshift(pop26[0]);
-        rollsizes.unshift(pop25[0]);
-        rollsizes.unshift(pop24[0]);
-        rollsizes.unshift(pop23[0]);
-        rollsizes.unshift(pop22[0]);
-        rollsizes.unshift(pop21[0]);
-        rollsizes.unshift(pop20[0]);
-        rollsizes.unshift(pop19[0]);
-        rollsizes.unshift(pop17[0]);
-        rollsizes.unshift(pop16[0]);
-        rollsizes.unshift(pop15[0]);
-        rollsizes.unshift(pop18[0]);
-        rollsizes.unshift(pop14[0]);
-        rollsizes.unshift(pop13[0]);
-        rollsizes.unshift(pop12[0]);
-        rollsizes.unshift(pop11[0]);
-        rollsizes.unshift(pop10[0]);
-        rollsizes.unshift(pop9[0]);
-        rollsizes.unshift(pop8[0]);
-        rollsizes.unshift(pop7[0]);
-        rollsizes.unshift(pop6[0]);
-        rollsizes.unshift(pop5[0]);
-        rollsizes.unshift(pop4[0]);
-        rollsizes.unshift(pop3[0]);
-        rollsizes.unshift(pop2[0]);
-        rollsizes.unshift(pop1[0]);
-    }
- 
     
     const width = [...new Set(products.map(fields => fields.data.field_product_width_in))]
     const widths = [];
@@ -224,31 +159,7 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         widths.push({ 'label': `${refactorwidth}"`, 'value': `${width}`});
     })
     //order widths
-    console.log(widths);
-    if (widths.length > 24) {
-        const pop1 = widths.splice(1, 1);
-        const pop2 = widths.splice(12, 1);
-        widths.unshift(pop2[0]);
-        widths.unshift(pop1[0]);
-        const pop3 = widths.splice(13, 1)
-        widths.splice(3, 0, pop3[0])
-        const pop4 = widths.splice(10, 1)
-        widths.splice(4, 0, pop4[0])
-        const pop5 = widths.splice(13, 1)
-        widths.splice(5, 0, pop5[0])
-        const pop6 = widths.splice(17, 1)
-        widths.splice(6, 0, pop6[0])
-        const pop7 = widths.splice(19, 1)
-        widths.splice(7, 0, pop7[0])
-        const pop8 = widths.splice(21, 1)
-        widths.splice(8, 0, pop8[0])
-        const pop9 = widths.splice(10, 1)
-        widths.splice(9, 0, pop9[0])
-        const pop10 = widths.splice(23, 1)
-        widths.splice(10, 0, pop10[0])
-        const pop11 = widths.splice(24, 1)
-        widths.splice(11, 0, pop11[0])
-    }
+
 
 
     const length = [...new Set(products.map(fields => fields.data.field_product_length_in_yards))]
@@ -256,17 +167,7 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
     length.sort().forEach(length => {
         lengths.push({ 'label': `${length.replace("_yards", "")}`, 'value': `${length}`});
     })
-    if (lengths.length > 6) {       
-        const pop1 = lengths.splice(6, 1)
-        lengths.splice(0, 0, pop1[0])
-        const pop2 = lengths.splice(2, 1)
-        lengths.splice(1, 0, pop2[0])
-        const pop3 = lengths.splice(5, 1)
-        lengths.splice(2, 0, pop3[0])
-        const pop4 = lengths.splice(6, 1)
-        lengths.splice(3, 0, pop4[0])
-    }
-
+ 
 
     const serie = [...new Set(products.map(fields => fields.data.field_product_series))]
     const series = [];
@@ -328,39 +229,16 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         }
     })
 
-    const surface = [...new Set(products.map(fields => fields.data.field_product_surface))]
-    const surfaces = [];
-    surface.sort().forEach(surface => {
-        const refactorsurface = surface.replaceAll('_', ' ').replaceAll('-', ' ')
-        const newsurface = refactorsurface.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-        surfaces.push({ 'label': `${newsurface}`, 'value': `${surface}`});
-    })
-
-    const durability = [...new Set(products.map(fields => fields.data.field_product_durability))]
-    const durabilities = [];
-    durability.sort().forEach(durability => {
-        durabilities.push({ 'label': `${durability.replace("_", " ").replace("-years", " years").replace("_or_", " or ")}`, 'value': `${durability}`});
-    })
-
-    const vinylclass = [...new Set(products.map(fields => fields.data.field_product_vinyl_class))]
-    const vinylclasses = [];
-    vinylclass.sort().forEach(vinylclass => {
-        if (vinylclass) {
-            vinylclasses.push({ 'label': `${vinylclass}`, 'value': `${vinylclass}`});
-        }
-    })
-
-
     return (
         <SidebarContainer>
                 <ul><h2 style={{fontWeight: "bold", marginTop: "30px"}}>Sub Categories</h2></ul>
                 <SubCategories>
                     <a href="/calendered-vinyl"><li><UnorderedListOutlined />Calendered Vinyl</li></a>
-                    <a href="/cast-vinyl"><li className="active"><UnorderedListOutlined />Cast Vinyl</li></a>
+                    <a href="/cast-vinyl"><li><UnorderedListOutlined />Cast Vinyl</li></a>
                     <a href="/metallic-vinyl"><li><UnorderedListOutlined />Metallic Vinyl</li></a>
                     <a href="/reflective-vinyl"><li><UnorderedListOutlined />Reflective Vinyl</li></a>
                     <a href="/specialty-vinyl"><li><UnorderedListOutlined />Specialty Vinyl</li></a>
-                    <a href="/translucent-vinyl"><li><UnorderedListOutlined />Translucent Vinyl</li></a>
+                    <a href="/translucent-vinyl"><li className='active'><UnorderedListOutlined />Translucent Vinyl</li></a>
                     <a href="/fluorescent-vinyl"><li><UnorderedListOutlined />Fluorescent Vinyl</li></a>
                 </SubCategories>
                 <h2 style={{fontWeight: "bold", marginTop: "25px", textAlign: "center", borderBottom: "1px solid black", paddingBottom: "10px"}}>Filters</h2>
@@ -388,12 +266,6 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
                             {click8 ? <Checkbox.Group options={applications} onChange={onChange} style={{overflowWrap: "anywhere"}}/> : null}
                         <li onClick={() => handleClick9()}>Punched {click9 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
                             {click9 ? <Checkbox.Group options={puncheds} onChange={onChange}/> : null}
-                        <li onClick={() => handleClick10()}>Surface {click10 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
-                            {click10 ? <Checkbox.Group options={surfaces} onChange={onChange} style={{overflowWrap: "anywhere"}}/> : null}
-                        <li onClick={() => handleClick11()}>Durability {click11 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
-                            {click11 ? <Checkbox.Group options={durabilities} onChange={onChange}/> : null}
-                        <li onClick={() => handleClick12()}>Vinyl Class {click12 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
-                            {click12 ? <Checkbox.Group options={vinylclasses} onChange={onChange}/> : null}
                 </FilterContainer>
         </SidebarContainer>
     )

@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { graphql } from 'gatsby';
 import { StaticImage } from 'gatsby-plugin-image';
 import  styled  from 'styled-components';
 import { Sidebar } from '../components/metallic-vinyl/Sidebar';
 import ProductImage from '../components/metallic-vinyl/ProductImage';
 import  Header  from '../components/header';
-
+import { InputNumber, Button } from 'antd';
+import 'antd/dist/antd.css';
 
 const ProductList = styled.div`
      display: grid;
@@ -24,7 +24,10 @@ const MetallicVinyl = ( data, images ) => {
         setCount(count + 24);
     }
 
-    console.log(data.pageContext);
+    function onChange(value) {
+        console.log('changed', value);
+    }
+    
     return (
         <div style={{width: "100%", marginTop: "-15px"}}> 
         <Header/>
@@ -40,15 +43,25 @@ const MetallicVinyl = ( data, images ) => {
             <ProductList>
             {products.slice(0, count).map(product => {
               
-                return (
-                    <a href={`/vinyl/${product.data.sku}`}><div>
-                            {product.data.field_product_image.length > 0 ? 
-                            <ProductImage uuid={product.data.field_product_image[0].file.uuid}  /> : 
-                <StaticImage src="http://stagingsupply.htm-mbs.com/sites/default/files/default_images/drupalcommerce.png" width={250} alt=""/>}
-                             <h3>{product.data.title}</h3>
-                                <h5>{product.data.sku}</h5>
-                    </div></a>
-                    ) 
+              return (
+                <div style={{marginBottom: "15px"}}><a href={`/vinyl/${product.data.sku}`}>
+                        {product.data.field_product_image.length > 0 ? 
+                        <ProductImage uuid={product.data.field_product_image[0].file.uuid}  /> : 
+            <StaticImage src="http://stagingsupply.htm-mbs.com/sites/default/files/default_images/drupalcommerce.png" width={250} alt=""/>}
+                         <h3>{product.data.title}</h3>
+                         </a>
+                         <div style={{display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
+                         <h4 style={{fontWeight: "bold"}}>{product.data.sku}</h4>
+                            <span style={{display: "flex", flexDirection: "row"}}>
+                                <h4 style={{marginRight: "7px"}}>Price:</h4><h4 style={{color: "red"}}>${product.data.commerce_price.amount_decimal}</h4>
+                            </span>
+                         </div>
+                         <div style={{display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
+                            <InputNumber min={1} defaultValue={1} onChange={onChange} />
+                            <Button type="primary"  onClick={onclick}>Add to cart</Button>
+                        </div>
+                </div>
+                ) 
             })}
             </ProductList>
             <h3 onClick={handleCount}>Load more</h3>
