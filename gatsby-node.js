@@ -286,9 +286,7 @@ const fluorescentVinyl = await graphql(`
 
 const maskedVinyl = await graphql(`
 {
-  allCommerceProduct(
-      filter: {data: field_category: {eq: "masking"}}}
-    ) {
+  allCommerceProduct(filter: {data: {field_category: {eq: "masking"}}}) {
       nodes {
         data {
           field_product_image {
@@ -325,8 +323,7 @@ const maskedVinyl = await graphql(`
 const kraftPaper = await graphql(`
 {
   allCommerceProduct(
-      filter: {data: field_category: {eq: "kraft_paper"}}}
-    ) {
+    filter: {data: {field_category: {eq: "kraft_paper"}}}) {
       nodes {
         data {
           field_product_image {
@@ -443,7 +440,7 @@ const kraftPaper = await graphql(`
     },
   })
 
-  }
+}
 
 
 
