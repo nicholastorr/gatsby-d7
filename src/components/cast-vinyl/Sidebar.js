@@ -5,7 +5,7 @@ import { SidebarContainer, SubCategories, FilterContainer } from '../styles/styl
 
 
 
-export const Sidebar = ({products, setProducts, baseProducts }) => {
+export const Sidebar = ({products, setProducts, baseProducts, filtered, setFiltered }) => {
     const [filters, setFilters] = React.useState([]);
     const [on, setOn] = React.useState(false);
     const [click, setClick] = React.useState(false);
@@ -69,6 +69,7 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         if (filters.length > 0) {
             if (checkedValues != undefined && checkedValues.length > 0 && !filters.includes(checkedValues) && !filters.includes(checkedValues[0])) {
             setFilters(checkedValues);
+            setFiltered(true);
             }
             
         }   
@@ -77,6 +78,7 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
             setFilters(checkedValues);
             const filteredProducts = baseProducts.filter(product => (filters.includes(product.data.field_product_roll_size)) || (filters.includes(product.data.field_product_width_in)));
             setProducts(filteredProducts);
+            setFiltered(true);
             } 
         }    
     }
@@ -99,6 +101,7 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
             || (filters.includes(product.data.field_product_finish)));
             setProducts(filteredProducts);
             setOn(true);
+            setFiltered(true);
         }
        
         else if (filters.length > 0) {
@@ -118,6 +121,7 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
             || (filters.includes(product.data.field_product_finish)));
             setProducts(filteredProducts);
             setOn(true);
+            setFiltered(true);
         }
 
         
@@ -139,6 +143,7 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         setClick9(false);
         setClick10(false);
         setClick11(false);
+        setFiltered(false);
     }
 
 
@@ -146,10 +151,12 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
     const rollSize = [...new Set(products.map(fields => fields.data.field_product_roll_size))]
     const rollsizes = [];
     rollSize.sort().forEach(roll => {
-        const removefirstscore = roll.replace('_','" ').replace('-x-', '" x ');
-        const removesecscore = removefirstscore.replace('_',' ').replace('-x-', ' x ');
-        const removelast = removesecscore.replace('_',' ').replace('-yards', ' yards').replace('-yds', ' yds');
-        rollsizes.push({ 'label': `${removelast}`, 'value': `${roll}` });
+        if (roll) {
+            const removefirstscore = roll.replace('_','" ').replace('-x-', '" x ');
+            const removesecscore = removefirstscore.replace('_',' ').replace('-x-', ' x ');
+            const removelast = removesecscore.replace('_',' ').replace('-yards', ' yards').replace('-yds', ' yds');
+            rollsizes.push({ 'label': `${removelast}`, 'value': `${roll}` });
+        }
     });
     //order sizes
     if (rollsizes.length > 64) {       
@@ -220,8 +227,10 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
     const width = [...new Set(products.map(fields => fields.data.field_product_width_in))]
     const widths = [];
     width.sort().forEach(width => {
-        const refactorwidth = width.replace('"', '').replace("00", "").replace("1108", "6").replace("in", "");
-        widths.push({ 'label': `${refactorwidth}"`, 'value': `${width}`});
+        if (width) {
+            const refactorwidth = width.replace('"', '').replace("00", "").replace("1108", "6").replace("in", "");
+            widths.push({ 'label': `${refactorwidth}"`, 'value': `${width}`});
+        }
     })
     //order widths
     console.log(widths);
@@ -254,7 +263,9 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
     const length = [...new Set(products.map(fields => fields.data.field_product_length_in_yards))]
     const lengths = [];
     length.sort().forEach(length => {
-        lengths.push({ 'label': `${length.replace("_yards", "")}`, 'value': `${length}`});
+        if (length) {
+            lengths.push({ 'label': `${length.replace("_yards", "")}`, 'value': `${length}`});
+        }
     })
     if (lengths.length > 6) {       
         const pop1 = lengths.splice(6, 1)
@@ -271,33 +282,41 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
     const serie = [...new Set(products.map(fields => fields.data.field_product_series))]
     const series = [];
     serie.sort().forEach(serie => {
-        const refactorSeries = serie.replace('_', ' ').replace('-', ' ');
-        const uppercase = refactorSeries.toString().toUpperCase();
-        series.push({ 'label': `${uppercase.replace("_", " ")}`, 'value': `${serie}`});
+        if (serie) {
+            const refactorSeries = serie.replace('_', ' ').replace('-', ' ');
+            const uppercase = refactorSeries.toString().toUpperCase();
+            series.push({ 'label': `${uppercase.replace("_", " ")}`, 'value': `${serie}`});
+        }
     })
 
     const color = [...new Set(products.map(fields => fields.data.field_product_color))]
     const colors = [];
     color.sort().forEach(color => {
-        const refactorcolor = color.replaceAll('_', ' ').replaceAll('-', ' ').replace('100', 'Blue').replace('101', 'Gloss Gold').replace('102', 'Gloss Orange').replace('105', 'Gloss Yellow').replace('1200', 'Gloss Green').replace('1269', 'Gloss Silver').replace('1283', 'Gloss Red').replace('1269', 'Gloss Silver').replace('1290', 'Gloss White').replace('1317', 'Clear');
-        const newcolor = refactorcolor.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-        colors.push({ 'label': `${newcolor}`, 'value': `${color}`});
+        if (color) {
+            const refactorcolor = color.replaceAll('_', ' ').replaceAll('-', ' ').replace('100', 'Blue').replace('101', 'Gloss Gold').replace('102', 'Gloss Orange').replace('105', 'Gloss Yellow').replace('1200', 'Gloss Green').replace('1269', 'Gloss Silver').replace('1283', 'Gloss Red').replace('1269', 'Gloss Silver').replace('1290', 'Gloss White').replace('1317', 'Clear');
+            const newcolor = refactorcolor.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+            colors.push({ 'label': `${newcolor}`, 'value': `${color}`});
+        }
     })
 
 
     const finish = [...new Set(products.map(fields => fields.data.field_product_finish))]
     const finishes = [];
     finish.sort().forEach(finish => {
-        const refactorfinish = finish.replaceAll('-', ' ');
-        const newfinish = refactorfinish.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-        finishes.push({ 'label': `${newfinish}`, 'value': `${finish}`});
+        if (finish) {
+            const refactorfinish = finish.replaceAll('-', ' ');
+            const newfinish = refactorfinish.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+            finishes.push({ 'label': `${newfinish}`, 'value': `${finish}`});
+        }
     })
 
 
     const colornumber = [...new Set(products.map(fields => fields.data.field_product_color_number))]
     const colornumbers = [];
     colornumber.forEach(colornumber => {
-        colornumbers.push({ 'label': `${colornumber}`, 'value': `${colornumber}`});
+        if (colornumber) {
+            colornumbers.push({ 'label': `${colornumber}`, 'value': `${colornumber}`});
+        }
     })
     //console.log(colornumbers.sort(function(a,b) {return (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0);} )); 
 
@@ -331,15 +350,19 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
     const surface = [...new Set(products.map(fields => fields.data.field_product_surface))]
     const surfaces = [];
     surface.sort().forEach(surface => {
-        const refactorsurface = surface.replaceAll('_', ' ').replaceAll('-', ' ')
-        const newsurface = refactorsurface.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-        surfaces.push({ 'label': `${newsurface}`, 'value': `${surface}`});
+        if (surface) {
+            const refactorsurface = surface.replaceAll('_', ' ').replaceAll('-', ' ')
+            const newsurface = refactorsurface.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+            surfaces.push({ 'label': `${newsurface}`, 'value': `${surface}`});
+        }
     })
 
     const durability = [...new Set(products.map(fields => fields.data.field_product_durability))]
     const durabilities = [];
     durability.sort().forEach(durability => {
-        durabilities.push({ 'label': `${durability.replace("_", " ").replace("-years", " years").replace("_or_", " or ")}`, 'value': `${durability}`});
+        if (durability) {
+            durabilities.push({ 'label': `${durability.replace("_", " ").replace("-years", " years").replace("_or_", " or ")}`, 'value': `${durability}`});
+        }
     })
 
     const vinylclass = [...new Set(products.map(fields => fields.data.field_product_vinyl_class))]

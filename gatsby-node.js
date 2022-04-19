@@ -15,10 +15,10 @@ exports.onPreBootstrap = () => {
 
    
 
-    const calenderedVinyl = await graphql(`
+    const allVinyl = await graphql(`
     {
         allCommerceProduct(
-            filter: {data: {field_web_site: {elemMatch: {id: {eq: "10482"}}}, type: {eq: "vinyl"}, field_category: {in: "calendered_vinyl"}}}
+            filter: {data: {field_web_site: {elemMatch: {id: {eq: "10482"}}}, type: {eq: "vinyl"}}}
           ) {
             nodes {
               data {
@@ -59,7 +59,8 @@ exports.onPreBootstrap = () => {
     const castVinyl = await graphql(`
     {
         allCommerceProduct(
-            filter: {data: {field_web_site: {elemMatch: {id: {eq: "10482"}}}, type: {eq: "vinyl"}, field_category: {eq: "cast_vinyl"}}}
+            filter: {data: {field_category: {eq: "cast_vinyl"}}}
+            sort: {fields: data___type, order: ASC}
           ) {
             nodes {
               data {
@@ -73,6 +74,7 @@ exports.onPreBootstrap = () => {
                 field_product_width_in
                 field_product_length_in_yards
                 field_product_finish
+                field_product_brand
                 field_product_color
                 field_product_color_number
                 field_product_color_range
@@ -85,6 +87,7 @@ exports.onPreBootstrap = () => {
                 field_product_vinyl_class
                 sku
                 title
+                field_open_sku
                 commerce_price {
                   amount_decimal
                 }
@@ -94,7 +97,7 @@ exports.onPreBootstrap = () => {
         }
     `);
 
-    const metallicVinyl = await graphql(`
+   /* const metallicVinyl = await graphql(`
     {
         allCommerceProduct(
             filter: {data: {field_web_site: {elemMatch: {id: {eq: "10482"}}}, type: {eq: "vinyl"}, field_category: {eq: "metallic_vinyl"}}}
@@ -344,6 +347,56 @@ const kraftPaper = await graphql(`
     }
   }
 `);
+
+const applicationTape = await graphql(`
+{
+  allCommerceProduct(
+    filter: {data: {field_category: {eq: "application_tape"}}}) {
+      nodes {
+        data {
+          field_product_image {
+            file {
+              uuid
+            }
+          }
+          field_product_width
+          field_product_material_thickness
+          field_product_color
+          field_product_opacity
+          field_product_backing
+          field_product_level
+          sku
+          title
+          commerce_price {
+            amount_decimal
+          }
+        }
+      }
+    }
+  }`);
+
+const applicationChemicals = await graphql(`
+{
+  allCommerceProduct(
+    filter: {data: {field_category: {eq: "application_chemicals"}}}) {
+      nodes {
+        data {
+          field_product_image {
+            file {
+              uuid
+            }
+          }
+          field_product_type
+          field_product_quantity
+          sku
+          title
+          commerce_price {
+            amount_decimal
+          }
+        }
+      }
+    }
+  }`);
     
     //category logic
     //run query for categories
@@ -437,6 +490,44 @@ const kraftPaper = await graphql(`
     context: {
       //need to make this dynamic
       data: kraftPaper.data.allCommerceProduct.nodes,
+    },
+  })
+
+  createPage({
+    path: '/vinyl-tapes/application-tape',
+    component: path.resolve('./src/templates/applicationtape.js'),
+    context: {
+      //need to make this dynamic
+      data: applicationTape.data.allCommerceProduct.nodes,
+    },
+  })
+
+  createPage({
+    path: '/vinyl-tapes/application-chemicals',
+    component: path.resolve('./src/templates/applicationChemicals.js'),
+    context: {
+      //need to make this dynamic
+      data: applicationChemicals.data.allCommerceProduct.nodes,
+    },
+  })*/
+
+  allVinyl.data.allCommerceProduct.nodes.forEach(element => {
+    createPage({
+      path: `/products/${element.data.sku}`,
+      component: path.resolve('./src/pages/vinylproduct.js'),
+      context: {
+        //need to make this dynamic
+        data: element.data,
+      },
+    })  
+  });
+
+  createPage({
+    path: '/cast-vinyl',
+    component: path.resolve('./src/templates/castvinyl.js'),
+    context: {
+        //need to make this dynamic
+        data: castVinyl.data.allCommerceProduct.nodes,
     },
   })
 
