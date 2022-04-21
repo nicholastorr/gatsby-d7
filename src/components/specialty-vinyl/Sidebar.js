@@ -3,7 +3,7 @@ import { Checkbox } from 'antd';
 import { UnorderedListOutlined, PlusOutlined, MinusOutlined } from '@ant-design/icons';
 import { SidebarContainer, SubCategories, FilterContainer } from '../styles/styledComponents';
 
-export const Sidebar = ({products, setProducts, baseProducts }) => {
+export const Sidebar = ({products, setProducts, baseProducts, filtered, setFiltered }) => {
     const [filters, setFilters] = React.useState([]);
     const [on, setOn] = React.useState(false);
     const [click, setClick] = React.useState(false);
@@ -67,6 +67,7 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         if (filters.length > 0) {
             if (checkedValues != undefined && checkedValues.length > 0 && !filters.includes(checkedValues) && !filters.includes(checkedValues[0])) {
             setFilters(checkedValues);
+            setFiltered(true);
             }
             
         }   
@@ -75,6 +76,7 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
             setFilters(checkedValues);
             const filteredProducts = baseProducts.filter(product => (filters.includes(product.data.field_product_roll_size)) || (filters.includes(product.data.field_product_width_in)));
             setProducts(filteredProducts);
+            setFiltered(true);
             } 
         }    
     }
@@ -97,6 +99,7 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
             || (filters.includes(product.data.field_product_finish)));
             setProducts(filteredProducts);
             setOn(true);
+            setFiltered(true);
         }
        
         else if (filters.length > 0) {
@@ -116,6 +119,7 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
             || (filters.includes(product.data.field_product_finish)));
             setProducts(filteredProducts);
             setOn(true);
+            setFiltered(true);
         }
 
         
@@ -137,6 +141,7 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         setClick9(false);
         setClick10(false);
         setClick11(false);
+        setFiltered(false);
     }
 
 
