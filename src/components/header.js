@@ -10,7 +10,7 @@ import ShipTimer from "./ShipTimer"
 import IntervalRerenderer  from "react-interval-rerenderer"
 
 const StyledHeader = styled.header`
-
+  margin-top: -15px;
 
 `
 

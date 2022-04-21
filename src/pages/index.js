@@ -25,7 +25,7 @@ const Container = styled.div`
 const IndexPage = () => {
 
   return (
-    <div style={{width: "100%", display: "flex", flexDirection: "column"}}>
+    <div style={{width: "100%", display: "flex", flexDirection: "column", marginTop: "15px"}}>
       <Header />
         <Container>
           <MyCarousel />

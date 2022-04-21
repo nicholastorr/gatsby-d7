@@ -39,7 +39,7 @@ const Wrapper = styled.div`
 
 const MyCarousel = () => {
     return (
-            <Wrapper className='wrapper'>
+            <Wrapper>
                 <StaticImage className="carousel-img" src='https://mbs-signsupply.com/web/images/carousel-image-one.png' quality={100} alt=""/>
                     <StyledCarousel>
                         <Button style={{ backgroundColor: "red", borderRadius: "5px", color: "white", fontSize: "1em", border: "none"}} size="large">Download Now!</Button>

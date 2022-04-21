@@ -1,0 +1,61 @@
+#img-2 {
+    width: 90px;
+    height: 90px;
+    margin: 20px, auto;
+    grid-area: bottom;
+    object-fit: contain;
+}
+
+#img-2:hover{
+    box-shadow: 1px 1px 5px  black;
+}
+
+
+
+#img-2:focus {
+    border: 5px solid black !important;
+}
+
+span { font-weight: bolder;}
+
+#main {
+    width: 512px;
+    height: 512px;
+    grid-area: top;
+    margin-left: 0px;
+    border: 1px solid whitesmoke;
+}
+
+.wrapper {
+    width: 50% !important;
+    display:grid;
+
+    grid-template-areas:
+        "top"
+        "bottom"
+}
+
+
+
+.active {
+    border: 5px solid black !important;
+}
+
+.thumbs {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.product-page {
+    display: flex;
+    flex-direction: row;
+    width: 67.5%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+}

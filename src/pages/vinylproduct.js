@@ -1,15 +1,51 @@
 import * as React from 'react';
 import { graphql } from 'gatsby';
+import "../../src/styles/product.css";
+import Header from '../components/header';
+import Footer from "../components/footer";
+import Extremefooter from "../components/extremefooter";
+import { FacebookFilled, TwitterSquareFilled } from '@ant-design/icons';
+import Cartbox from '../components/CartBox';
 
 const VinylProduct = (data) => {
+    const [imgIndex, setImgIndex] = React.useState(0);
+
     const product = data.pageContext.data;
     console.log(data);
 
+    function makeActive(props) {
+      setImgIndex(props);
+    }
+
+    const images = data.data.allFiles.nodes
+
     return (
+      
         <div>
-            <h1>{product.title}</h1>
-            <h3>{product.sku}</h3>
-            <h5>{product.field_product_description}</h5>
+          <Header />
+          <p style={{fontSize: "13px", marginLeft: "17%", marginTop: "30px"}}><a href="/">Home</a><span style={{marginLeft: "7px", marginRight: "7px"}}>/</span>{product.title}<span style={{marginLeft: "400px"}}><FacebookFilled style={{fontSize: "50px"}} /><TwitterSquareFilled style={{fontSize: "50px"}}/></span></p>
+          <div className="product-page">
+          <div className="product-container">
+            <img src={images[imgIndex].data.url}  id="main" alt="" />
+            <div className="thumbs">
+              {data.data.allFiles.nodes.map((node, index) => {
+                if (node.data.url) {
+                  return (
+                    <img src={node.data.url} id="img-2" onClick={() => { makeActive(index) }} style={{marginRight: "8px"}} key={index}/>
+                  )
+                }
+              })}
+            </div>
+          </div>
+          <div className="product-info">
+              <h1>{product.title}</h1>
+              <h3><span>SKU:</span>{product.sku}</h3>
+              <h4>Unit Price<span style ={{fontSize: "35px", marginLeft: "10px"}}>${product.commerce_price.amount_decimal}</span></h4>
+              <Cartbox />
+          </div>
+          </div>
+          <Footer />
+          <Extremefooter />
         </div>
     )
 }

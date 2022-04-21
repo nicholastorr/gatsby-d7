@@ -36,7 +36,7 @@ const vinylCats = [
 
 const CutVinyl = () => {
     return (
-        <div style={{width: "100%", marginTop: "-15px"}}>
+        <div style={{width: "100%"}}>
             <Header />
             <div style={{width: "70%", marginLeft: "auto", marginRight: "auto", marginTop: "75px"}}>
                 <h1 style={{borderBottom: "thick solid gray"}}>Browse Sub Category</h1>

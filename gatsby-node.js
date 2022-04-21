@@ -327,6 +327,7 @@ exports.onPreBootstrap = () => {
               field_product_adhesive
               field_product_application
               field_product_punched
+              field_product_price_sqft
               field_product_surface
               field_product_vinyl_type
               field_product_durability
