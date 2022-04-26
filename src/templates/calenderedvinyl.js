@@ -31,6 +31,17 @@ const CalenderedVinyl = ( data, imageData ) => {
         console.log('changed', value);
     }
 
+    console.log(products);
+    const newArr = []
+
+    products.forEach(product => {
+        if (product.data.field_product_image.length > 0) {
+            newArr.push(product.data.field_product_image[0].file.uuid);
+        }
+    })
+
+    console.log(newArr)
+
     return (
         <div style={{width: "100%", marginTop: "-15px"}}> 
         <Header/>

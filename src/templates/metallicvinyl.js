@@ -28,6 +28,7 @@ const MetallicVinyl = ( data, images ) => {
     function onChange(value) {
         console.log('changed', value);
     }
+
     
     return (
         <div style={{width: "100%", marginTop: "-15px"}}> 

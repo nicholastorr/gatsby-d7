@@ -402,7 +402,7 @@ exports.onPreBootstrap = () => {
 
   createPage({
     path: '/specialty-vinyl',
-    component: path.resolve('./src/templates/reflectivevinyl.js'),
+    component: path.resolve('./src/templates/specialtyvinyl.js'),
     context: {
         //need to make this dynamic
         data: specialtyVinyl.data.allCommerceProduct.nodes,

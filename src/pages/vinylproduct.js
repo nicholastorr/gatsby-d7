@@ -16,6 +16,7 @@ const VinylProduct = (data) => {
     const [imgIndex, setImgIndex] = React.useState(0);
     const [flipped, setFlipped] = React.useState(false);
 
+    
 
     const flipMaker = () => {
         setFlipped(!flipped);
@@ -26,12 +27,11 @@ const VinylProduct = (data) => {
     function makeActive(props) {
       setImgIndex(props);
     }
-    console.log(data);
 
     const images = data.data.allFiles.nodes
 
     const colorProducts = data.data.allCommerceProduct.nodes.filter(products => 
-      products.data.field_product_width_in == product.field_product_width_in && products.data.field_product_length_in_yards == product.field_product_length_in_yards
+      products.data.field_product_width_in == product.field_product_width_in && products.data.field_product_length_in_yards == product.field_product_length_in_yards && products.data.field_product_punched == product.field_product_punched
     )
   
     
@@ -43,21 +43,19 @@ const VinylProduct = (data) => {
       colors.push({ 'color': `${newcolor}`, 'sku': `${colorProduct.data.sku}` });
     });
           
-
-    
-    console.log(colors.sort((a, b) => a.color.localeCompare(b.color)));
+    //const uniqueColors = [...new Set(data.data.allCommerceProduct.nodes.map(products => fields.data.field_product_color))];
 
 
-
+    console.log(product)
 
     const variationColor = (
-      <Menu style={{display: "flex", flexDirection: "column", width: "100%", height: "500px", overflow: "scroll", justifyContent: "space-between"}}>
+      <Menu style={{display: "flex", flexDirection: "column", width: "100%", height: "auto", maxHeight: "500px", overflow: "scroll", justifyContent: "space-between"}}>
         {
           colors.sort((a, b) => a.color.localeCompare(b.color)).map((color, index) => {
             return (
               <a href={`/products/${color.sku}`}><Menu.Item key={index}>
                 {color.color}
-                <img src={`https://mbs-signsupply.com/web/images/${color.color}.jpg`} style={{width: "30px", height: "30px"}} />
+                <img loading='lazy' src={`https://mbs-signsupply.com/web/images/${color.color}.jpg`} style={{width: "30px", height: "30px"}} />
               </Menu.Item></a>
             )
           })
@@ -72,12 +70,15 @@ const VinylProduct = (data) => {
           <p style={{fontSize: "13px", marginLeft: "17%", marginTop: "30px"}}><a href="/">Home</a><span style={{marginLeft: "7px", marginRight: "7px"}}>/</span>{product.title}<span style={{marginLeft: "400px"}}><FacebookFilled style={{fontSize: "50px"}} /><TwitterSquareFilled style={{fontSize: "50px"}}/></span></p>
           <div className="product-page">
           <div className="product-container">
-            <img src={images[imgIndex].data.url}  id="main" alt="" />
+            {images.length > 0 ?
+            <img src={images[imgIndex].data.url}  id="main" alt="" /> :
+            <img loading='lazy' src="https://mbs-signsupply.com/sites/default/files/default_images/drupalcommerce.png" alt="" />
+            }
             <div className="thumbs">
               {data.data.allFiles.nodes.map((node, index) => {
                 if (node.data.url) {
                   return (
-                    <img src={node.data.url} id="img-2" onClick={() => { makeActive(index) }} style={{marginRight: "8px"}} key={index}/>
+                    <img loading='lazy' src={node.data.url} id="img-2" onClick={() => { makeActive(index) }} style={{marginRight: "8px"}} key={index}/>
                   )
                 }
               })}
@@ -88,12 +89,16 @@ const VinylProduct = (data) => {
               <h3><span>SKU:</span>{product.sku}</h3>
               <h4>Unit Price<span style ={{fontSize: "35px", marginLeft: "10px"}}>${product.commerce_price.amount_decimal}</span></h4>
               <Cartbox />
-              <p style={{fontWeight: "bold"}}>Select Color:</p>
-              <Dropdown className="color-variation" overlay={variationColor} style={{width: "500px"}}  trigger={['click']}>
-                  <a onClick={flipMaker} style={{color: "black"}}>{product.field_product_color.replaceAll('_', ' ').replaceAll('-', ' ').replace('100', 'Blue').replace('101', 'Gloss Gold').replace('102', 'Gloss Orange').replace('105', 'Gloss Yellow').replace('1200', 'Gloss Green').replace('1269', 'Gloss Silver').replace('1283', 'Gloss Red').replace('1269', 'Gloss Silver').replace('1290', 'Gloss White').replace('1317', 'Clear').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
-                  {flipped ? <DownOutlined style={{marginRight: "20px", fontSize: "20px", color: "black"}}/> :
-                  <UpOutlined  style={{marginRight: "20px", fontSize: "20px", color: "black"}}/>}</a>
-              </Dropdown>
+              {colors.length > 1 ?
+                <div>
+                  <p style={{fontWeight: "bold"}}>Select Color:</p>
+                  <Dropdown className="color-variation" overlay={variationColor} style={{width: "500px"}}  trigger={['click']}>
+                    <a onClick={flipMaker} style={{color: "black"}}>{product.field_product_color.replaceAll('_', ' ').replaceAll('-', ' ').replace('100', 'Blue').replace('101', 'Gloss Gold').replace('102', 'Gloss Orange').replace('105', 'Gloss Yellow').replace('1200', 'Gloss Green').replace('1269', 'Gloss Silver').replace('1283', 'Gloss Red').replace('1269', 'Gloss Silver').replace('1290', 'Gloss White').replace('1317', 'Clear').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                    {flipped ? <DownOutlined style={{marginRight: "20px", fontSize: "20px", color: "black"}}/> :
+                    <UpOutlined  style={{marginRight: "20px", fontSize: "20px", color: "black"}}/>}</a>
+                  </Dropdown>
+                </div> :
+                null}
           </div>
           </div>
           <Footer />

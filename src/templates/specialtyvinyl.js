@@ -32,6 +32,15 @@ const SpecialtyVinyl = ( data, imageData ) => {
         console.log('changed', value);
     }
 
+    console.log(products);
+
+    products.forEach(product => {
+        if (product.data.field_product_image.length > 0) {
+            arr.push(product.data.field_product_image[0].file.uuid);
+    }})
+    
+    console.log(arr);
+
     return (
         <div style={{width: "100%", marginTop: "-15px"}}> 
         <Header/>

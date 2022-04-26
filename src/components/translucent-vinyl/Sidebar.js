@@ -149,10 +149,12 @@ export const Sidebar = ({products, setProducts, baseProducts, filtered, setFilte
     const rollSize = [...new Set(products.map(fields => fields.data.field_product_roll_size))]
     const rollsizes = [];
     rollSize.sort().forEach(roll => {
-        const removefirstscore = roll.replace('_','" ').replace('-x-', '" x ');
-        const removesecscore = removefirstscore.replace('_',' ').replace('-x-', ' x ');
-        const removelast = removesecscore.replace('_',' ').replace('-yards', ' yards').replace('-yds', ' yds');
-        rollsizes.push({ 'label': `${removelast}`, 'value': `${roll}` });
+        if (roll) {
+            const removefirstscore = roll.replace('_','" ').replace('-x-', '" x ');
+            const removesecscore = removefirstscore.replace('_',' ').replace('-x-', ' x ');
+            const removelast = removesecscore.replace('_',' ').replace('-yards', ' yards').replace('-yds', ' yds');
+            rollsizes.push({ 'label': `${removelast}`, 'value': `${roll}` });
+        }
     });
     //order sizes
 
@@ -160,8 +162,10 @@ export const Sidebar = ({products, setProducts, baseProducts, filtered, setFilte
     const width = [...new Set(products.map(fields => fields.data.field_product_width_in))]
     const widths = [];
     width.sort().forEach(width => {
-        const refactorwidth = width.replace('"', '').replace("00", "").replace("1108", "6").replace("in", "");
-        widths.push({ 'label': `${refactorwidth}"`, 'value': `${width}`});
+        if (width) {
+            const refactorwidth = width.replace('"', '').replace("00", "").replace("1108", "6").replace("in", "");
+            widths.push({ 'label': `${refactorwidth}"`, 'value': `${width}`});
+        }
     })
     //order widths
 
@@ -170,40 +174,50 @@ export const Sidebar = ({products, setProducts, baseProducts, filtered, setFilte
     const length = [...new Set(products.map(fields => fields.data.field_product_length_in_yards))]
     const lengths = [];
     length.sort().forEach(length => {
-        lengths.push({ 'label': `${length.replace("_yards", "")}`, 'value': `${length}`});
+        if (length) {
+            lengths.push({ 'label': `${length.replace("_yards", "")}`, 'value': `${length}`});
+        }
     })
  
 
     const serie = [...new Set(products.map(fields => fields.data.field_product_series))]
     const series = [];
     serie.sort().forEach(serie => {
-        const refactorSeries = serie.replace('_', ' ').replace('-', ' ');
-        const uppercase = refactorSeries.toString().toUpperCase();
-        series.push({ 'label': `${uppercase.replace("_", " ")}`, 'value': `${serie}`});
+        if (serie) {
+            const refactorSeries = serie.replace('_', ' ').replace('-', ' ');
+            const uppercase = refactorSeries.toString().toUpperCase();
+            series.push({ 'label': `${uppercase.replace("_", " ")}`, 'value': `${serie}`});
+        }
     })
 
     const color = [...new Set(products.map(fields => fields.data.field_product_color))]
     const colors = [];
     color.sort().forEach(color => {
-        const refactorcolor = color.replaceAll('_', ' ').replaceAll('-', ' ').replace('100', 'Blue').replace('101', 'Gloss Gold').replace('102', 'Gloss Orange').replace('105', 'Gloss Yellow').replace('1200', 'Gloss Green').replace('1269', 'Gloss Silver').replace('1283', 'Gloss Red').replace('1269', 'Gloss Silver').replace('1290', 'Gloss White').replace('1317', 'Clear');
-        const newcolor = refactorcolor.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-        colors.push({ 'label': `${newcolor}`, 'value': `${color}`});
+        if (color) {
+            const refactorcolor = color.replaceAll('_', ' ').replaceAll('-', ' ').replace('100', 'Blue').replace('101', 'Gloss Gold').replace('102', 'Gloss Orange').replace('105', 'Gloss Yellow').replace('1200', 'Gloss Green').replace('1269', 'Gloss Silver').replace('1283', 'Gloss Red').replace('1269', 'Gloss Silver').replace('1290', 'Gloss White').replace('1317', 'Clear');
+            const newcolor = refactorcolor.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+            colors.push({ 'label': `${newcolor}`, 'value': `${color}`});
+        }
     })
 
 
     const finish = [...new Set(products.map(fields => fields.data.field_product_finish))]
     const finishes = [];
     finish.sort().forEach(finish => {
-        const refactorfinish = finish.replaceAll('-', ' ');
-        const newfinish = refactorfinish.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-        finishes.push({ 'label': `${newfinish}`, 'value': `${finish}`});
+        if (finish) {
+            const refactorfinish = finish.replaceAll('-', ' ');
+            const newfinish = refactorfinish.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+            finishes.push({ 'label': `${newfinish}`, 'value': `${finish}`});
+        }
     })
 
 
     const colornumber = [...new Set(products.map(fields => fields.data.field_product_color_number))]
     const colornumbers = [];
     colornumber.forEach(colornumber => {
-        colornumbers.push({ 'label': `${colornumber}`, 'value': `${colornumber}`});
+        if (colornumber) {
+            colornumbers.push({ 'label': `${colornumber}`, 'value': `${colornumber}`});
+        }
     })
     //console.log(colornumbers.sort(function(a,b) {return (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0);} )); 
 
