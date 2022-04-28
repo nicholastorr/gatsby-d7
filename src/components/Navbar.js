@@ -100,6 +100,16 @@ const Navbar = () => {
                 </a>
               </Menu.Item>
                 )
+              }
+              if (item.title === "Cut Vinyl") {
+                return (
+                  <Menu.Item key={index} width={201}>
+                <a href={`/vinyl-and-app-landing/cut-vinyl/`}>
+                  <img src={item.image} alt={item.title} width={173} height={173} />
+                  <h4>{item.title}</h4>
+                </a>
+              </Menu.Item>
+                )
               } else {
                 return (
               <Menu.Item key={index} width={201}>
