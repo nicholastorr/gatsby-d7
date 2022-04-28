@@ -149,7 +149,7 @@ const DetailTable = ( data, images ) => {
                              key={row.field}
                              sx={{ '&:last-child td, &:last-child th': { border: 0 }, backgroundColor: "#ddd" }}
                              >
-                             <TableCell style={{color: "black", fontWeight: "bold"}} component="th" scope="row">
+                             <TableCell style={{color: "black", fontWeight: "bold", overflowWrap: "normal"}} component="th" scope="row">
                                  {row.field}
                              </TableCell>
                              <TableCell style={{color: "black" }} align="right">{field.replace('-x-', ' x ').replace('_x_', '" x ').replace("1108", "6").replaceAll('_', ' ')}</TableCell>
