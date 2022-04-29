@@ -257,7 +257,7 @@ const VinylProduct = (data) => {
                 null}
           </div>
           </div>
-          <DetailTable data={product} images={images} />
+          <DetailTable data={data.pageContext.data} images={data.data.allFiles.nodes} relatedProduct={data.data.related.nodes} />
           <Footer />
           <Extremefooter />
         </div>
@@ -265,7 +265,7 @@ const VinylProduct = (data) => {
 }
 
 export const query = graphql`
-    query($images: [String], $series: String!)
+    query($images: [String], $series: String!, $related: [String])
         {
             allFiles(filter: {data: {uuid: {in: $images}}}) {
                 totalCount
@@ -296,7 +296,24 @@ export const query = graphql`
                   }
                 }
                 totalCount
-            }
+              }
+              related: allCommerceProduct(filter: {data: {uuid: {in: $related}}}) {
+                totalCount
+                nodes {
+                  data {
+                    sku
+                    title
+                    commerce_price {
+                      amount_decimal
+                    }
+                    field_product_image {
+                      file {
+                        uuid
+                      }
+                    }
+                  }
+                }
+              }
         }`
             
 

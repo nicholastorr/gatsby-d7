@@ -152,7 +152,24 @@ return (
             <div className="displayed">
                 {vinylAndAppTapesChilds.map(child => {
                     if (child === 'Cut Vinyl' || child === 'Paper, Masking, Sandblast' || child === 'Application Tape' || child === 'Application Chemicals' ) {
-                        return <div className="childCat">{child}</div>
+                        var link = "";
+                        switch (child) {
+                            case 'Cut Vinyl':
+                                link = "/vinyl-and-app-landing/cut-vinyl";
+                                break;
+                            case 'Paper, Masking, Sandblast':
+                                link = "/vinyl-tapes/masking";
+                                break;
+                            case 'Application Tape':
+                                link = "/vinyl-tapes/application-tape";
+                                break;
+                            case 'Application Chemicals':
+                                link = "/vinyl-tapes/application-chemicals";
+                                break;
+                            default:
+                                break;
+                        }
+                        return <a href={link}><div className="childCat">{child}</div></a>
                 }
                 })}
             </div>  

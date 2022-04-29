@@ -118,6 +118,9 @@ exports.onPreBootstrap = () => {
                 field_product_core_diameter
                 field_product_durability
                 field_product_price_sqft
+                field_product_related_products {
+                  uuid
+                }
                 field_product_sqft_per_roll
                 field_product_vinyl_class
                 field_product_opacity
@@ -521,6 +524,13 @@ const applicationTape = await graphql(`
         images.push(image.file.uuid);
       }
     });
+    const related = [];
+    element.data.field_product_related_products.forEach(relatedProduct => {
+      if (relatedProduct) {
+        related.push(relatedProduct.uuid);
+      }
+    });
+
     createPage({
       path: `/products/${element.data.sku}`,
       component: path.resolve('./src/pages/product-pages/vinylproduct.js'),
@@ -529,6 +539,7 @@ const applicationTape = await graphql(`
         data: element.data,
         images: images,
         series: element.data.field_product_series,
+        related: related,
       },
     })  
   });

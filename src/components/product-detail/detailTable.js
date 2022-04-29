@@ -8,9 +8,15 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import styled from 'styled-components';
+import { InputNumber, Button } from 'antd';
+import 'antd/dist/antd.css';
+
+const RelatedProductwrapper = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  `
 
 function createData(field, data) {
     return { field, data };
@@ -50,7 +56,7 @@ function TabPanel(props) {
     };
   }
 
-const DetailTable = ( data, images ) => {
+const DetailTable = ( data, images, relatedProduct ) => {
 
     console.log(data);
     console.log(images);
@@ -102,6 +108,7 @@ const DetailTable = ( data, images ) => {
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="Description" {...a11yProps(0)} />
           <Tab label="Technical Information" {...a11yProps(1)} />
+          {data.relatedProduct.length > 0 && <Tab label="Related Products" {...a11yProps(2)} />}
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -161,6 +168,24 @@ const DetailTable = ( data, images ) => {
                 </Table>
             </TableContainer>
         </div>
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <h3 style={{color: "black"}}>{data.data.title}</h3>
+        <p style={{color: "black", fontWeight: "bold"}}>SKU: <span style={{fontWeight: "normal"}}>{data.data.sku}</span></p>
+            <RelatedProductwrapper>
+              {data.relatedProduct.map((item, index) => {
+                return (
+                  <div style={{marginBottom: "20px"}}>
+                    <a href={`/products/${item.data.sku}`}><h4 style={{height: "75px"}}>{item.data.title}</h4></a>
+                    <p style={{fontWeight: "bold"}}>Sku: <span style={{fontWeight: "normal"}}>{item.data.sku}</span></p>
+                    <div style={{display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
+                                <InputNumber min={1} defaultValue={1}  />
+                                <Button type="primary"  onClick={onclick}>Add to cart</Button>
+                            </div>
+                  </div>
+                )}
+              )}
+            </RelatedProductwrapper>
       </TabPanel>
     </Box>
   );
