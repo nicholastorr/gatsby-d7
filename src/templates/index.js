@@ -9,6 +9,19 @@ import Extremefooter from "../components/extremefooter"
 import "./index.css"
 import MyCarousel from "../components/MyCarousel"
 import { StaticQuery, useStaticQuery, graphql } from "gatsby"
+import { Document } from "flexsearch"
+import { Input } from 'antd';
+import 'antd/dist/antd.css';
+
+const { Search } = Input;
+
+
+const index = new Document({
+  id: "objectID",
+  index: ["sku", "title"],
+  store: true
+});
+
 
 const Container = styled.div`
   margin-right: auto;
@@ -17,16 +30,40 @@ const Container = styled.div`
 `
 
 
+const onSearch = value => {
+  var result = index.search(value, {enrich: true});
+  console.log(result)
+}
 
-
+const onChange = (e) => {
+  console.log(e.target.value);
+}
 
 
 // markup
-const IndexPage = () => {
+const IndexPage = (data) => {
+  const products = data.pageContext.data.data.allCommerceProduct.nodes
+
+  console.log(products)
+
+  products.forEach(product => {
+    index.add({
+      sku: product.data.sku,
+      title: product.data.title,
+      objectID: product.data.product_id
+    });
+  });
+
+
+
+  
+
+
 
   return (
     <div style={{width: "100%", display: "flex", flexDirection: "column", marginTop: "15px"}}>
       <Header />
+      <Search style={{ width: 200 }} allowClear placeholder="Basic usage" onSearch={onSearch} onChange={onChange} />
         <Container>
           <MyCarousel />
           <HomeCategories />

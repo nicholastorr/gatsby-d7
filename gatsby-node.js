@@ -1,5 +1,13 @@
 const path = require('path');
 
+const { Index, Document, Worker } = require("flexsearch");
+
+const index = new Document({
+  document: {
+    id: "id",
+    index: ["title"]
+}
+});
 
 var fs = require('fs');
 var dir = "./.cache/caches/gatsby-source-prismic-graphql"
@@ -12,6 +20,21 @@ exports.onPreBootstrap = () => {
 
  exports.createPages = async ({ actions, graphql }) => {
     const { createPage } = actions;
+
+    const allProducts = await graphql(`
+    {
+      allCommerceProduct {
+        totalCount
+        nodes {
+          data {
+            product_id
+            sku
+            title
+          }
+        }
+      }
+    }
+    `);
 
     const allChemicals = await graphql(`
     {
@@ -133,6 +156,7 @@ exports.onPreBootstrap = () => {
                 commerce_price {
                   amount_decimal
                 }
+                product_id
               }
             }
           }
@@ -518,6 +542,12 @@ const applicationTape = await graphql(`
 
 
   allVinyl.data.allCommerceProduct.nodes.forEach(element => {
+
+    index.add({
+      id: element.product_id,
+      title: element.title,
+    })
+
     const images = [];
     element.data.field_product_image.forEach(image => {
       if (image) {
@@ -669,6 +699,15 @@ const applicationTape = await graphql(`
     context: {
       //need to make this dynamic
       data: applicationChemicals.data.allCommerceProduct.nodes,
+    },
+  })
+
+  createPage({
+    path: '/',
+    component: path.resolve('./src/templates/index.js'),
+    context: {
+      //need to make this dynamic
+      data: allProducts,
     },
   })
 }
