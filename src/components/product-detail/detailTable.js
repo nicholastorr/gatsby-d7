@@ -11,7 +11,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import styled from 'styled-components';
 import { InputNumber, Button } from 'antd';
+import { StaticImage } from 'gatsby';
 import 'antd/dist/antd.css';
+import ProductImage from './ProductImage';
 
 const RelatedProductwrapper = styled.div`
     display: grid;
@@ -174,8 +176,10 @@ const DetailTable = ( data, images, relatedProduct ) => {
         <p style={{color: "black", fontWeight: "bold"}}>SKU: <span style={{fontWeight: "normal"}}>{data.data.sku}</span></p>
             <RelatedProductwrapper>
               {data.relatedProduct.map((item, index) => {
+                console.log(item)
                 return (
                   <div style={{marginBottom: "20px"}}>
+                    {item.data.field_product_image.length > 0 ? <ProductImage uuid={item.data.field_product_image[0].file.uuid} /> : <StaticImage src="http://stagingsupply.htm-mbs.com/sites/default/files/default_images/drupalcommerce.png" />}
                     <a href={`/products/${item.data.sku}`}><h4 style={{height: "75px"}}>{item.data.title}</h4></a>
                     <p style={{fontWeight: "bold"}}>Sku: <span style={{fontWeight: "normal"}}>{item.data.sku}</span></p>
                     <div style={{display: "flex", flexDirection: "row", justifyContent: "space-around"}}>

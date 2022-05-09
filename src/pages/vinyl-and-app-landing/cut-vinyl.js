@@ -35,9 +35,16 @@ const vinylCats = [
 ]
 
 const CutVinyl = () => {
+    const [click, setClick] = React.useState(false);
+
+    const handleClick = () => setClick(!click);
+
+    console.log(click);
+
     return (
         <div style={{width: "100%"}}>
             <Header />
+            <button onClick={handleClick}>Click</button>
             <div style={{width: "70%", marginLeft: "auto", marginRight: "auto", marginTop: "75px"}}>
                 <h1 style={{borderBottom: "thick solid gray"}}>Browse Sub Category</h1>
                 <div style={{display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr"}}>
