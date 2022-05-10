@@ -23,13 +23,20 @@ exports.onPreBootstrap = () => {
 
     const allProducts = await graphql(`
     {
-      allCommerceProduct {
+      allCommerceProduct(
+        filter: {data: {type: {ne: "category"}}}
+      ) {
         totalCount
         nodes {
           data {
             product_id
             sku
             title
+            field_product_image {
+              file {
+                uuid
+              }
+            }
           }
         }
       }
@@ -103,10 +110,51 @@ exports.onPreBootstrap = () => {
   }
 `)  
 
+    const allTransferTape = await graphql(`
+    {
+      allCommerceProduct(
+          filter: {data: {field_web_site: {elemMatch: {id: {eq: "10482"}}}, type: {in: ["transfertape"]}}}
+        ) {
+          nodes {
+            data {
+              field_product_image {
+                file {
+                  uuid
+                }
+              }
+              field_product_material_thickness
+              field_product_series
+              field_product_length
+              field_product_color
+              field_product_application
+              field_product_related_products {
+                uuid
+              }
+              field_product_sqft_per_roll
+              field_product_opacity
+              field_product_short_description
+              sku
+              title
+              commerce_price {
+                amount_decimal
+              }
+              product_id
+              field_product_media_size
+              field_product_elongation
+              field_product_backing
+              field_product_level
+              field_product_use
+              field_product_width
+            }
+          }
+        }
+      }
+    `)
+
     const allVinyl = await graphql(`
     {
         allCommerceProduct(
-            filter: {data: {field_web_site: {elemMatch: {id: {eq: "10482"}}}, type: {in: ["vinyl", "transferrite"]}}}
+            filter: {data: {field_web_site: {elemMatch: {id: {eq: "10482"}}}, type: {in: ["vinyl"]}}}
           ) {
             nodes {
               data {
@@ -612,6 +660,36 @@ const applicationTape = await graphql(`
     })  
   });
 
+  allTransferTape.data.allCommerceProduct.nodes.forEach(element => {
+    const images = [];
+    element.data.field_product_image.forEach(image => {
+      if (image) {
+        images.push(image.file.uuid);
+      }
+    });
+    createPage({
+      path: `/products/${element.data.sku}`,
+      component: path.resolve('./src/pages/product-pages/transfertape.js'),
+      context: {
+        //need to make this dynamic
+        data: element.data,
+        images: images,
+        series: element.data.field_product_series,
+      },
+    })  
+  });
+
+  const allImages = []
+
+  allProducts.data.allCommerceProduct.nodes.forEach(element => {
+    element.data.field_product_image.forEach(image => {
+      if (image) {
+        allImages.push(image.file.uuid);
+      }
+    });
+  })
+  
+
   createPage({
     path: '/cast-vinyl',
     component: path.resolve('./src/templates/vinyl-and-app-tapes/cut-vinyl/castvinyl.js'),
@@ -662,7 +740,7 @@ const applicationTape = await graphql(`
     component: path.resolve('./src/templates/vinyl-and-app-tapes/cut-vinyl/translucentvinyl.js'),
     context: {
       //need to make this dynamic
-      data: translucentVinyl.data.allCommerceProduct.nodes,
+      data: translucentVinyl.data.allCommerceProduct.nodes
     },
   })
 
@@ -671,7 +749,7 @@ const applicationTape = await graphql(`
     component: path.resolve('./src/templates/vinyl-and-app-tapes/cut-vinyl/fluorescentvinyl.js'),
     context: {
       //need to make this dynamic
-      data: fluorescentVinyl.data.allCommerceProduct.nodes,
+      data: fluorescentVinyl.data.allCommerceProduct.nodes
     },
   })
 
@@ -680,7 +758,7 @@ const applicationTape = await graphql(`
     component: path.resolve('./src/templates/vinyl-and-app-tapes/paper-masking-sandblast/masking.js'),
     context: {
       //need to make this dynamic
-      data: maskedVinyl.data.allCommerceProduct.nodes,
+      data: maskedVinyl.data.allCommerceProduct.nodes
     },
   })
 
@@ -689,7 +767,7 @@ const applicationTape = await graphql(`
     component: path.resolve('./src/templates/vinyl-and-app-tapes/application-tapes/applicationtape.js'),
     context: {
       //need to make this dynamic
-      data: applicationTape.data.allCommerceProduct.nodes,
+      data: applicationTape.data.allCommerceProduct.nodes
     },
   })
 
@@ -698,7 +776,7 @@ const applicationTape = await graphql(`
     component: path.resolve('./src/templates/vinyl-and-app-tapes/application-chemicals/applicationChemicals.js'),
     context: {
       //need to make this dynamic
-      data: applicationChemicals.data.allCommerceProduct.nodes,
+      data: applicationChemicals.data.allCommerceProduct.nodes
     },
   })
 
@@ -708,6 +786,7 @@ const applicationTape = await graphql(`
     context: {
       //need to make this dynamic
       data: allProducts,
+      images: allImages,
     },
   })
 }

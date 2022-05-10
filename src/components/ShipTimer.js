@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { X, Search } from 'react-bootstrap-icons';
+import SearchBar from "./Searchbar.js"
 
 
 const ShipTimerContainer = styled.div`
@@ -24,7 +25,6 @@ const StyledA = styled.p`
 const Megasearch = styled.div`
     margin-top: 10px;
     width: 666x;
-    height: 30px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -42,13 +42,6 @@ const Glyph = styled.span`
     align-items: center;
 `
 
-const SearchBar = styled.input`
-    width: 566px;
-    height: 28px;
-    @media (max-width: 666px) {
-        width: 100%;
-    }
-`
 
 const ShipTimer = () => {
 
@@ -70,11 +63,7 @@ const ShipTimer = () => {
             <ShipTimerContainer>
                 <StyledA style={{fontSize: 16}}>We are now offering <span style={{color: '#FF0000'}}>FREE SHIPPING!</span></StyledA>
                 <StyledP>Order in the next: {h} hours {m} minutes {s} seconds and your items will be shipped today!</StyledP>
-                    <Megasearch>
-                        <SearchBar type="text" placeholder="Search for products, brands, categories, etc."/>
-                        <Glyph style={{height: "28px"}}><X size={20} style={{fontWeight: 'boldest'}}/></Glyph>
-                        <Glyph style={{height: "28px"}}><Search /></Glyph>
-                    </Megasearch>
+                <SearchBar />
 
             </ShipTimerContainer>
         )

@@ -143,9 +143,6 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
 
     return (
         <SidebarContainer>
-                <ul><h2 style={{fontWeight: "bold", marginTop: "30px"}}>Sub Categories</h2></ul>
-                <SubCategories>
-                </SubCategories>
                 <h2 style={{fontWeight: "bold", marginTop: "25px", textAlign: "center", borderBottom: "1px solid black", paddingBottom: "10px"}}>Filters</h2>
                 <FilterContainer>
 

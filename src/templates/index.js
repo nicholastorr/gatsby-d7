@@ -15,15 +15,8 @@ import { DownOutlined, SmileOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import  Searchbar  from "../components/Searchbar"
 
-const { Search } = Input;
 
 
-const index = new Document({
-  id: "objectID",
-  index: ["sku", "title"],
-  store: true,
-  tokenize: "forward",
-});
 
 
 const Container = styled.div`
@@ -36,46 +29,13 @@ const Container = styled.div`
 
 // markup
 const IndexPage = (data) => {
-  const [searchProducts, setSearchProducts] = React.useState([]);
-  const [search, setSearch] = React.useState('');
-  const [click, setClicked] = React.useState(false);
-
-  const products = data.pageContext.data.data.allCommerceProduct.nodes
-
-
-  products.forEach(product => {
-    index.add({
-      sku: product.data.sku,
-      title: product.data.title,
-      objectID: product.data.product_id,
-    });
-  });
-
-  const onSearch = value => {
-    //var result = index.search(value, {enrich: true});
-    //console.log(result)
-  }
-
-
-  const addClick = () => {
-    setClicked(!click);
-    console.log(click)
-  }
-  
-  const onChange = (e) => {
-      var result = index.search(e.target.value, {limit: 10}, {enrich: true});
-      console.log(result)
-    }
 
   
-
-  console.log(index)
 
 
   return (
     <div style={{width: "100%", display: "flex", flexDirection: "column", marginTop: "15px"}}>
       <Header />
-      <Searchbar data={index} />
         <Container>
           <MyCarousel />
           <HomeCategories />

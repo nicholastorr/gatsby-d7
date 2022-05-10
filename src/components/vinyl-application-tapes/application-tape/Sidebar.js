@@ -84,36 +84,27 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
     React.useEffect(() => {
         if ( on == true) {
             const filteredProducts = products.filter(product => 
-                (filters.includes(product.data.field_product_roll_size)) 
-            || (filters.includes(product.data.field_product_width_in)) 
-            || (filters.includes(product.data.field_product_length_in_yards)) 
-            || (filters.includes(product.data.field_product_series))
+             (filters.includes(product.data.field_product_width)) 
             || (filters.includes(product.data.field_product_color))
-            || (filters.includes(product.data.field_product_color_number))
-            || (filters.includes(product.data.field_product_color_range))
-            || (filters.includes(product.data.field_product_application))
+            || (filters.includes(product.data.field_product_backing))
+            || (filters.includes(product.data.field_product_level))
             || (filters.includes(product.data.field_product_punched))
-            || (filters.includes(product.data.field_product_surface))
-            || (filters.includes(product.data.field_product_brand))
-            || (filters.includes(product.data.field_product_finish)));
+            || (filters.includes(product.data.field_product_opacity))
+            || (filters.includes(product.data.field_product_backing))
+            || (filters.includes(product.data.field_product_material_thickness)));
             setProducts(filteredProducts);
             setOn(true);
         }
 
         else if (filters.length > 0) {
             const filteredProducts = baseProducts.filter(product => 
-                (filters.includes(product.data.field_product_roll_size)) 
-            || (filters.includes(product.data.field_product_width_in)) 
-            || (filters.includes(product.data.field_product_length_in_yards)) 
-            || (filters.includes(product.data.field_product_series))
+              (filters.includes(product.data.field_product_width)) 
             || (filters.includes(product.data.field_product_color))
-            || (filters.includes(product.data.field_product_color_number))
-            || (filters.includes(product.data.field_product_color_range))
-            || (filters.includes(product.data.field_product_application))
-            || (filters.includes(product.data.field_product_punched))
-            || (filters.includes(product.data.field_product_surface))
-            || (filters.includes(product.data.field_product_brand))
-            || (filters.includes(product.data.field_product_finish)));
+            || (filters.includes(product.data.field_product_backing))
+            || (filters.includes(product.data.field_product_level))
+            || (filters.includes(product.data.field_product_opacity))
+            || (filters.includes(product.data.field_product_backing))
+            || (filters.includes(product.data.field_product_material_thickness)));
             setProducts(filteredProducts);
             setOn(true);
         }
@@ -138,18 +129,71 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         setClick11(false);
     }
 
+    const width = [...new Set(products.map(fields => fields.data.field_product_width))]
+    const widths = [];
+    width.sort().forEach(roll => {
+        if (roll) {
+            widths.push({ 'label': `${roll}`, 'value': `${roll}` });
+        }
+    });
 
+    const thickness = [...new Set(products.map(fields => fields.data.field_product_material_thickness))]
+    const thicknesses = [];
+    thickness.sort().forEach(roll => {
+        if (roll) {
+            thicknesses.push({ 'label': `${roll}`, 'value': `${roll}` });
+        }
+    });
     
+    const color = [...new Set(products.map(fields => fields.data.field_product_color))]
+    const colors = [];
+    color.sort().forEach(color => {
+        if (color) {
+            colors.push({ 'label': `${color}`, 'value': `${color}`});
+        }
+    })
+
+    const opacity = [...new Set(products.map(fields => fields.data.field_product_opacity))]
+    const opacitys = [];
+    opacity.sort().forEach(color => {
+        if (color) {
+            opacitys.push({ 'label': `${color}`, 'value': `${color}`});
+        }
+    })
+
+    const backing = [...new Set(products.map(fields => fields.data.field_product_backing))]
+    const backings = [];
+    backing.sort().forEach(color => {
+        if (color) {
+            backings.push({ 'label': `${color}`, 'value': `${color}`});
+        }
+    })
+
+    const tacking = [...new Set(products.map(fields => fields.data.field_product_level))]
+    const tackings = [];
+    tacking.sort().forEach(color => {
+        if (color) {
+            tackings.push({ 'label': `${color}`, 'value': `${color}`});
+        }
+    })
 
     return (
         <SidebarContainer>
-                <ul><h2 style={{fontWeight: "bold", marginTop: "30px"}}>Sub Categories</h2></ul>
-                <SubCategories>
-                </SubCategories>
                 <h2 style={{fontWeight: "bold", marginTop: "25px", textAlign: "center", borderBottom: "1px solid black", paddingBottom: "10px"}}>Filters</h2>
                 <FilterContainer>
-
-                        
+                {filters.length > 0 ? <button onClick={clearFilters}>Clear Filters</button> : null}
+                        <li onClick={() => handleClick1()}>Width {click1 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
+                            {click1 ? <Checkbox.Group options={widths.sort()} onChange={onChange}/> : null}
+                        <li onClick={() => handleClick2()}>Material Thickness {click2 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
+                            {click2 ? <Checkbox.Group options={thicknesses.sort()} onChange={onChange}/> : null} 
+                        <li onClick={() => handleClick3()}>Color {click3 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
+                            {click3 ? <Checkbox.Group options={colors.sort()} onChange={onChange}/> : null}   
+                        <li onClick={() => handleClick4()}>Opacity {click4 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
+                            {click4 ? <Checkbox.Group options={opacitys.sort()} onChange={onChange}/> : null}     
+                        <li onClick={() => handleClick5()}>Backing {click5 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
+                            {click5 ? <Checkbox.Group options={backings.sort()} onChange={onChange}/> : null} 
+                        <li onClick={() => handleClick6()}>Tack Level {click6 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
+                            {click6 ? <Checkbox.Group options={tackings.sort()} onChange={onChange}/> : null}                       
                 </FilterContainer>
         </SidebarContainer>
     )

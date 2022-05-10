@@ -7,6 +7,7 @@ import { Sidebar } from '../../../components/vinyl-application-tapes/cut-vinyl/c
 import  Header  from '../../../components/header';
 import { InputNumber, Button } from 'antd';
 import 'antd/dist/antd.css';
+import { index } from '../../../context/flexsearch.js';
 
 const ProductList = styled.div`
      display: grid;
@@ -35,6 +36,7 @@ const CastVinyl = ( data, imageData ) => {
     function onChange(value) {
         console.log('changed', value);
     }
+
 
     return (
         <div style={{width: "100%", marginTop: "-15px"}}> 

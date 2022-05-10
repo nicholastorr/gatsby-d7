@@ -83,14 +83,18 @@ const VinylProduct = (data) => {
     const finishes = [];
 
     colorProducts.forEach(colorProduct => {
-      const refactorcolor = colorProduct.data.field_product_color.replaceAll('_', ' ').replaceAll('-', ' ').replace('100', 'Blue').replace('101', 'Gloss Gold').replace('102', 'Gloss Orange').replace('105', 'Gloss Yellow').replace('1200', 'Gloss Green').replace('1269', 'Gloss Silver').replace('1283', 'Gloss Red').replace('1269', 'Gloss Silver').replace('1290', 'Gloss White').replace('1317', 'Clear');
-      const newcolor = refactorcolor.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-      colors.push({ 'color': `${newcolor}`, 'sku': `${colorProduct.data.sku}` });
+      if (colorProduct.data.field_product_color) {
+        const refactorcolor = colorProduct.data.field_product_color.replaceAll('_', ' ').replaceAll('-', ' ').replace('100', 'Blue').replace('101', 'Gloss Gold').replace('102', 'Gloss Orange').replace('105', 'Gloss Yellow').replace('1200', 'Gloss Green').replace('1269', 'Gloss Silver').replace('1283', 'Gloss Red').replace('1269', 'Gloss Silver').replace('1290', 'Gloss White').replace('1317', 'Clear');
+        const newcolor = refactorcolor.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        colors.push({ 'color': `${newcolor}`, 'sku': `${colorProduct.data.sku}` });
+      }
     });
 
     widthProducts.forEach(widthProduct => {
-      const refactorwidth = widthProduct.data.field_product_width_in.replace('"', '').replace("00", "").replace("1108", "6").replace("in", "");
-      widths.push({ 'width': `${refactorwidth}`, 'sku': `${widthProduct.data.sku}` });
+      if (widthProduct.data.field_product_width_in) {
+        const refactorwidth = widthProduct.data.field_product_width_in.replace('"', '').replace("00", "").replace("1108", "6").replace("in", "");
+        widths.push({ 'width': `${refactorwidth}`, 'sku': `${widthProduct.data.sku}` });
+      }
     });
 
     lengthProducts.forEach(lengthProduct => {
@@ -98,11 +102,15 @@ const VinylProduct = (data) => {
     });
 
     punchedProducts.forEach(punchedProduct => {
-      puncheds.push({ 'punched': `${punchedProduct.data.field_product_punched.charAt(0).toUpperCase() + punchedProduct.data.field_product_punched.slice(1)}`, 'sku': `${punchedProduct.data.sku}` });
+      if (punchedProduct.data.field_product_punched) {
+        puncheds.push({ 'punched': `${punchedProduct.data.field_product_punched.charAt(0).toUpperCase() + punchedProduct.data.field_product_punched.slice(1)}`, 'sku': `${punchedProduct.data.sku}` });
+      }
     });
 
     finishProducts.forEach(finishProduct => {
-      finishes.push({ 'finish': `${finishProduct.data.field_product_finish.charAt(0).toUpperCase() + finishProduct.data.field_product_finish.slice(1)}`, 'sku': `${finishProduct.data.sku}` });
+      if (finishProduct.data.field_product_finish) {
+        finishes.push({ 'finish': `${finishProduct.data.field_product_finish.charAt(0).toUpperCase() + finishProduct.data.field_product_finish.slice(1)}`, 'sku': `${finishProduct.data.sku}` });
+      }
     });
           
     //const uniqueColors = [...new Set(data.data.allCommerceProduct.nodes.map(products => fields.data.field_product_color))];
