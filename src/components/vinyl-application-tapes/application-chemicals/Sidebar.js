@@ -138,15 +138,30 @@ export const Sidebar = ({products, setProducts, baseProducts }) => {
         setClick11(false);
     }
 
-
+    const type = [...new Set(products.map(fields => fields.data.field_product_type))]
+    const types = [];
+    type.sort().forEach(color => {
+        if (color) {
+            types.push({ 'label': `${color}`, 'value': `${color}`});
+        }
+    })
     
+    const quantity = [...new Set(products.map(fields => fields.data.field_product_quantity))]
+    const quantitys = [];
+    quantity.sort().forEach(vinylclass => {
+        if (vinylclass) {
+            quantitys.push({ 'label': `${vinylclass}`, 'value': `${vinylclass}`});
+        }
+    })
 
     return (
         <SidebarContainer>
                 <h2 style={{fontWeight: "bold", marginTop: "25px", textAlign: "center", borderBottom: "1px solid black", paddingBottom: "10px"}}>Filters</h2>
                 <FilterContainer>
-
-                        
+                        <li onClick={() => handleClick1()}>Type {click1 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
+                            {click1 ? <Checkbox.Group options={types.sort()} onChange={onChange}/> : null}
+                        <li onClick={() => handleClick2()}>Quantity {click2 ? <MinusOutlined style={{paddingTop: "5px"}} height={10}/> : <PlusOutlined style={{paddingTop: "5px"}} height={10}/>}</li>
+                            {click2 ? <Checkbox.Group options={quantitys} onChange={onChange}/> : null}
                 </FilterContainer>
         </SidebarContainer>
     )
