@@ -58,9 +58,10 @@ function TabPanel(props) {
     };
   }
 
-const DetailTable = ( data ) => {
+const DetailTable = ( data, images, relatedProduct ) => {
 
     console.log(data);
+    console.log(images);
 
     const [value, setValue] = React.useState(0);
 
@@ -71,35 +72,15 @@ const DetailTable = ( data ) => {
     const rows1 = [
         createData('Sku', data.data.sku),
         createData('Color', data.data.field_product_color),
-        createData('Color #', data.data.field_product_color_number),
-        createData('Color Range', data.data.field_product_color_range),
-        createData('Finish', data.data.field_product_finish),
-        createData('Durability', data.data.field_product_durability),
-        createData('Print Compatability', data.data.field_product_compatibility),
-        createData('Inside/Outside', data.data.field_product_inside_or_outside),
-        createData('UV Resistance', data.data.field_product_uv_resistance),
-        createData('Type', data.data.field_product_vinyl_type),
-        createData('Adhesive Color', data.data.field_product_adhesive_color),
-        createData('Adhesive Features', data.data.field_product_adhesive_features),
-        createData('Liner Type', data.data.field_product_liner_type),
-        createData('Opacity', data.data.field_product_opacity),
+        createData('Tack Strength', data.data.field_product_level),
     ];
 
     const rows2 = [
-        createData('Thickness', data.data.field_product_thickness),
-        createData('Width IN', data.data.field_product_width_in),
-        createData('Length YDS', data.data.field_product_length_in_yards),
-        createData('Roll Size', data.data.field_product_roll_size),
+        createData('Width IN', data.data.field_product_width),
+        createData('Length YDS', data.data.field_product_length),
         createData('Price Sqft', data.data.field_product_price_sqft),
         createData('Square Footage Per Roll', data.data.field_product_sqft_per_roll),
-        createData('Punched', data.data.field_product_punched),
-        createData('Core Diameter', data.data.field_product_core_diameter),
-        createData('Application Surface', data.data.field_product_app_surface),
         createData('Brand', data.data.field_product_brand),
-        createData('Series', data.data.field_product_series),
-        createData('Removability', data.data.field_product_removability),
-        createData('Liner Type', data.data.field_product_liner_type),
-        createData('Application', data.data.field_product_application),
     ];
     
 
@@ -175,7 +156,7 @@ const DetailTable = ( data ) => {
         <p style={{color: "black", fontWeight: "bold"}}>SKU: <span style={{fontWeight: "normal"}}>{data.data.sku}</span></p>
             <RelatedProductwrapper>
               {data.relatedProduct.map((item, index) => {
-                console.log(item)
+                  console.log(item)
                 return (
                   <div style={{marginBottom: "20px"}}>
                     {item.data.field_product_image.length > 0 ? <ProductImage uuid={item.data.field_product_image[0].file.uuid} /> : <StaticImage src="http://stagingsupply.htm-mbs.com/sites/default/files/default_images/drupalcommerce.png" />}

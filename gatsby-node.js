@@ -60,6 +60,9 @@ exports.onPreBootstrap = () => {
             field_product_quantity
             field_product_material
             field_product_short_description
+            field_product_related_products {
+              uuid
+            }
             field_product_type
             field_product_installation {
               value
@@ -103,6 +106,9 @@ exports.onPreBootstrap = () => {
           field_product_width
           field_product_qty_rolls
           field_product_sqft
+          field_product_related_products {
+            uuid
+          }
         }
       }
       totalCount
@@ -112,9 +118,7 @@ exports.onPreBootstrap = () => {
 
     const allTransferTape = await graphql(`
     {
-      allCommerceProduct(
-          filter: {data: {field_web_site: {elemMatch: {id: {eq: "10482"}}}, type: {in: ["transfertape"]}}}
-        ) {
+      allCommerceProduct(filter: {data: {type: {eq: "transferrite"}}}) {
           nodes {
             data {
               field_product_image {
@@ -591,11 +595,6 @@ const applicationTape = await graphql(`
 
   allVinyl.data.allCommerceProduct.nodes.forEach(element => {
 
-    index.add({
-      id: element.product_id,
-      title: element.title,
-    })
-
     const images = [];
     element.data.field_product_image.forEach(image => {
       if (image) {
@@ -629,6 +628,14 @@ const applicationTape = await graphql(`
         images.push(image.file.uuid);
       }
     });
+
+    const related = [];
+    element.data.field_product_related_products.forEach(relatedProduct => {
+      if (relatedProduct) {
+        related.push(relatedProduct.uuid);
+      }
+    });
+
     createPage({
       path: `/products/${element.data.sku}`,
       component: path.resolve('./src/pages/product-pages/rollproduct.js'),
@@ -637,6 +644,7 @@ const applicationTape = await graphql(`
         data: element.data,
         images: images,
         series: element.data.field_product_series,
+        related: related,
       },
     })  
   });
@@ -648,6 +656,14 @@ const applicationTape = await graphql(`
         images.push(image.file.uuid);
       }
     });
+
+    const related = [];
+    element.data.field_product_related_products.forEach(relatedProduct => {
+      if (relatedProduct) {
+        related.push(relatedProduct.uuid);
+      }
+    });
+
     createPage({
       path: `/products/${element.data.sku}`,
       component: path.resolve('./src/pages/product-pages/chemicalproducts.js'),
@@ -656,6 +672,7 @@ const applicationTape = await graphql(`
         data: element.data,
         images: images,
         series: element.data.field_product_series,
+        related: related,
       },
     })  
   });
@@ -667,6 +684,14 @@ const applicationTape = await graphql(`
         images.push(image.file.uuid);
       }
     });
+
+    const related = [];
+    element.data.field_product_related_products.forEach(relatedProduct => {
+      if (relatedProduct) {
+        related.push(relatedProduct.uuid);
+      }
+    });
+
     createPage({
       path: `/products/${element.data.sku}`,
       component: path.resolve('./src/pages/product-pages/transfertape.js'),
@@ -675,6 +700,7 @@ const applicationTape = await graphql(`
         data: element.data,
         images: images,
         series: element.data.field_product_series,
+        related: related,
       },
     })  
   });

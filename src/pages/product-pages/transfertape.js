@@ -9,7 +9,7 @@ import { FacebookFilled, TwitterSquareFilled } from '@ant-design/icons';
 import Cartbox from '../../components/CartBox';
 import { Menu, Dropdown } from 'antd';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
-import DetailTable from '../../components/product-detail/detailTable';
+import DetailTable from '../../components/vinyl-application-tapes/application-tape/detailTable';
 
 
 
@@ -44,7 +44,7 @@ const TransferTape = (data) => {
     const images = data.data.allFiles.nodes
 
     const colorProducts = data.data.allCommerceProduct.nodes.filter(products => 
-      products.data.field_product_width == product.field_product_width && products.data.field_product_level == product.field_product_level
+      products.data.field_product_width == product.field_product_width
     )
 
     const widthProducts = data.data.allCommerceProduct.nodes.filter(products =>
@@ -129,7 +129,7 @@ const TransferTape = (data) => {
       </Menu>
     );
 
-    console.log(product);
+    console.log(colorProducts);
     return (
       
         <div>
